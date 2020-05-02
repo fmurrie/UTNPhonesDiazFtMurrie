@@ -1,6 +1,12 @@
 /*Template for create a StoredProcedure object for MySQL*/
 
-use 'Name of Database';
+/*
+ * 	Author: firstname and lastname
+ * 	Created Date: dd/mm/yyyy
+ *  Description:
+ */
+
+use utnphones;
 
 drop procedure if exists 'Name of the StoredProcedure';
 

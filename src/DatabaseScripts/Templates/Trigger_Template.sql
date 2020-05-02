@@ -1,6 +1,12 @@
 /*Template for create a Trigger object for MySQL*/
 
-use 'Name of Database';
+/*
+ * 	Author: firstname and lastname
+ * 	Created Date: dd/mm/yyyy
+ *  Description:
+ */
+
+use utnphones;
 
 drop trigger if exists 'Name of the Trigger';
 
