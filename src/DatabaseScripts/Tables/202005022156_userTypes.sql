@@ -26,7 +26,8 @@ create table if not exists userTypes
 
 drop trigger if exists userTypes_audit_creator;
 delimiter //
-create trigger if not exists userTypes_audit_creator before insert on userTypes
+create trigger if not exists userTypes_audit_creator
+before insert on userTypes
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -37,7 +38,8 @@ delimiter ;
 
 drop trigger if exists userTypes_audit_updater;
 delimiter //
-create trigger if not exists userTypes_audit_updater before update on userTypes
+create trigger if not exists userTypes_audit_updater
+before update on userTypes
 for each row
 begin
 set new.updaterUser=getDbUserName();

@@ -20,7 +20,7 @@ not deterministic or deterministic
 begin
   declare variable 'dataTypeReturn' DEFAULT "";
 
-  /*Actions and variables that you need*/
+  /*Body of the Function*/
 
   return variable;
 end;

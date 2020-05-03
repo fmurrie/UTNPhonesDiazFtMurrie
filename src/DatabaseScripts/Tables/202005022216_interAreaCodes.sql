@@ -26,7 +26,8 @@ create table if not exists interAreaCodes
 
 drop trigger if exists interAreaCodes_audit_creator;
 delimiter //
-create trigger if not exists interAreaCodes_audit_creator before insert on interAreaCodes
+create trigger if not exists interAreaCodes_audit_creator
+before insert on interAreaCodes
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -37,7 +38,8 @@ delimiter ;
 
 drop trigger if exists interAreaCodes_audit_updater;
 delimiter //
-create trigger if not exists interAreaCodes_audit_updater before update on interAreaCodes
+create trigger if not exists interAreaCodes_audit_updater
+before update on interAreaCodes
 for each row
 begin
 set new.updaterUser=getDbUserName();

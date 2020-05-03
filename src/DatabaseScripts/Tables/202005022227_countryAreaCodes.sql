@@ -28,7 +28,8 @@ create table if not exists countryAreaCodes
 
 drop trigger if exists countryAreaCodes_audit_creator;
 delimiter //
-create trigger if not exists countryAreaCodes_audit_creator before insert on countryAreaCodes
+create trigger if not exists countryAreaCodes_audit_creator
+before insert on countryAreaCodes
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -39,7 +40,8 @@ delimiter ;
 
 drop trigger if exists countryAreaCodes_audit_updater;
 delimiter //
-create trigger if not exists countryAreaCodes_audit_updater before update on countryAreaCodes
+create trigger if not exists countryAreaCodes_audit_updater
+before update on countryAreaCodes
 for each row
 begin
 set new.updaterUser=getDbUserName();

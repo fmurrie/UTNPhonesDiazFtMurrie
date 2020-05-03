@@ -29,7 +29,8 @@ create table if not exists countries
 
 drop trigger if exists countries_audit_creator;
 delimiter //
-create trigger if not exists countries_audit_creator before insert on countries
+create trigger if not exists countries_audit_creator
+before insert on countries
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -40,7 +41,8 @@ delimiter ;
 
 drop trigger if exists countries_audit_updater;
 delimiter //
-create trigger if not exists countries_audit_updater before update on countries
+create trigger if not exists countries_audit_updater
+before update on countries
 for each row
 begin
 set new.updaterUser=getDbUserName();

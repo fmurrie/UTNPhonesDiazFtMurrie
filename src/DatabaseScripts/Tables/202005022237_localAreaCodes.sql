@@ -28,7 +28,8 @@ create table if not exists localAreaCodes
 
 drop trigger if exists localAreaCodes_audit_creator;
 delimiter //
-create trigger if not exists localAreaCodes_audit_creator before insert on localAreaCodes
+create trigger if not exists localAreaCodes_audit_creator
+before insert on localAreaCodes
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -39,7 +40,8 @@ delimiter ;
 
 drop trigger if exists localAreaCodes_audit_updater;
 delimiter //
-create trigger if not exists localAreaCodes_audit_updater before update on localAreaCodes
+create trigger if not exists localAreaCodes_audit_updater
+before update on localAreaCodes
 for each row
 begin
 set new.updaterUser=getDbUserName();

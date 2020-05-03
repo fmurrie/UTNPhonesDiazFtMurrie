@@ -27,7 +27,8 @@ create table if not exists companies
 
 drop trigger if exists companies_audit_creator;
 delimiter //
-create trigger if not exists companies_audit_creator before insert on companies
+create trigger if not exists companies_audit_creator
+before insert on companies
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -38,7 +39,8 @@ delimiter ;
 
 drop trigger if exists companies_audit_updater;
 delimiter //
-create trigger if not exists companies_audit_updater before update on companies
+create trigger if not exists companies_audit_updater
+before update on companies
 for each row
 begin
 set new.updaterUser=getDbUserName();
