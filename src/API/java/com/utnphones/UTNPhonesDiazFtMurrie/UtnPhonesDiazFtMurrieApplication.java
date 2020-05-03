@@ -8,6 +8,7 @@ public class UtnPhonesDiazFtMurrieApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UtnPhonesDiazFtMurrieApplication.class, args);
+
 	}
 
 }
