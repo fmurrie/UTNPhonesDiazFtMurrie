@@ -8,7 +8,7 @@
 use utnphones;
 
 drop function if exists getDbUserName;
-
+delimiter //
 create function getDbUserName
 (
 )
@@ -20,4 +20,5 @@ begin
   set dbUserName=(SELECT LEFT(CURRENT_USER(), INSTR(CURRENT_USER(), '@') - 1));
 
   return dbUserName;
-end;
+end //
+delimiter ;

@@ -9,7 +9,7 @@
 use utnphones;
 
 drop function if exists 'Name of the Function';
-
+delimiter //
 create function 'Name of the Function'
 (
 'paramExample1' int,
@@ -23,4 +23,5 @@ begin
   /*Body of the Function*/
 
   return variable;
-end;
+end //
+delimiter ;

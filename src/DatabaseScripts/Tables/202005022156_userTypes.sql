@@ -14,9 +14,9 @@ create table if not exists userTypes
 	createdDate datetime default(now()),
 	updaterUser varchar(100),
 	updatedDate timestamp,
-	idUserState int auto_increment,
+	idUserType int auto_increment,
 	description varchar(100) not null,
-	constraint PK_userTypes_idUserState primary key(idUserState),
+	constraint PK_userTypes_idUserState primary key(idUserType),
 	constraint UK_userTypes_description unique(description)
 );
 
