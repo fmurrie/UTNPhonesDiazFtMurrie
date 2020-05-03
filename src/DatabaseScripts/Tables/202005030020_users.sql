@@ -10,11 +10,6 @@ drop table if exists users;
 
 create table if not exists users
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
-	logicDelete bit(1) default(0),
 	idUser int auto_increment,
 	idUserType int not null,
 	dni varchar(100) not null,
@@ -23,6 +18,11 @@ create table if not exists users
 	idCity int not null,
 	username varchar(100) not null,
 	userpassword varchar(100) not null,
+    logicDelete bit(1) default(0),
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_users_idUser primary key(idUser),
 	constraint UK_users_dni unique(dni),
 	constraint UK_users_username unique(username),
@@ -36,7 +36,7 @@ create table if not exists users
 
 drop trigger if exists users_audit_creator;
 delimiter //
-create trigger if not exists users_audit_creator
+create trigger users_audit_creator
 before insert on users
 for each row
 begin
@@ -48,7 +48,7 @@ delimiter ;
 
 drop trigger if exists users_audit_updater;
 delimiter //
-create trigger if not exists users_audit_updater
+create trigger users_audit_updater
 before update on users
 for each row
 begin

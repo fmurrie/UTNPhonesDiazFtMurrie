@@ -10,13 +10,13 @@ drop table if exists provinces;
 
 create table if not exists provinces
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idProvince int auto_increment,
 	name varchar(100) not null,
 	idCountry int not null,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_provinces_idProvince primary key(idProvince),
 	constraint UK_provinces_name_idCountry unique(name,idCountry),
 	constraint FK_provinces_idCountry foreign key(idCountry) references countries(idCountry) on update cascade on delete cascade
@@ -28,7 +28,7 @@ create table if not exists provinces
 
 drop trigger if exists provinces_audit_creator;
 delimiter //
-create trigger if not exists provinces_audit_creator
+create trigger provinces_audit_creator
 before insert on provinces
 for each row
 begin
@@ -40,7 +40,7 @@ delimiter ;
 
 drop trigger if exists provinces_audit_updater;
 delimiter //
-create trigger if not exists provinces_audit_updater
+create trigger provinces_audit_updater
 before update on provinces
 for each row
 begin

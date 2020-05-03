@@ -10,10 +10,6 @@ drop table if exists bills;
 
 create table if not exists bills
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idBill int auto_increment,
 	idBillState int not null,
 	idPhoneLine int not null,
@@ -23,6 +19,10 @@ create table if not exists bills
 	billMonth varchar(100) default(extract(year_month from now())),
 	issueDate datetime default(now()),
 	expiryDate datetime null,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_bills_idBill primary key(idBill),
 	constraint UK_bills_idPhoneLine_billMonth unique(idPhoneLine,billMonth),
 	constraint FK_bills_idPhoneLine foreign key(idPhoneLine) references phoneLines(idPhoneLine) on update cascade on delete cascade
@@ -34,7 +34,7 @@ create table if not exists bills
 
 drop trigger if exists bills_audit_creator;
 delimiter //
-create trigger if not exists bills_audit_creator
+create trigger bills_audit_creator
 before insert on bills
 for each row
 begin
@@ -46,7 +46,7 @@ delimiter ;
 
 drop trigger if exists bills_audit_updater;
 delimiter //
-create trigger if not exists bills_audit_updater
+create trigger bills_audit_updater
 before update on bills
 for each row
 begin

@@ -10,13 +10,13 @@ drop table if exists countries;
 
 create table if not exists countries
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idCountry int auto_increment,
 	idCountryAreaCode int,
 	name varchar(100) not null,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_countries_idCountry primary key(idCountry),
 	constraint UK_countries_name unique(name),
 	constraint UK_countries_idCountryAreaCode unique(idCountryAreaCode),
@@ -29,7 +29,7 @@ create table if not exists countries
 
 drop trigger if exists countries_audit_creator;
 delimiter //
-create trigger if not exists countries_audit_creator
+create trigger countries_audit_creator
 before insert on countries
 for each row
 begin
@@ -41,7 +41,7 @@ delimiter ;
 
 drop trigger if exists countries_audit_updater;
 delimiter //
-create trigger if not exists countries_audit_updater
+create trigger countries_audit_updater
 before update on countries
 for each row
 begin

@@ -10,10 +10,6 @@ drop table if exists calls;
 
 create table if not exists calls
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idCall int auto_increment,
 	idBill int,
 	idPhoneLineOrigin int,
@@ -22,6 +18,10 @@ create table if not exists calls
 	endTime datetime,
 	duration float,
 	totalPrice float,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_calls_idCall primary key(idCall),
 	constraint CHK_calls_idPhoneLineOrigin_not_null check(idPhoneLineOrigin!=null),
 	constraint CHK_calls_idPhoneLineDestinity_not_null check(idPhoneLineDestinity!=null),
@@ -38,7 +38,7 @@ create table if not exists calls
 
 drop trigger if exists calls_audit_creator;
 delimiter //
-create trigger if not exists calls_audit_creator
+create trigger calls_audit_creator
 before insert on calls
 for each row
 begin
@@ -50,7 +50,7 @@ delimiter ;
 
 drop trigger if exists calls_audit_updater;
 delimiter //
-create trigger if not exists calls_audit_updater
+create trigger calls_audit_updater
 before update on calls
 for each row
 begin

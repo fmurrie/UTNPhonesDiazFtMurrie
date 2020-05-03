@@ -10,12 +10,12 @@ drop table if exists interAreaCodes;
 
 create table if not exists interAreaCodes
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idInterAreaCode int auto_increment,
 	code varchar(100) not null,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_interAreaCodes_idInterAreaCode primary key(idInterAreaCode),
 	constraint UK_interAreaCodes_code unique(code)
 );
@@ -26,7 +26,7 @@ create table if not exists interAreaCodes
 
 drop trigger if exists interAreaCodes_audit_creator;
 delimiter //
-create trigger if not exists interAreaCodes_audit_creator
+create trigger interAreaCodes_audit_creator
 before insert on interAreaCodes
 for each row
 begin
@@ -38,7 +38,7 @@ delimiter ;
 
 drop trigger if exists interAreaCodes_audit_updater;
 delimiter //
-create trigger if not exists interAreaCodes_audit_updater
+create trigger interAreaCodes_audit_updater
 before update on interAreaCodes
 for each row
 begin

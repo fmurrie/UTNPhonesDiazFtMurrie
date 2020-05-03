@@ -10,12 +10,12 @@ drop table if exists billStates;
 
 create table if not exists billStates
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
 	idBillState int auto_increment,
 	description varchar(100) not null,
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_billStates_idBillState primary key(idBillState),
 	constraint UK_billStates_description unique(description)
 );
@@ -26,7 +26,7 @@ create table if not exists billStates
 
 drop trigger if exists billStates_audit_creator;
 delimiter //
-create trigger if not exists billStates_audit_creator
+create trigger billStates_audit_creator
 before insert on billStates
 for each row
 begin
@@ -38,7 +38,7 @@ delimiter ;
 
 drop trigger if exists billStates_audit_updater;
 delimiter //
-create trigger if not exists billStates_audit_updater
+create trigger billStates_audit_updater
 before update on billStates
 for each row
 begin

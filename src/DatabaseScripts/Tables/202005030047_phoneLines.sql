@@ -10,16 +10,16 @@ drop table if exists phoneLines;
 
 create table if not exists phoneLines
 (
-	creatorUser varchar(100),
-	createdDate datetime default(now()),
-	updaterUser varchar(100),
-	updatedDate timestamp,
-	logicDelete bit(1) default(0),
 	idPhoneLine int auto_increment,
 	idLineType int not null,
 	idLocalAreaCode int not null,
 	phoneNumber varchar(100) not null,
 	idUser int not null,
+	logicDelete bit(1) default(0),
+    creatorUser varchar(100),
+    createdDate datetime default(now()),
+    updaterUser varchar(100),
+    updatedDate timestamp,
 	constraint PK_phoneLines_idPhoneLine primary key(idPhoneLine),
 	constraint UK_phoneLines_idLocalAreaCode_phoneNumber unique(idLocalAreaCode,phoneNumber),
 	constraint FK_phoneLines_idLineType foreign key(idLineType) references lineTypes(idLineType) on update cascade,
@@ -33,7 +33,7 @@ create table if not exists phoneLines
 
 drop trigger if exists phoneLines_audit_creator;
 delimiter //
-create trigger if not exists phoneLines_audit_creator
+create trigger phoneLines_audit_creator
 before insert on phoneLines
 for each row
 begin
@@ -45,7 +45,7 @@ delimiter ;
 
 drop trigger if exists phoneLines_audit_updater;
 delimiter //
-create trigger if not exists phoneLines_audit_updater
+create trigger phoneLines_audit_updater
 before update on phoneLines
 for each row
 begin
