@@ -25,9 +25,9 @@ create table if not exists 'Name of the table'
 
 /*Trigger for creator user*/
 
-drop trigger if exists 'Name of the Table'+_audit_creator;
+drop trigger if exists 'Name of the Table'_audit_creator;
 delimiter //
-create trigger if not exists 'Name of the Table'+_audit_creator before insert on 'Name of the Table'
+create trigger if not exists 'Name of the Table'_audit_creator before insert on 'Name of the Table'
 for each row
 begin
 set new.creatorUser=getDbUserName();
@@ -36,9 +36,9 @@ delimiter ;
 
 /*Trigger for updater user*/
 
-drop trigger if exists 'Name of the Table'+_audit_updater;
+drop trigger if exists 'Name of the Table'_audit_updater;
 delimiter //
-create trigger if not exists 'Name of the Table'+_audit_updater before update on 'Name of the Table'
+create trigger if not exists 'Name of the Table'_audit_updater before update on 'Name of the Table'
 for each row
 begin
 set new.updaterUser=getDbUserName();
