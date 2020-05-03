@@ -10,13 +10,13 @@ use utnphones;
 
 drop function if exists 'Name of the Function';
 
-create 'Name of the Function'
+create function 'Name of the Function'
 (
 'paramExample1' int,
 'paramExample2' varchar(100)
 )
-not deterministic or deterministic
 returns 'dataTypeReturn'
+not deterministic or deterministic
 begin
   declare variable 'dataTypeReturn' DEFAULT "";
 
