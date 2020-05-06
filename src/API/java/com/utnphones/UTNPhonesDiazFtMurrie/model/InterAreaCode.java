@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class InterAreaCode {
     @Id
     @Column(name = "idInterAreaCode")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInterAreaCode;
 
     @NotNull

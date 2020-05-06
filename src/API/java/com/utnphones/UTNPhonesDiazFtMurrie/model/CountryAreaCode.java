@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class CountryAreaCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCountryAreaCode")
     private Integer idCountryAreaCode;
 
