@@ -5,9 +5,12 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.InterAreaCodeDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.InterAreaCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class InterAreaCodeService {
 
     InterAreaCodeDao interAreaCodeDao;

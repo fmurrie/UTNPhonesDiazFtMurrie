@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name = "countries")
+@Table(name = "countries", uniqueConstraints = {@UniqueConstraint(columnNames = {"idCountryAreaCode", "name"})})
 public class Country {
 
     @Id
@@ -24,7 +24,8 @@ public class Country {
     private Integer idCountry;
 
     @NotNull
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idCountryAreaCode")
     private CountryAreaCode countryAreaCode;
 

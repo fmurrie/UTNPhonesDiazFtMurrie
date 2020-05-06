@@ -21,6 +21,6 @@ public class InterAreaCode {
     private Integer idInterAreaCode;
 
     @NotNull
-    @Column(name = "code")
+    @Column(unique = true, name = "code")
     private String code;
 }

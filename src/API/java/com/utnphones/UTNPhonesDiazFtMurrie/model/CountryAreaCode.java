@@ -24,11 +24,11 @@ public class CountryAreaCode {
     private Integer idCountryAreaCode;
 
     @NotNull
-    @Column(name = "code")
+    @Column(unique = true, name = "code")
     private String code;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idInterAreaCode")
     InterAreaCode interAreaCode;
 
