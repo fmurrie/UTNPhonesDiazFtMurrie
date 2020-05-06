@@ -18,7 +18,7 @@ create table if not exists rolesForUsers
     updatedDate timestamp,
 	constraint PK_rolesForUsers_idUserState primary key(idRole,idUser),
 	constraint FK_rolesForUsers_idRole foreign key(idRole) references roles(idRole) on update cascade on delete cascade,
-	constraint FK_rolesForUsers_idUser foreign key(idUser) references users(idUser) on update cascade on delete cascade,
+	constraint FK_rolesForUsers_idUser foreign key(idUser) references users(idUser) on update cascade on delete cascade
 );
 
 /*Triggers for audit*/
