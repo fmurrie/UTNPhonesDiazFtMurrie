@@ -3,36 +3,9 @@ cls
 echo Hi Dear! You will start the implementation of the scripts for the database utnphones.
 pause
 SET PROJECT_PATH=%cd%
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
+cd\
+echo on
+
 REM Section for execute the scripts from General:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\000000000000_utnphones.sql
 
@@ -57,6 +30,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030139_bills.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005041929_rolesForUsers.sql
+
+REM End-status of the implementation of the database utnphones:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql
 
 PAUSE
 exit
