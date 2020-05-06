@@ -5,21 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
+@Table(name = "interAreaCodes")
 public class InterAreaCode {
     @Id
-    @GeneratedValue
+    @Column(name = "idInterAreaCode")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInterAreaCode;
 
     @NotNull
+    @Column(unique = true, name = "code")
     private String code;
-
-
 }

@@ -5,24 +5,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import javax.validation.constraints.NotNull;
 
+
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
+@Table(name = "countryAreaCodes")
 public class CountryAreaCode {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCountryAreaCode")
     private Integer idCountryAreaCode;
 
     @NotNull
+    @Column(unique = true, name = "code")
     private String code;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idInterAreaCode")
     InterAreaCode interAreaCode;
 
 }
