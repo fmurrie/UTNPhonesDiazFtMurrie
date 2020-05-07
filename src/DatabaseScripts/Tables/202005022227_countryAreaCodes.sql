@@ -19,7 +19,7 @@ create table if not exists countryAreaCodes
     updatedDate timestamp,
 	constraint PK_countryAreaCodes_idCountryAreaCode primary key(idCountryAreaCode),
 	constraint UK_countryAreaCodes_code unique(code),
-	constraint FK_countryAreaCodes_idInterAreaCode foreign key(idInterAreaCode) references interAreaCodes(idInterAreaCode) on update cascade
+	constraint FK_countryAreaCodes_idInterAreaCode foreign key(idInterAreaCode) references interAreaCodes(idInterAreaCode) on update cascade on delete cascade
 );
 
 /*Triggers for audit*/

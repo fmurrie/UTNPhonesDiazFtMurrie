@@ -11,7 +11,7 @@ drop table if exists countries;
 create table if not exists countries
 (
 	idCountry int auto_increment,
-	idCountryAreaCode int,
+	idCountryAreaCode int not null,
 	name varchar(100) not null,
     creatorUser varchar(100),
     createdDate datetime default(now()),
@@ -19,7 +19,6 @@ create table if not exists countries
     updatedDate timestamp,
 	constraint PK_countries_idCountry primary key(idCountry),
 	constraint UK_countries_name unique(name),
-	constraint UK_countries_idCountryAreaCode unique(idCountryAreaCode),
 	constraint FK_countries_idCountryAreaCode foreign key(idCountryAreaCode) references countryAreaCodes(idCountryAreaCode) on update cascade
 );
 
