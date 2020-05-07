@@ -34,6 +34,10 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005041929_rolesForUsers.s
 REM Section for execute the scripts from \Migration:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061821_migration_interAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005062121_migration_countryAreaCodes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005070005_migration_countries.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071538_migration_provinces.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071547_migration_localAreaCodes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071548_migration_cities.sql
 
 REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql
