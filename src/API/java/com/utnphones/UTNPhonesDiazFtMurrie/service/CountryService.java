@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class CountryService {
     CountryDao countryDao;
@@ -14,8 +16,11 @@ public class CountryService {
     @Autowired
     public CountryService(CountryDao countryDao){this.countryDao=countryDao;}
 
-    public List<Country> getCountries() {
-        return countryDao.findAll();
+    public List<Country> getCountry(String name) {
+        if (isNull(name)){
+            return countryDao.findAll();
+        }
+        else { return countryDao.findByName(name);}
     }
 
     public void add(final Country country) {

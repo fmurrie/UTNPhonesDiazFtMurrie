@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class InterAreaCodeService {
 
@@ -15,8 +17,11 @@ public class InterAreaCodeService {
     @Autowired
     public InterAreaCodeService(InterAreaCodeDao interAreaCodeDao){this.interAreaCodeDao=interAreaCodeDao;}
 
-    public List<InterAreaCode> getInterAreaCodes() {
-        return interAreaCodeDao.findAll();
+    public List<InterAreaCode> getInterAreaCode(String code) {
+        if (isNull(code)){
+            return interAreaCodeDao.findAll();
+        }
+        else { return interAreaCodeDao.findByCode(code);}
     }
 
     public void add(final InterAreaCode interAreaCode) {
