@@ -14,7 +14,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005021
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030129_getDateIn15Days.sql
 
 REM Section for execute the scripts from \Tables:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_roles.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022213_companies.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022216_interAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022227_countryAreaCodes.sql
@@ -29,7 +29,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030047_phoneLines.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030139_bills.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005041929_rolesForUsers.sql
 
 REM Section for execute the scripts from \Migration:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061821_migration_interAreaCodes.sql
