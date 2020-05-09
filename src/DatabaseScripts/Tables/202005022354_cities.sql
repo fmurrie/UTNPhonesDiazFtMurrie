@@ -17,7 +17,7 @@ create table if not exists cities
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_cities_idCity primary key(idCity),
 	constraint UK_cities_name_idProvince unique(name,idProvince),
 	constraint FK_cities_idProvince foreign key(idProvince) references provinces(idProvince) on update cascade on delete cascade,
@@ -47,5 +47,6 @@ before update on cities
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

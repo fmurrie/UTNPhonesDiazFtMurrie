@@ -21,7 +21,7 @@ create table if not exists calls
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_calls_idCall primary key(idCall),
 	constraint CHK_calls_idPhoneLineOrigin_not_null check(idPhoneLineOrigin!=null),
 	constraint CHK_calls_idPhoneLineDestinity_not_null check(idPhoneLineDestinity!=null),
@@ -55,5 +55,6 @@ before update on calls
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

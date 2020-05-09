@@ -15,7 +15,7 @@ create table if not exists lineTypes
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_lineTypes_idLineType primary key(idLineType),
 	constraint UK_lineTypes_description unique(description)
 );
@@ -43,5 +43,6 @@ before update on lineTypes
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

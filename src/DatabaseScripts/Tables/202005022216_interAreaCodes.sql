@@ -15,7 +15,7 @@ create table if not exists interAreaCodes
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_interAreaCodes_idInterAreaCode primary key(idInterAreaCode),
 	constraint UK_interAreaCodes_code unique(code)
 );
@@ -43,5 +43,6 @@ before update on interAreaCodes
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

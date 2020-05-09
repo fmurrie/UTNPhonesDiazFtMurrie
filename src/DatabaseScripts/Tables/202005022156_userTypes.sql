@@ -15,7 +15,7 @@ create table if not exists userTypes
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_userTypes_idUserType primary key(idUserType),
 	constraint UK_userTypes_description unique(description)
 );
@@ -43,5 +43,6 @@ before update on userTypes
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

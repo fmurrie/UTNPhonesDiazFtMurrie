@@ -16,7 +16,7 @@ create table if not exists provinces
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_provinces_idProvince primary key(idProvince),
 	constraint UK_provinces_name_idCountry unique(name,idCountry),
 	constraint FK_provinces_idCountry foreign key(idCountry) references countries(idCountry) on update cascade on delete cascade
@@ -45,5 +45,6 @@ before update on provinces
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;
