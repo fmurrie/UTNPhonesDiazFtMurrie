@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.CountryAreaCode;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryAreaCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,8 +26,8 @@ public class CountryAreaCodeController {
     }
 
     @GetMapping("/")
-    List<CountryAreaCode> getCountryAreaCodes() {
-        return countryAreaCodeService.getCountryAreaCodes();
+    List<CountryAreaCode> getCountryAreaCode(@RequestParam (required = false) String code) {
+        return countryAreaCodeService.getCountryAreaCode(code);
     }
 
 }
