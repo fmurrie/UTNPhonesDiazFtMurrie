@@ -25,8 +25,8 @@ public class InterAreaCodeController {
     }
 
     @GetMapping("/")
-    List<InterAreaCode> getInterAreaCodes() {
-        return interAreaCodeService.getInterAreaCodes();
+    List<InterAreaCode> getInterAreaCode(String code) {
+        return interAreaCodeService.getInterAreaCode(code);
     }
 
 }
