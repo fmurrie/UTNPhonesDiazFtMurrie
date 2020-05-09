@@ -16,7 +16,7 @@ create table if not exists countryAreaCodes
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_countryAreaCodes_idCountryAreaCode primary key(idCountryAreaCode),
 	constraint UK_countryAreaCodes_code unique(code),
 	constraint FK_countryAreaCodes_idInterAreaCode foreign key(idInterAreaCode) references interAreaCodes(idInterAreaCode) on update cascade on delete cascade
@@ -45,5 +45,6 @@ before update on countryAreaCodes
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

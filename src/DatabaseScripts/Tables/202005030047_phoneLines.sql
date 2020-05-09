@@ -20,7 +20,7 @@ create table if not exists phoneLines
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_phoneLines_idPhoneLine primary key(idPhoneLine),
 	constraint UK_phoneLines_idLocalAreaCode_phoneNumber unique(idLocalAreaCode,phoneNumber),
 	constraint FK_phoneLines_idLineType foreign key(idLineType) references lineTypes(idLineType) on update cascade,
@@ -51,5 +51,6 @@ before update on phoneLines
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

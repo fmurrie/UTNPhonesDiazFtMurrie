@@ -15,7 +15,7 @@ create table if not exists billStates
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_billStates_idBillState primary key(idBillState),
 	constraint UK_billStates_description unique(description)
 );
@@ -43,5 +43,6 @@ before update on billStates
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

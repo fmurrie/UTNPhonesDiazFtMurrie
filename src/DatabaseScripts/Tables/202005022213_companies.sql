@@ -16,7 +16,7 @@ create table if not exists companies
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_companies_idCompany primary key(idCompany),
 	constraint UK_companies_name unique(name)
 );
@@ -44,5 +44,6 @@ before update on companies
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

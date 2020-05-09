@@ -22,7 +22,7 @@ create table if not exists users
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
-    updatedDate timestamp,
+    updatedDate datetime,
 	constraint PK_users_idUser primary key(idUser),
 	constraint UK_users_dni unique(dni),
 	constraint UK_users_username unique(username),
@@ -53,5 +53,6 @@ before update on users
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;
