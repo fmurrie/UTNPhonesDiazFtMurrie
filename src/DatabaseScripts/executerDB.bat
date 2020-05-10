@@ -15,7 +15,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030
 
 REM Section for execute the scripts from \Tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022213_companies.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022216_interAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022227_countryAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022237_localAreaCodes.sql
@@ -37,7 +36,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091952_users_updat
 
 REM Section for execute the scripts from \Migration:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061800_migration_userTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061801_migration_companies.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061802_migration_billStates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061803_migration_lineTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061821_migration_interAreaCodes.sql
