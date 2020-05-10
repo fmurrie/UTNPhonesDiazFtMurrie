@@ -12,6 +12,7 @@ create trigger if not exists bills_before_insert
 before insert on bills
 for each row
 begin
+set new.expiryDate=getDateIn15Days();
 set new.creatorUser=getDbUserName();
 end //
 delimiter ;

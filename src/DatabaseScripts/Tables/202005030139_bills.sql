@@ -11,14 +11,14 @@ drop table if exists bills;
 create table if not exists bills
 (
 	idBill int auto_increment,
-	idBillState int not null,
+	idBillState int default(1),
 	idPhoneLine int not null,
 	callsQuantity int default(0),
 	costPrice float,
 	totalPrice float,
 	billMonth varchar(100) default(extract(year_month from now())),
 	issueDate datetime default(now()),
-	expiryDate datetime null,
+	expiryDate datetime not null,
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
