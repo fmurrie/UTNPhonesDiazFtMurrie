@@ -33,6 +33,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 REM Section for execute the scripts from \Views:
 
 REM Section for execute the scripts from \Functions\CustomFunctions:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005101538_getCompletePhoneNumber.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
