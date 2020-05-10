@@ -21,30 +21,3 @@ create table if not exists rates
 	constraint FK_rates_idOriginCity foreign key(idOriginCity) references cities(idCity) on update cascade on delete cascade,
 	constraint FK_rates_idDestinityCity foreign key(idDestinityCity) references cities(idCity) on update cascade on delete cascade
 );
-
-/*Triggers for the table rates*/
-
-/*Trigger before insert*/
-
-drop trigger if exists rates_before_insert;
-delimiter //
-create trigger if not exists rates_before_insert
-before insert on rates
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger before update*/
-
-drop trigger if exists rates_before_update;
-delimiter //
-create trigger if not exists rates_before_update
-before update on rates
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

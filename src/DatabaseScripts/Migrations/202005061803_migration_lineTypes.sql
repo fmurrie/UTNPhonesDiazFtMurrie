@@ -6,5 +6,5 @@
 
 use utnphones;
 
-insert into lineTypes (description) values ("Mobile");
-insert into lineTypes (description) values ("Residential");
+insert into lineTypes (description,code) values ("Mobile","9");
+insert into lineTypes (description,code) values ("Residential","11");

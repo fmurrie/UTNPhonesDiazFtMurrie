@@ -19,30 +19,3 @@ create table if not exists billStates
 	constraint PK_billStates_idBillState primary key(idBillState),
 	constraint UK_billStates_description unique(description)
 );
-
-/*Triggers for the table billStates*/
-
-/*Trigger before insert*/
-
-drop trigger if exists billStates_before_insert;
-delimiter //
-create trigger if not exists billStates_before_insert
-before insert on billStates
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger before update*/
-
-drop trigger if exists billStates_before_update;
-delimiter //
-create trigger if not exists billStates_before_update
-before update on billStates
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

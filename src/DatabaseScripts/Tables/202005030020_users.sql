@@ -29,30 +29,3 @@ create table if not exists users
 	constraint FK_rolesForUsers_idUserType foreign key(idUserType) references userTypes(idUserType) on update cascade on delete cascade,
 	constraint FK_users_idCity foreign key(idCity) references cities(idCity) on update cascade on delete cascade
 );
-
-/*Triggers for the table users*/
-
-/*Trigger before insert*/
-
-drop trigger if exists users_before_insert;
-delimiter //
-create trigger if not exists users_before_insert
-before insert on users
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger before update*/
-
-drop trigger if exists users_before_update;
-delimiter //
-create trigger if not exists users_before_update
-before update on users
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

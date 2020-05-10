@@ -31,30 +31,3 @@ create table if not exists calls
 	constraint FK_calls_idPhoneLineOrigin foreign key(idPhoneLineOrigin) references phoneLines(idPhoneLine) on update cascade,
 	constraint FK_calls_idPhoneLineDestinity foreign key(idPhoneLineDestinity) references phoneLines(idPhoneLine) on update cascade
 );
-
-/*Triggers for the table calls*/
-
-/*Trigger before insert*/
-
-drop trigger if exists calls_before_insert;
-delimiter //
-create trigger if not exists calls_before_insert
-before insert on calls
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger before update*/
-
-drop trigger if exists calls_before_update;
-delimiter //
-create trigger if not exists calls_before_update
-before update on calls
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

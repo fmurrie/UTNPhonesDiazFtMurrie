@@ -30,8 +30,41 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030139_bills.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 
+REM Section for execute the scripts from \Views:
+
 REM Section for execute the scripts from \Functions\CustomFunctions:
 
+REM Section for execute the scripts from \Triggers:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101501_userTypes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101502_interAreaCodes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101503_interAreaCodes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101504_countryAreaCodes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101505_countryAreaCodes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101506_localAreaCodes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101507_localAreaCodes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101508_countries_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101509_countries_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101510_billStates_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101511_billStates_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101512_callTypes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101513_callTypes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101514_lineTypes_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101515_lineTypes_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101516_provinces_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101517_provinces_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101518_cities_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101519_cities_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101520_users_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101521_users_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101522_phoneLines_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101523_phoneLines_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101524_bills_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101525_bills_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101526_rates_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101527_rates_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
 
 REM Section for execute the scripts from \Procedures:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091943_users_insert.sql
@@ -41,17 +74,17 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092319_phoneLines_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092335_phoneLines_delete.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092340_phoneLines_update.sql
 
-REM Section for execute the scripts from \Migration:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061800_migration_userTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061802_migration_billStates.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061803_migration_lineTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061804_migration_callTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061821_migration_interAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005062121_migration_countryAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005070005_migration_countries.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071538_migration_provinces.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071547_migration_localAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071548_migration_cities.sql
+REM Section for execute the scripts from \Migrations:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061800_migration_userTypes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061802_migration_billStates.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061803_migration_lineTypes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061804_migration_callTypes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061821_migration_interAreaCodes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005062121_migration_countryAreaCodes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005070005_migration_countries.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071538_migration_provinces.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071547_migration_localAreaCodes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071548_migration_cities.sql
 
 REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql

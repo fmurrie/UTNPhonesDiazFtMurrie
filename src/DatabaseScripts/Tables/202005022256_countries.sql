@@ -21,30 +21,3 @@ create table if not exists countries
 	constraint UK_countries_name unique(name),
 	constraint FK_countries_idCountryAreaCode foreign key(idCountryAreaCode) references countryAreaCodes(idCountryAreaCode) on update cascade
 );
-
-/*Triggers for the table countries*/
-
-/*Trigger before insert*/
-
-drop trigger if exists countries_before_insert;
-delimiter //
-create trigger if not exists countries_before_insert
-before insert on countries
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger before update*/
-
-drop trigger if exists countries_before_update;
-delimiter //
-create trigger if not exists countries_before_update
-before update on countries
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;
