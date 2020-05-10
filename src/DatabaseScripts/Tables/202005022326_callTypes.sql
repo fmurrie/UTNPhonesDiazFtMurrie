@@ -12,7 +12,7 @@
  (
     idCallType int auto_increment,
 	description varchar(100) not null,
-	price float not null,
+	minutePrice float not null,
  	creatorUser varchar(100),
  	createdDate datetime default(now()),
  	updaterUser varchar(100),
