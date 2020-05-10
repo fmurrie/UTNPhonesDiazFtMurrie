@@ -30,7 +30,16 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030139_bills.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 
+REM Section for execute the scripts from \Procedures:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091943_users_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091945_users_delete.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091952_users_update.sql
+
 REM Section for execute the scripts from \Migration:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061800_migration_userTypes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061801_migration_companies.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061802_migration_billStates.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061803_migration_lineTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061821_migration_interAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005062121_migration_countryAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005070005_migration_countries.sql
