@@ -19,30 +19,3 @@ create table if not exists userTypes
 	constraint PK_userTypes_idUserType primary key(idUserType),
 	constraint UK_userTypes_description unique(description)
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists userTypes_audit_creator;
-delimiter //
-create trigger userTypes_audit_creator
-before insert on userTypes
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists userTypes_audit_updater;
-delimiter //
-create trigger userTypes_audit_updater
-before update on userTypes
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

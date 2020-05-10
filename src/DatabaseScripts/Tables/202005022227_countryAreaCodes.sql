@@ -21,30 +21,3 @@ create table if not exists countryAreaCodes
 	constraint UK_countryAreaCodes_code unique(code),
 	constraint FK_countryAreaCodes_idInterAreaCode foreign key(idInterAreaCode) references interAreaCodes(idInterAreaCode) on update cascade on delete cascade
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists countryAreaCodes_audit_creator;
-delimiter //
-create trigger countryAreaCodes_audit_creator
-before insert on countryAreaCodes
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists countryAreaCodes_audit_updater;
-delimiter //
-create trigger countryAreaCodes_audit_updater
-before update on countryAreaCodes
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

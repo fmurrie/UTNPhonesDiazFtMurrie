@@ -27,30 +27,3 @@ create table if not exists bills
 	constraint UK_bills_idPhoneLine_billMonth unique(idPhoneLine,billMonth),
 	constraint FK_bills_idPhoneLine foreign key(idPhoneLine) references phoneLines(idPhoneLine) on update cascade on delete cascade
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists bills_audit_creator;
-delimiter //
-create trigger bills_audit_creator
-before insert on bills
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists bills_audit_updater;
-delimiter //
-create trigger bills_audit_updater
-before update on bills
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

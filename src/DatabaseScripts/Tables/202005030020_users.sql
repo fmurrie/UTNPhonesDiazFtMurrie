@@ -18,7 +18,7 @@ create table if not exists users
 	idCity int not null,
 	username varchar(100) not null,
 	userpassword varchar(100) not null,
-    logicDelete bit(1) default(0),
+	suspended bit(1) default(0),
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
@@ -29,30 +29,3 @@ create table if not exists users
 	constraint FK_rolesForUsers_idUserType foreign key(idUserType) references userTypes(idUserType) on update cascade on delete cascade,
 	constraint FK_users_idCity foreign key(idCity) references cities(idCity) on update cascade on delete cascade
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists users_audit_creator;
-delimiter //
-create trigger users_audit_creator
-before insert on users
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists users_audit_updater;
-delimiter //
-create trigger users_audit_updater
-before update on users
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

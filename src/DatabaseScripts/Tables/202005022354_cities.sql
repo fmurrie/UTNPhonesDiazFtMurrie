@@ -23,30 +23,3 @@ create table if not exists cities
 	constraint FK_cities_idProvince foreign key(idProvince) references provinces(idProvince) on update cascade on delete cascade,
 	constraint FK_countries_idLocalAreaCode foreign key(idLocalAreaCode) references localAreaCodes(idLocalAreaCode) on update cascade
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists cities_audit_creator;
-delimiter //
-create trigger cities_audit_creator
-before insert on cities
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists cities_audit_updater;
-delimiter //
-create trigger cities_audit_updater
-before update on cities
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;

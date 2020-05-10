@@ -19,30 +19,3 @@ create table if not exists interAreaCodes
 	constraint PK_interAreaCodes_idInterAreaCode primary key(idInterAreaCode),
 	constraint UK_interAreaCodes_code unique(code)
 );
-
-/*Triggers for audit*/
-
-/*Trigger for creator user*/
-
-drop trigger if exists interAreaCodes_audit_creator;
-delimiter //
-create trigger interAreaCodes_audit_creator
-before insert on interAreaCodes
-for each row
-begin
-set new.creatorUser=getDbUserName();
-end //
-delimiter ;
-
-/*Trigger for updater user*/
-
-drop trigger if exists interAreaCodes_audit_updater;
-delimiter //
-create trigger interAreaCodes_audit_updater
-before update on interAreaCodes
-for each row
-begin
-set new.updaterUser=getDbUserName();
-set new.updatedDate=now();
-end //
-delimiter ;
