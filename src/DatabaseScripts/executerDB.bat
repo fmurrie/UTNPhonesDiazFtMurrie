@@ -20,6 +20,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022227_countryAreaCode
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022237_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022256_countries.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022325_billStates.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022326_callTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022338_lineTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022344_provinces.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022354_cities.sql
@@ -33,6 +34,9 @@ REM Section for execute the scripts from \Procedures:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091943_users_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091945_users_delete.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091952_users_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092319_phoneLines_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092335_phoneLines_delete.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092340_phoneLines_update.sql
 
 REM Section for execute the scripts from \Migration:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005061800_migration_userTypes.sql
@@ -44,6 +48,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005070005_migration_co
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071538_migration_provinces.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071547_migration_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005071548_migration_cities.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migration\202005100006_migration_callTypes.sql
 
 REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql

@@ -18,7 +18,7 @@ create table if not exists users
 	idCity int not null,
 	username varchar(100) not null,
 	userpassword varchar(100) not null,
-    logicDelete bit(1) default(0),
+	suspended bit(1) default(0),
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),

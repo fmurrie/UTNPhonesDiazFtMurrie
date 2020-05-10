@@ -14,7 +14,11 @@ in pIdUser int
 )
 begin
 
+start transaction;
+
 delete from users where idUser=pIdUser;
+
+commit;
 
 end //
 delimiter ;

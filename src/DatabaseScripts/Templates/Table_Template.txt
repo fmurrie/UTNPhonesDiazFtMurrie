@@ -12,13 +12,13 @@ drop table if exists 'Name of the table';
 
 create table if not exists 'Name of the table'
 (
+    'column_example_1' int,
+    'column_example_2' varchar(50),
+    'column_example_3' varchar(50),
 	creatorUser varchar(100),
 	createdDate datetime default(now()),
 	updaterUser varchar(100),
-	updatedDate timestamp,
-	'column_example_1' int,
-	'column_example_2' varchar(50),
-	'column_example_3' varchar(50)
+	updatedDate datetime
 );
 
 /*Triggers for audit*/
@@ -44,5 +44,6 @@ before update on 'Name of the Table'
 for each row
 begin
 set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
 end //
 delimiter ;

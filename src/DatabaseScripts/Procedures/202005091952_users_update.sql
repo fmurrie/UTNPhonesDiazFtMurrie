@@ -21,6 +21,8 @@ in pUserpassword varchar(100)
 )
 begin
 
+start transaction;
+
 update users
 set
 idUserType=pIdUserType,
@@ -32,6 +34,8 @@ username=pUsername,
 userpassword=pUserpassword
 where
 idUser=pIdUser;
+
+commit;
 
 end //
 delimiter ;

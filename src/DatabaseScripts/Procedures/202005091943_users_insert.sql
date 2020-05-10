@@ -20,9 +20,13 @@ in pUserpassword varchar(100)
 )
 begin
 
+start transaction;
+
 insert into users(idUserType,dni,firstName,lastName,idCity,username,userpassword)
 values
 (pIdUserType,pDni,pFirstName,pLastName,pIdCity,pUsername,pUserpassword);
+
+commit;
 
 end //
 delimiter ;
