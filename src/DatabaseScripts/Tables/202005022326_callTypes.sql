@@ -21,29 +21,29 @@
     constraint UK_callTypes_description unique(description)
  );
 
- /*Triggers for audit*/
+/*Triggers for the table callTypes*/
 
- /*Trigger for creator user*/
+/*Trigger before insert*/
 
- drop trigger if exists callTypes_audit_creator;
- delimiter //
- create trigger if not exists callTypes_audit_creator
- before insert on callTypes
- for each row
- begin
- set new.creatorUser=getDbUserName();
- end //
- delimiter ;
+drop trigger if exists callTypes_before_insert;
+delimiter //
+create trigger if not exists callTypes_before_insert
+before insert on callTypes
+for each row
+begin
+set new.creatorUser=getDbUserName();
+end //
+delimiter ;
 
- /*Trigger for updater user*/
+/*Trigger before update*/
 
- drop trigger if exists callTypes_audit_updater;
- delimiter //
- create trigger if not exists callTypes_audit_updater
- before update on callTypes
- for each row
- begin
- set new.updaterUser=getDbUserName();
- set new.updatedDate=now();
- end //
- delimiter ;
+drop trigger if exists callTypes_before_update;
+delimiter //
+create trigger if not exists callTypes_before_update
+before update on callTypes
+for each row
+begin
+set new.updaterUser=getDbUserName();
+set new.updatedDate=now();
+end //
+delimiter ;

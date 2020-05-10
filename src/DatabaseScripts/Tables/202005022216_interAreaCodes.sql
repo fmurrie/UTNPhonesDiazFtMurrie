@@ -20,13 +20,13 @@ create table if not exists interAreaCodes
 	constraint UK_interAreaCodes_code unique(code)
 );
 
-/*Triggers for audit*/
+/*Triggers for the table interAreaCodes*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists interAreaCodes_audit_creator;
+drop trigger if exists interAreaCodes_before_insert;
 delimiter //
-create trigger interAreaCodes_audit_creator
+create trigger if not exists interAreaCodes_before_insert
 before insert on interAreaCodes
 for each row
 begin
@@ -34,11 +34,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists interAreaCodes_audit_updater;
+drop trigger if exists interAreaCodes_before_update;
 delimiter //
-create trigger interAreaCodes_audit_updater
+create trigger if not exists interAreaCodes_before_update
 before update on interAreaCodes
 for each row
 begin

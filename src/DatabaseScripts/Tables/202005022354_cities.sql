@@ -24,13 +24,13 @@ create table if not exists cities
 	constraint FK_countries_idLocalAreaCode foreign key(idLocalAreaCode) references localAreaCodes(idLocalAreaCode) on update cascade
 );
 
-/*Triggers for audit*/
+/*Triggers for the table cities*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists cities_audit_creator;
+drop trigger if exists cities_before_insert;
 delimiter //
-create trigger cities_audit_creator
+create trigger if not exists cities_before_insert
 before insert on cities
 for each row
 begin
@@ -38,11 +38,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists cities_audit_updater;
+drop trigger if exists cities_before_update;
 delimiter //
-create trigger cities_audit_updater
+create trigger if not exists cities_before_update
 before update on cities
 for each row
 begin

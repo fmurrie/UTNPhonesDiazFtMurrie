@@ -27,13 +27,13 @@ create table if not exists phoneLines
 	constraint FK_phoneLines_idUser foreign key(idUser) references users(idUser) on update cascade on delete cascade
 );
 
-/*Triggers for audit*/
+/*Triggers for the table phoneLines*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists phoneLines_audit_creator;
+drop trigger if exists phoneLines_before_insert;
 delimiter //
-create trigger phoneLines_audit_creator
+create trigger if not exists phoneLines_before_insert
 before insert on phoneLines
 for each row
 begin
@@ -41,11 +41,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists phoneLines_audit_updater;
+drop trigger if exists phoneLines_before_update;
 delimiter //
-create trigger phoneLines_audit_updater
+create trigger if not exists phoneLines_before_update
 before update on phoneLines
 for each row
 begin

@@ -28,13 +28,13 @@ create table if not exists bills
 	constraint FK_bills_idPhoneLine foreign key(idPhoneLine) references phoneLines(idPhoneLine) on update cascade on delete cascade
 );
 
-/*Triggers for audit*/
+/*Triggers for the table bills*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists bills_audit_creator;
+drop trigger if exists bills_before_insert;
 delimiter //
-create trigger bills_audit_creator
+create trigger if not exists bills_before_insert
 before insert on bills
 for each row
 begin
@@ -42,11 +42,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists bills_audit_updater;
+drop trigger if exists bills_before_update;
 delimiter //
-create trigger bills_audit_updater
+create trigger if not exists bills_before_update
 before update on bills
 for each row
 begin

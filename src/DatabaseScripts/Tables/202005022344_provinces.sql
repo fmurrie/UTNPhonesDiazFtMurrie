@@ -22,13 +22,13 @@ create table if not exists provinces
 	constraint FK_provinces_idCountry foreign key(idCountry) references countries(idCountry) on update cascade on delete cascade
 );
 
-/*Triggers for audit*/
+/*Triggers for the table provinces*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists provinces_audit_creator;
+drop trigger if exists provinces_before_insert;
 delimiter //
-create trigger provinces_audit_creator
+create trigger if not exists provinces_before_insert
 before insert on provinces
 for each row
 begin
@@ -36,11 +36,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists provinces_audit_updater;
+drop trigger if exists provinces_before_update;
 delimiter //
-create trigger provinces_audit_updater
+create trigger if not exists provinces_before_update
 before update on provinces
 for each row
 begin

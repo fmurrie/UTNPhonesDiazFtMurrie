@@ -20,13 +20,13 @@ create table if not exists billStates
 	constraint UK_billStates_description unique(description)
 );
 
-/*Triggers for audit*/
+/*Triggers for the table billStates*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists billStates_audit_creator;
+drop trigger if exists billStates_before_insert;
 delimiter //
-create trigger billStates_audit_creator
+create trigger if not exists billStates_before_insert
 before insert on billStates
 for each row
 begin
@@ -34,11 +34,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists billStates_audit_updater;
+drop trigger if exists billStates_before_update;
 delimiter //
-create trigger billStates_audit_updater
+create trigger if not exists billStates_before_update
 before update on billStates
 for each row
 begin

@@ -20,13 +20,13 @@ create table if not exists lineTypes
 	constraint UK_lineTypes_description unique(description)
 );
 
-/*Triggers for audit*/
+/*Triggers for the table lineTypes*/
 
-/*Trigger for creator user*/
+/*Trigger before insert*/
 
-drop trigger if exists lineTypes_audit_creator;
+drop trigger if exists lineTypes_before_insert;
 delimiter //
-create trigger lineTypes_audit_creator
+create trigger if not exists lineTypes_before_insert
 before insert on lineTypes
 for each row
 begin
@@ -34,11 +34,11 @@ set new.creatorUser=getDbUserName();
 end //
 delimiter ;
 
-/*Trigger for updater user*/
+/*Trigger before update*/
 
-drop trigger if exists lineTypes_audit_updater;
+drop trigger if exists lineTypes_before_update;
 delimiter //
-create trigger lineTypes_audit_updater
+create trigger if not exists lineTypes_before_update
 before update on lineTypes
 for each row
 begin
