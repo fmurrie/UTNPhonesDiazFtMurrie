@@ -12,7 +12,14 @@ create trigger if not exists calls_before_update
 before update on calls
 for each row
 begin
+
+if((old.durationSeconds=null)and(new.endTime!=null))
+then
+set new.durationSeconds=getSecondsBetweenTwoDateTimes(old.initTime,new.endTime);
+end if;
+
 set new.updaterUser=getDbUserName();
 set new.updatedDate=now();
+
 end //
 delimiter ;

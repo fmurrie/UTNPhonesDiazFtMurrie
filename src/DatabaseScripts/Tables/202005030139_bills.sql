@@ -16,7 +16,7 @@ create table if not exists bills
 	callsQuantity int default(0),
 	costPrice float,
 	totalPrice float,
-	billMonth varchar(100) default(extract(year_month from now())),
+	billMonth varchar(100) not null,
 	issueDate datetime default(now()),
 	expiryDate datetime not null,
     creatorUser varchar(100),

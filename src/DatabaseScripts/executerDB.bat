@@ -12,6 +12,8 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\000000000000_utnphones.sql
 REM Section for execute the scripts from \Functions\NativeFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005021954_getDbUserName.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030129_getDateIn15Days.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102011_getYearMonth.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102036_getSecondsBetweenTwoDateTimes.sql
 
 REM Section for execute the scripts from \Tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql

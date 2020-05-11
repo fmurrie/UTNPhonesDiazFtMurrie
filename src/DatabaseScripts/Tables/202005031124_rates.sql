@@ -12,7 +12,7 @@ create table if not exists rates
 (
 	idOriginCity int not null,
 	idDestinityCity int not null,
-	minutePrice varchar(50) not null,
+	minutePrice float not null,
     creatorUser varchar(100),
     createdDate datetime default(now()),
     updaterUser varchar(100),
