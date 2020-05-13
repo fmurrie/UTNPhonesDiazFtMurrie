@@ -21,26 +21,22 @@ begin
   set completePhoneNumber= (
 							select
 								concat(
-										iac.code,
+										interAreaCode,
                                         ' ',
                                         '+',
-                                        cac.code,
+                                        countryAreaCode,
                                         ' (',
                                         (select
 											code
 										from lineTypes
                                         where idLineType=pIdLineType),
                                         ') ',
-                                        lac.code,
+                                        localAreaCode,
                                         '-',
                                         pPhoneNumber) as  phoneNumber
-							from interareacodes iac
-							inner join countryareacodes cac
-								on cac.idInterAreaCode=iac.idInterAreaCode
-							inner join localAreaCodes lac
-								on lac.idCountryAreaCode=cac.idCountryAreaCode
+							from codeAreasView
 							where
-								pIdLocalAreaCode=lac.idLocalAreaCode
+								idLocalAreaCode=pIdLocalAreaCode
 							);
 
   return completePhoneNumber;

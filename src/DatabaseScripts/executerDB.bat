@@ -12,6 +12,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\000000000000_utnphones.sql
 REM Section for execute the scripts from \Functions\NativeFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005021954_getDbUserName.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030129_getDateIn15Days.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102011_getYearMonth.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102036_getSecondsBetweenTwoDateTimes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005122223_convertSecondsInMinutes.sql
 
 REM Section for execute the scripts from \Tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql
@@ -31,9 +34,14 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 
 REM Section for execute the scripts from \Views:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005101927_codeAreasView.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005121625_phoneLinesCitiesView.sql
 
 REM Section for execute the scripts from \Functions\CustomFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005101538_getCompletePhoneNumber.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121624_getIdCityForIdPhoneLine.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121640_getRatePrice.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121642_getCostForCall.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
@@ -66,6 +74,8 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101526_rates_before_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101527_rates_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121539_calls_after_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121549_calls_after_update.sql
 
 REM Section for execute the scripts from \Procedures:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091943_users_insert.sql

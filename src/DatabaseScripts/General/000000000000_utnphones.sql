@@ -6,8 +6,10 @@
 
 drop database if exists utnphones;
 create database if not exists utnphones;
+
 use utnphones;
 
+SET NAMES 'utf8';
 
 drop user if exists 'fmurrie@localhost';
 create user if not exists 'fmurrie'@'localhost' identified by 'fmurrie';
