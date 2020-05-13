@@ -13,10 +13,10 @@ create function getSecondsBetweenTwoDateTimes
 pInitDate datetime,
 pEndDate datetime
 )
-returns int
+returns float
 not deterministic
 begin
-  declare seconds int;
+  declare seconds float;
 
   set seconds=(select TIMESTAMPDIFF(SECOND,pInitDate,pEndDate));
 

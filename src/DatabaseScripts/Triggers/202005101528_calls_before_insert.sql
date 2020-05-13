@@ -16,6 +16,7 @@ begin
 if((new.endTime!=null))
 then
 set new.durationSeconds=getSecondsBetweenTwoDateTimes(new.initTime,new.endTime);
+set new.totalPrice=getCostForCall(new.idPhoneLineOrigin,new.idPhoneLineDestinity)*convertSecondsInMinutes(new.durationSeconds);
 end if;
 
 set new.creatorUser=getDbUserName();
