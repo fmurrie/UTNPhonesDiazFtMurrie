@@ -10,7 +10,7 @@ drop function if exists convertSecondsInMinutes;
 delimiter //
 create function convertSecondsInMinutes
 (
-pSeconds int
+pSeconds float
 )
 returns float
 not deterministic

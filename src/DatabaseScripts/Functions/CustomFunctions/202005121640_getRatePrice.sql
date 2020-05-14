@@ -10,8 +10,8 @@ drop function if exists getRatePrice;
 delimiter //
 create function getRatePrice
 (
-pIdCityOrigin int,
-pIdCityDestinity int
+pIdOriginCity int,
+pIdDestinityCity int
 )
 returns float
 not deterministic
@@ -23,9 +23,9 @@ begin
 				minutePrice
 			  from rates
 			  where
-				idCityOrigin=pIdCityOrigin
+				idOriginCity=pIdOriginCity
 			  and
-				idCityDestinity=pIdCityDestinity
+				idDestinityCity=pIdDestinityCity
 			);
 
   return price;
