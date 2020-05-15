@@ -15,10 +15,10 @@ create function getDbUserName
 returns varchar(100)
 not deterministic
 begin
-  declare dbUserName varchar(100);
+  declare vDbUserName varchar(100);
 
-  set dbUserName=(SELECT LEFT(CURRENT_USER(), INSTR(CURRENT_USER(), '@') - 1));
+  set vDbUserName=(SELECT LEFT(CURRENT_USER(), INSTR(CURRENT_USER(), '@') - 1));
 
-  return dbUserName;
+  return vDbUserName;
 end //
 delimiter ;

@@ -15,10 +15,10 @@ pIdPhoneLine int
 returns int
 not deterministic
 begin
-  declare idCity int;
+  declare vIdCity int;
 
-  set idCity=(select idCity from phoneLinesCitiesView where idPhoneLine=pIdPhoneLine);
+  set vIdCity=(select idCity from phoneLinesCitiesView where idPhoneLine=pIdPhoneLine);
 
-  return idCity;
+  return vIdCity;
 end //
 delimiter ;

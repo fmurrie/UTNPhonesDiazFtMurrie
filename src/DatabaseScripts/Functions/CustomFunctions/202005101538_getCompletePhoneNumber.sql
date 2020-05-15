@@ -17,8 +17,8 @@ pPhoneNumber varchar(100)
 returns varchar(100)
 not deterministic
 begin
-  declare completePhoneNumber varchar(100);
-  set completePhoneNumber= (
+  declare vCompletePhoneNumber varchar(100);
+  set vCompletePhoneNumber= (
 							select
 								concat(
 										interAreaCode,
@@ -39,6 +39,6 @@ begin
 								idLocalAreaCode=pIdLocalAreaCode
 							);
 
-  return completePhoneNumber;
+  return vCompletePhoneNumber;
 end //
 delimiter ;

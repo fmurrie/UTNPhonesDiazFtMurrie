@@ -16,9 +16,9 @@ pIdDestinityCity int
 returns float
 not deterministic
 begin
-  declare price float;
+  declare vPrice float;
 
-  set price=(
+  set vPrice=(
 			  select
 				minutePrice
 			  from rates
@@ -28,6 +28,6 @@ begin
 				idDestinityCity=pIdDestinityCity
 			);
 
-  return price;
+  return vPrice;
 end //
 delimiter ;
