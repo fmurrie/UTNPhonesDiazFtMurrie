@@ -10,24 +10,24 @@ drop function if exists getRatePrice;
 delimiter //
 create function getRatePrice
 (
-pIdCityOrigin int,
-pIdCityDestinity int
+pIdOriginCity int,
+pIdDestinityCity int
 )
 returns float
 not deterministic
 begin
-  declare price float;
+  declare vPrice float;
 
-  set price=(
+  set vPrice=(
 			  select
 				minutePrice
 			  from rates
 			  where
-				idCityOrigin=pIdCityOrigin
+				idOriginCity=pIdOriginCity
 			  and
-				idCityDestinity=pIdCityDestinity
+				idDestinityCity=pIdDestinityCity
 			);
 
-  return price;
+  return vPrice;
 end //
 delimiter ;

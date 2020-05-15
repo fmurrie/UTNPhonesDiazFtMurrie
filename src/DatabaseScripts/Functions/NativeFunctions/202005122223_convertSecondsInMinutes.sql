@@ -10,15 +10,15 @@ drop function if exists convertSecondsInMinutes;
 delimiter //
 create function convertSecondsInMinutes
 (
-pSeconds int
+pSeconds float
 )
 returns float
 not deterministic
 begin
-  declare minutes float;
+  declare vMinutes float;
 
-    set minutes=pSeconds/60;
+    set vMinutes=pSeconds/60;
 
-  return minutes;
+  return vMinutes;
 end //
 delimiter ;

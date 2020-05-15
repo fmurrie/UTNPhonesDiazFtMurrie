@@ -14,10 +14,10 @@ create function getYearMonth
 returns varchar(100)
 not deterministic
 begin
-  declare yearMonth varchar(100);
+  declare vYearMonth varchar(100);
 
-  set yearMonth=(select extract(year_month from now()));
+  set vYearMonth=(select extract(year_month from now()));
 
-  return yearMonth;
+  return vYearMonth;
 end //
 delimiter ;

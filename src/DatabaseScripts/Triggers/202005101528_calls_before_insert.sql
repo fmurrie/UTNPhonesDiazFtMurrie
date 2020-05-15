@@ -8,16 +8,21 @@ use utnphones;
 
 drop trigger if exists calls_before_insert;
 delimiter //
-create trigger if not exists calls_before_insert
+create trigger calls_before_insert
 before insert on calls
 for each row
 begin
 
-if((new.endTime!=null))
-then
+declare vIdOriginCity int;
+declare vIdDestinityCity int;
+
+set vIdOriginCity=getIdCityForIdPhoneLine(new.idPhoneLineOrigin);
+set vIdDestinityCity=getIdCityForIdPhoneLine(new.idPhoneLineDestinity);
+
+call rates_insert(vIdOriginCity,vIdDestinityCity);
+
 set new.durationSeconds=getSecondsBetweenTwoDateTimes(new.initTime,new.endTime);
-set new.totalPrice=getCostForCall(new.idPhoneLineOrigin,new.idPhoneLineDestinity)*convertSecondsInMinutes(new.durationSeconds);
-end if;
+set new.totalPrice=getRatePrice(vIdOriginCity,vIdDestinityCity)*convertSecondsInMinutes(new.durationSeconds);
 
 set new.creatorUser=getDbUserName();
 

@@ -16,10 +16,10 @@ pEndDate datetime
 returns float
 not deterministic
 begin
-  declare seconds float;
+  declare vSeconds float;
 
-  set seconds=(select TIMESTAMPDIFF(SECOND,pInitDate,pEndDate));
+  set vSeconds=(select TIMESTAMPDIFF(SECOND,pInitDate,pEndDate));
 
-  return seconds;
+  return vSeconds;
 end //
 delimiter ;
