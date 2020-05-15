@@ -15,7 +15,7 @@ create table if not exists calls
 	idPhoneLineOrigin int not null,
 	idPhoneLineDestinity int not null,
 	initTime datetime not null,
-	endTime datetime,
+	endTime datetime not null,
 	durationSeconds float,
 	totalPrice float,
     creatorUser varchar(100),

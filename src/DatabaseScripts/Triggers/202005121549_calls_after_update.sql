@@ -18,7 +18,7 @@ then
     update bills
     set
         callsQuantity=callsQuantity+1,
-        costPrice=costPrice+getCostForCall(old.idPhoneLineOrigin,old.idPhoneLineDestinity),
+        costPrice=costPrice+getRatePrice(getIdCityForIdPhoneLine(old.idPhoneLineOrigin),getIdCityForIdPhoneLine(old.idPhoneLineDestinity)),
         totalPrice=totalPrice+old.totalPrice
     where idBill=new.idBill;
 end if;
