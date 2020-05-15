@@ -13,22 +13,15 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"", ""})})
-public class City {
+@Table(name="billStates")
+public class BillState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCity;
+    private Integer idBillState;
 
     @NotNull
-    @Column(name = "idLocalAreaCode")
-    private LocalAreaCode localAreaCode;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idProvince")
-    private Province province;
+    @Column(unique = true)
+    private String description;
 
 }
+

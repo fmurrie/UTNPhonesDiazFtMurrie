@@ -7,28 +7,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 //@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"", ""})})
-public class City {
+@Table(name="userTypes")
+public class UserType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCity;
+    private Integer idUserType;
 
     @NotNull
-    @Column(name = "idLocalAreaCode")
-    private LocalAreaCode localAreaCode;
+    @Column(unique = true)
+    private String description;
 
     @NotNull
-    private String name;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idProvince")
-    private Province province;
+    @OneToMany(mappedBy = "userTypes")
+    private List<User> usersList;
 
 }

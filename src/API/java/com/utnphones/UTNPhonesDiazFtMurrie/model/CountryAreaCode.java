@@ -20,17 +20,18 @@ public class CountryAreaCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCountryAreaCode")
     private Integer idCountryAreaCode;
 
     @NotNull
-    @Column(unique = true, name = "code")
+    @Column(unique = true)
     private String code;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idInterAreaCode")
     InterAreaCode interAreaCode;
+
+
 
 }
 
