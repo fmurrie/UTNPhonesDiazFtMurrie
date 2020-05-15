@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists phoneLines;
-
 create table if not exists phoneLines
 (
 	idPhoneLine int auto_increment,

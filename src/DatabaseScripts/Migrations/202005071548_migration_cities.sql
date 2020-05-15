@@ -6,6 +6,16 @@
 
 use utnphones;
 
+drop procedure if exists migration_cities;
+delimiter //
+create procedure migration_cities
+(
+)
+begin
+
+if(not exists(select 1 from cities limit 1))
+then
+
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES (47, '12 de octubre', 1);
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES (111, '17 de agosto', 1);
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES (63, '25 de mayo (prov. Buenos aires)', 1);
@@ -2969,3 +2979,10 @@ INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES ( 283, 'Villa fiad',
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES ( 260, 'Villa nougues', 23);
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES ( 283, 'Villa quinteros', 23);
 INSERT INTO cities (idLocalAreaCode,name,idProvince) VALUES ( 287, 'Villa rescate', 23);
+
+end if;
+
+end //
+delimiter ;
+
+call migration_cities();

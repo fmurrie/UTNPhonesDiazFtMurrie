@@ -11,7 +11,7 @@ delimiter //
 create function getIdCallTypeBetweenCities
 (
 pIdOriginCity int,
-pIdDestinityCity int
+pIdDestinyCity int
 )
 returns int
 not deterministic
@@ -33,7 +33,7 @@ begin
   from
   (select idCity,idProvince,idCountry from idsPlacesView where idCity=pIdOriginCity) ipv1
   inner join
-  (select idCity,idProvince,idCountry from idsPlacesView where idCity=pIdDestinityCity) ipv2
+  (select idCity,idProvince,idCountry from idsPlacesView where idCity=pIdDestinyCity) ipv2
   );
 
   return vIdCallType;

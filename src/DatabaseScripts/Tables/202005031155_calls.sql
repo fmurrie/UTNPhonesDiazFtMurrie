@@ -6,14 +6,12 @@
 
 use utnphones;
 
-drop table if exists calls;
-
 create table if not exists calls
 (
 	idCall int auto_increment,
 	idBill int,
 	idPhoneLineOrigin int not null,
-	idPhoneLineDestinity int not null,
+	idPhoneLineDestiny int not null,
 	initTime datetime not null,
 	endTime datetime not null,
 	durationSeconds float,
@@ -23,9 +21,9 @@ create table if not exists calls
     updaterUser varchar(100),
     updatedDate datetime,
 	constraint PK_calls_idCall primary key(idCall),
-	constraint CHK_calls_idPhoneLines_not_equal check(idPhoneLineOrigin!=idPhoneLineDestinity),
+	constraint CHK_calls_idPhoneLines_not_equal check(idPhoneLineOrigin!=idPhoneLineDestiny),
 	constraint CHK_calls_endTime_bigger_or_equal_than_initTime check(initTime<=endTime),
 	constraint FK_calls_idBill foreign key(idBill) references bills(idBill) on update cascade on delete cascade,
 	constraint FK_calls_idPhoneLineOrigin foreign key(idPhoneLineOrigin) references phoneLines(idPhoneLine) on update cascade,
-	constraint FK_calls_idPhoneLineDestinity foreign key(idPhoneLineDestinity) references phoneLines(idPhoneLine) on update cascade
+	constraint FK_calls_idPhoneLineDestiny foreign key(idPhoneLineDestiny) references phoneLines(idPhoneLine) on update cascade
 );

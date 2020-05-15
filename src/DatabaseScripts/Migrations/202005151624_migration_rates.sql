@@ -6,18 +6,28 @@
 
 use utnphones;
 
+drop procedure if exists migration_rates;
+delimiter //
+create procedure migration_rates
+(
+)
+begin
+
+if(not exists(select 1 from rates limit 1))
+then
+
 insert
 into rates
 (
 idOriginCity,
-idDestinityCity,
+idDestinyCity,
 minutePrice
 )
 
 select
 
 	ipv1.idCity as idOriginCity,
-	ipv2.idCity as idDestinityCity,
+	ipv2.idCity as idDestinyCity,
 	case
 		when ipv1.idCity=ipv2.idCity
 		then (select minutePrice from callTypes where idCallType=1)
@@ -40,3 +50,10 @@ inner join
 		c.idProvince as idProvince,
         (select p.idCountry from provinces p where p.idProvince=c.idProvince) as idCountry
 	from cities c) as ipv2;
+
+end if;
+
+end //
+delimiter ;
+
+/*call migration_rates();*/

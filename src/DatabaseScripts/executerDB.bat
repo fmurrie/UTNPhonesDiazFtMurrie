@@ -93,7 +93,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005070005_migration_c
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071538_migration_provinces.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071547_migration_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071548_migration_cities.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005151624_migration_rates.sql
+
 
 REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql

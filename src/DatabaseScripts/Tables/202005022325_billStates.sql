@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists billStates;
-
 create table if not exists billStates
 (
 	idBillState int auto_increment,

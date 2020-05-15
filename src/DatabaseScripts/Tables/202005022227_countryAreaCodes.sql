@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists countryAreaCodes;
-
 create table if not exists countryAreaCodes
 (
 	idCountryAreaCode int auto_increment,

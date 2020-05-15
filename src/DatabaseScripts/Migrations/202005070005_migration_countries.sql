@@ -6,6 +6,16 @@
 
 use utnphones;
 
+drop procedure if exists migration_countries;
+delimiter //
+create procedure migration_countries
+(
+)
+begin
+
+if(not exists(select 1 from countries limit 1))
+then
+
 INSERT INTO countries (idCountryAreaCode,name) VALUES
 (202, 'Afghanistan'),
 (95, 'Albania'),
@@ -252,3 +262,10 @@ INSERT INTO countries (idCountryAreaCode,name) VALUES
 (63, 'Djibouti'),
 (69, 'Zambia'),
 (72, 'Zimbabwe');
+
+end if;
+
+end //
+delimiter ;
+
+call migration_countries();

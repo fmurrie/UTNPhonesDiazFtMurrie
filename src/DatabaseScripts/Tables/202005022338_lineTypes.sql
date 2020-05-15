@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists lineTypes;
-
 create table if not exists lineTypes
 (
 	idLineType int auto_increment,

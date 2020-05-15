@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists cities;
-
 create table if not exists cities
 (
 	idCity int auto_increment,

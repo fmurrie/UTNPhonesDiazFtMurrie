@@ -11,7 +11,7 @@ delimiter //
 create function getRatePrice
 (
 pIdOriginCity int,
-pIdDestinityCity int
+pIdDestinyCity int
 )
 returns float
 not deterministic
@@ -25,7 +25,7 @@ begin
 			  where
 				idOriginCity=pIdOriginCity
 			  and
-				idDestinityCity=pIdDestinityCity
+				idDestinyCity=pIdDestinyCity
 			);
 
   return vPrice;
