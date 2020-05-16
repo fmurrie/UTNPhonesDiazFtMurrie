@@ -12,7 +12,7 @@ create table if not exists cities
 	idLocalAreaCode int,
 	name varchar(100) not null,
 	idProvince int not null,
-    creatorUser varchar(100),
+    creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
     updatedDate datetime,

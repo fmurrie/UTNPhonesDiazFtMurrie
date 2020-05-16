@@ -11,7 +11,7 @@ create table if not exists countryAreaCodes
 	idCountryAreaCode int auto_increment,
 	code varchar(100) not null,
 	idInterAreaCode int not null,
-    creatorUser varchar(100),
+    creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
     updatedDate datetime,

@@ -10,7 +10,7 @@ create table if not exists interAreaCodes
 (
 	idInterAreaCode int auto_increment,
 	code varchar(100) not null,
-    creatorUser varchar(100),
+    creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
     updatedDate datetime,

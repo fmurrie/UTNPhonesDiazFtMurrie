@@ -11,7 +11,7 @@ create table if not exists provinces
 	idProvince int auto_increment,
 	name varchar(100) not null,
 	idCountry int not null,
-    creatorUser varchar(100),
+    creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
     updatedDate datetime,

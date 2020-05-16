@@ -11,7 +11,7 @@ create table if not exists countries
 	idCountry int auto_increment,
 	idCountryAreaCode int not null,
 	name varchar(100) not null,
-    creatorUser varchar(100),
+    creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
     updatedDate datetime,
