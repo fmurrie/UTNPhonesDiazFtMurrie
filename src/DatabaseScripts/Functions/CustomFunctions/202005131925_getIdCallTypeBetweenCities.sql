@@ -20,20 +20,24 @@ begin
 
   set vIdCallType=
   (
-  select
-  case
-  when ipv1.idCity=ipv2.idCity
-  then 1
-  when ipv1.idProvince=ipv2.idProvince
-  then 2
-  when ipv1.idCountry=ipv2.idCountry
-  then 3
-  else 4
-  end as idCallType
-  from
-  (select idCity,idProvince,idCountry from idsPlacesView where idCity=pIdOriginCity) ipv1
-  inner join
-  (select idCity,idProvince,idCountry from idsPlacesView where idCity=pIdDestinyCity) ipv2
+	select
+		case
+			when ipv1.idCity=ipv2.idCity
+			then 1
+			when ipv1.idProvince=ipv2.idProvince
+			then 2
+			when ipv1.idCountry=ipv2.idCountry
+			then 3
+			else 4
+		end as idCallType
+	from
+		idsPlacesView ipv1
+	inner join
+		idsPlacesView ipv2
+	where
+		ipv1.idCity=pIdOriginCity
+	and
+		ipv2.idCity=pIdDestinyCity
   );
 
   return vIdCallType;

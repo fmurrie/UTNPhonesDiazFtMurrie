@@ -12,9 +12,13 @@ create trigger if not exists calls_before_insert
 before insert on calls
 for each row
 begin
-call rates_insert();
+
+declare vMinutePrice float;
+
+call rates_insertAndGetPrice(getIdCityForIdPhoneLine(new.idPhoneLineOrigin),getIdCityForIdPhoneLine(new.idPhoneLineDestiny),vMinutePrice);
+
 set new.durationSeconds=getSecondsBetweenTwoDateTimes(new.initTime,new.endTime);
-set new.totalPrice=getRatePrice(getIdCityForIdPhoneLine(new.idPhoneLineOrigin),getIdCityForIdPhoneLine(new.idPhoneLineDestiny))*convertSecondsInMinutes(new.durationSeconds);
+set new.totalPrice=vMinutePrice*convertSecondsInMinutes(new.durationSeconds);
 set new.creatorUser=getDbUserName();
 
 end //

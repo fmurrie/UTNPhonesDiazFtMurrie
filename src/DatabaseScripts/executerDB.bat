@@ -42,11 +42,10 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005141719_localAreaCodeFor
 REM Section for execute the scripts from \Functions\CustomFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005101538_getCompletePhoneNumber.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121624_getIdCityForIdPhoneLine.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121640_getRatePrice.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005131925_getIdCallTypeBetweenCities.sql
 
 REM Section for execute the scripts from \Procedures:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_insertAndGetPrice.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
@@ -93,6 +92,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005070005_migration_c
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071538_migration_provinces.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071547_migration_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071548_migration_cities.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005151624_migration_rates.sql
 
 
 REM End-status of the implementation of the database utnphones:
