@@ -81,8 +81,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101526_rates_before_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101527_rates_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121539_calls_after_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121549_calls_after_update.sql
 
 REM Section for execute the scripts from \Migrations:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061800_migration_userTypes.sql
