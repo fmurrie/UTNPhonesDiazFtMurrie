@@ -12,6 +12,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\000000000000_utnphones.sql
 REM Section for execute the scripts from \Functions\NativeFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005021954_getDbUserName.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030129_getDateIn15Days.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102011_getYearMonth.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102036_getSecondsBetweenTwoDateTimes.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005122223_convertSecondsInMinutes.sql
 
 REM Section for execute the scripts from \Tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql
@@ -31,9 +34,18 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 
 REM Section for execute the scripts from \Views:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005101927_codeAreasView.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005121625_phoneLinesCitiesView.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005131644_idsPlacesView.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005141719_localAreaCodeForUsersView.sql
 
 REM Section for execute the scripts from \Functions\CustomFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005101538_getCompletePhoneNumber.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121624_getIdCityForIdPhoneLine.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005131925_getIdCallTypeBetweenCities.sql
+
+REM Section for execute the scripts from \Procedures:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_insertAndGetPrice.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
@@ -66,14 +78,8 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101526_rates_before_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101527_rates_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
-
-REM Section for execute the scripts from \Procedures:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091943_users_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091945_users_delete.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005091952_users_update.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092319_phoneLines_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092335_phoneLines_delete.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005092340_phoneLines_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121539_calls_after_insert.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005121549_calls_after_update.sql
 
 REM Section for execute the scripts from \Migrations:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061800_migration_userTypes.sql
@@ -86,6 +92,8 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005070005_migration_c
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071538_migration_provinces.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071547_migration_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071548_migration_cities.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005151624_migration_rates.sql
+
 
 REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql

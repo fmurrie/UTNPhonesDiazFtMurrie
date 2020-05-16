@@ -12,12 +12,12 @@ create function getDateIn15Days
 (
 )
 returns datetime
-deterministic
+not deterministic
 begin
-  declare dateIn15Days datetime;
+  declare vDateIn15Days datetime;
 
-  set dateIn15Days=(SELECT DATE_ADD(now(), INTERVAL 15 DAY));
+  set vDateIn15Days=(SELECT DATE_ADD(now(), INTERVAL 15 DAY));
 
-  return dateIn15Days;
+  return vDateIn15Days;
 end //
 delimiter ;

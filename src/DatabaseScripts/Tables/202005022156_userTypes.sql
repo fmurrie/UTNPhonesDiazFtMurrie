@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists userTypes;
-
 create table if not exists userTypes
 (
 	idUserType int auto_increment,

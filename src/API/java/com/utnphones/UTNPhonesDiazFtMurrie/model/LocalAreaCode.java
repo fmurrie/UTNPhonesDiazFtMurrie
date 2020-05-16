@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 //@Entity
@@ -20,16 +21,19 @@ public class LocalAreaCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idLocalAreaCode")
-    private Integer idCountryAreaCode;
+    private Integer idLocalAreaCode;
 
     @NotNull
-    @Column(unique = true, name = "code")
+    @Column(unique = true)
     private String code;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idInterAreaCode")
     InterAreaCode interAreaCode;
+
+    @NotNull
+    @OneToMany(mappedBy = "localAreaCodes")
+    private List<City> citiesList;
 
 }

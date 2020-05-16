@@ -6,6 +6,16 @@
 
 use utnphones;
 
+drop procedure if exists migration_provinces;
+delimiter //
+create procedure migration_provinces
+(
+)
+begin
+
+if(not exists(select 1 from provinces limit 1))
+then
+
 INSERT INTO provinces (name,idCountry) VALUES ('Buenos aires', 11);
 INSERT INTO provinces (name,idCountry) VALUES ('Catamarca', 11);
 INSERT INTO provinces (name,idCountry) VALUES ('Chaco', 11);
@@ -29,4 +39,12 @@ INSERT INTO provinces (name,idCountry) VALUES ('Santa fe', 11);
 INSERT INTO provinces (name,idCountry) VALUES ('Santiago del estero', 11);
 INSERT INTO provinces (name,idCountry) VALUES ('Tierra del fuego', 11);
 INSERT INTO provinces (name,idCountry) VALUES ('Tucuman', 11);
+
+end if;
+
+end //
+delimiter ;
+
+call migration_provinces();
+
 

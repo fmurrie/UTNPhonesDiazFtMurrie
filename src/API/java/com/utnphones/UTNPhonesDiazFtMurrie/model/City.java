@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCity")
     private Integer idCity;
 
     @NotNull
@@ -25,12 +24,11 @@ public class City {
     private LocalAreaCode localAreaCode;
 
     @NotNull
-    @Column(name = "name")
     private String name;
 
     @NotNull
-    @Column(name = "idProvince")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idProvince")
     private Province province;
-
 
 }

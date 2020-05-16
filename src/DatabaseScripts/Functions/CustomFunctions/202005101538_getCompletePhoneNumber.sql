@@ -17,32 +17,28 @@ pPhoneNumber varchar(100)
 returns varchar(100)
 not deterministic
 begin
-  declare completePhoneNumber varchar(100);
-  set completePhoneNumber= (
+  declare vCompletePhoneNumber varchar(100);
+  set vCompletePhoneNumber= (
 							select
 								concat(
-										iac.code,
+										interAreaCode,
                                         ' ',
                                         '+',
-                                        cac.code,
+                                        countryAreaCode,
                                         ' (',
                                         (select
 											code
 										from lineTypes
                                         where idLineType=pIdLineType),
                                         ') ',
-                                        lac.code,
+                                        localAreaCode,
                                         '-',
                                         pPhoneNumber) as  phoneNumber
-							from interareacodes iac
-							inner join countryareacodes cac
-								on cac.idInterAreaCode=iac.idInterAreaCode
-							inner join localAreaCodes lac
-								on lac.idCountryAreaCode=cac.idCountryAreaCode
+							from codeAreasView
 							where
-								pIdLocalAreaCode=lac.idLocalAreaCode
+								idLocalAreaCode=pIdLocalAreaCode
 							);
 
-  return completePhoneNumber;
+  return vCompletePhoneNumber;
 end //
 delimiter ;

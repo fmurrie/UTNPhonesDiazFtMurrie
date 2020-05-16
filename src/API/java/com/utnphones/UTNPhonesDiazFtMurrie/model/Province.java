@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -18,17 +19,20 @@ import javax.validation.constraints.NotNull;
 public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idProvince")
     private Integer idProvince;
 
     @NotNull
-    @Column(name = "name")
     private String name;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idCountry")
     private Country country;
+
+    @NotNull
+    @OneToMany(mappedBy = "provinces")
+    private List<City> citiesList;
+
 
 
 }

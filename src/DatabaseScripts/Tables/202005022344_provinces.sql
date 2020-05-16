@@ -6,8 +6,6 @@
 
 use utnphones;
 
-drop table if exists provinces;
-
 create table if not exists provinces
 (
 	idProvince int auto_increment,

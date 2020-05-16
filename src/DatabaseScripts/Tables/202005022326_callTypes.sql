@@ -6,8 +6,6 @@
 
  use utnphones;
 
- drop table if exists callTypes;
-
  create table if not exists callTypes
  (
     idCallType int auto_increment,

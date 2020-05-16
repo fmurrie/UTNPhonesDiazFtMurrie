@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +20,6 @@ import javax.validation.constraints.NotNull;
 public class Country {
 
     @Id
-    @Column(name = "idCountry")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCountry;
 
@@ -30,7 +30,11 @@ public class Country {
     private CountryAreaCode countryAreaCode;
 
     @NotNull
-    @Column(name = "name")
     private String name;
+
+    @NotNull
+    @OneToMany(mappedBy = "countries")
+    private List<Province> provincesList;
+
 
 }

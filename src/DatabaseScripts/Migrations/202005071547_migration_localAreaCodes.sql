@@ -6,6 +6,16 @@
 
 use utnphones;
 
+drop procedure if exists migration_localAreaCodes;
+delimiter //
+create procedure migration_localAreaCodes
+(
+)
+begin
+
+if(not exists(select 1 from localAreaCodes limit 1))
+then
+
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('11', 143);
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('220', 143);
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('2202', 143);
@@ -306,3 +316,10 @@ INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('3888', 143);
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('3891', 143);
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('3892', 143);
 INSERT INTO localareacodes (code, idCountryAreaCode) VALUES ('3894', 143);
+
+end if;
+
+end //
+delimiter ;
+
+call migration_localAreaCodes();

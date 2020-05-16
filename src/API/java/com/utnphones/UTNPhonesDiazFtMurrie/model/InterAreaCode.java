@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -16,11 +17,14 @@ import javax.validation.constraints.NotNull;
 @Table(name = "interAreaCodes")
 public class InterAreaCode {
     @Id
-    @Column(name = "idInterAreaCode")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInterAreaCode;
 
     @NotNull
-    @Column(unique = true, name = "code")
+    @Column(unique = true)
     private String code;
+
+    @NotNull
+    @OneToMany(mappedBy = "interAreaCodes")
+    private List<LocalAreaCode> localAreaCodesList;
 }
