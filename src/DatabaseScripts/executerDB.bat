@@ -46,6 +46,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005131
 
 REM Section for execute the scripts from \Procedures:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_insertAndGetPrice.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161130_users_registerAnUser.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161204_phoneLines_registerAphoneLine.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161228_calls_addAcall.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
