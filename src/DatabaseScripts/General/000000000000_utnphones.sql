@@ -9,6 +9,7 @@ create database if not exists utnphones;
 use utnphones;
 
 SET NAMES 'utf8';
+SET GLOBAL event_scheduler=ON;
 
 create user if not exists 'fmurrie'@'localhost' identified by 'fmurrie';
 grant all privileges on utnphones.* to 'fmurrie'@'localhost';
