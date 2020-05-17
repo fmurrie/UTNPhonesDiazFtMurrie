@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 //@Entity
 @NoArgsConstructor
@@ -22,6 +23,10 @@ public class BillState {
     @NotNull
     @Column(unique = true)
     private String description;
+
+    @NotNull
+    @OneToMany(mappedBy = "billStates")
+    private List<Bill> billsList;
 
 }
 

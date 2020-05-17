@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"", ""})})
+@Table(name="cities")
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

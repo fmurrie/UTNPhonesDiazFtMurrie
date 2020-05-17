@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 //@Entity
@@ -38,5 +39,9 @@ public class PhoneLine {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idUser")
     private User user;
+
+    @NotNull
+    @OneToMany(mappedBy = "phoneLines")
+    private List<Call> callsList;
 
 }

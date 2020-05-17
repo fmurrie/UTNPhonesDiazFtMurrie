@@ -1,4 +1,4 @@
-/*package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,24 +13,27 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="rates", uniqueConstraints = {@UniqueConstraint(columnNames = {"", ""})})
+@Table(name="rates")
 public class Rate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRate;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
     @Column(name = "idLocalAreaCode")
     private LocalAreaCode localAreaCode;
 
     @NotNull
+    @OneToMany(mappedBy = "rates")
     @JoinColumn(name = "idOriginCity")
     private City originCity;
 
     @NotNull
+    @OneToMany(mappedBy = "rates")
     @JoinColumn(name = "idDestinyCity")
     private City destinyCity;
 
     @NotNull
     private Float minutePrice;
-}*/
+}
