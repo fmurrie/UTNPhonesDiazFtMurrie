@@ -16,7 +16,7 @@ inout pMinutePrice float
 )
 begin
 
-set pMinutePrice=(select minutePrice from rates where idOriginCity=1 and idDestinyCity=2);
+set pMinutePrice=(select minutePrice from rates where idOriginCity=pIdOriginCity and idDestinyCity=pIdDestinyCity);
 
 if(pMinutePrice is null)
 then

@@ -49,6 +49,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_inser
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161130_users_registerAnUser.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161204_phoneLines_registerAphoneLine.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161228_calls_addAcall.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161922_bills_monthFacturation.sql
 
 REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
@@ -81,6 +82,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101526_rates_before_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101527_rates_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005161943_bills_after_insert.sql
 
 REM Section for execute the scripts from \Migrations:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061800_migration_userTypes.sql
