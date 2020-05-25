@@ -6,17 +6,17 @@ SET PROJECT_PATH=%cd%
 cd\
 echo on
 
-REM Section for execute the scripts from \General:
+@REM Section for execute the scripts from \General:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\000000000000_utnphones.sql
 
-REM Section for execute the scripts from \Functions\NativeFunctions:
+@REM Section for execute the scripts from \Functions\NativeFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005021954_getDbUserName.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005030129_getDateIn15Days.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102011_getYearMonth.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005102036_getSecondsBetweenTwoDateTimes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\NativeFunctions\202005122223_convertSecondsInMinutes.sql
 
-REM Section for execute the scripts from \Tables:
+@REM Section for execute the scripts from \Tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022156_userTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022216_interAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005022227_countryAreaCodes.sql
@@ -33,18 +33,18 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005030139_bills.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Tables\202005031155_calls.sql
 
-REM Section for execute the scripts from \Views:
+@REM Section for execute the scripts from \Views:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005101927_codeAreasView.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005121625_phoneLinesCitiesView.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005131644_idsPlacesView.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Views\202005141719_localAreaCodeForUsersView.sql
 
-REM Section for execute the scripts from \Functions\CustomFunctions:
+@REM Section for execute the scripts from \Functions\CustomFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005101538_getCompletePhoneNumber.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005121624_getIdCityForIdPhoneLine.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Functions\CustomFunctions\202005131925_getIdCallTypeBetweenCities.sql
 
-REM Section for execute the scripts from \Procedures:
+@REM Section for execute the scripts from \Procedures:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005081536_rates_insertAndGetPrice.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161130_users_registerAnUser.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161204_phoneLines_registerAphoneLine.sql
@@ -52,7 +52,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161228_calls_addAc
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005161922_bills_monthFacturation.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Procedures\202005171953_users_get.sql
 
-REM Section for execute the scripts from \Triggers:
+@REM Section for execute the scripts from \Triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101500_userTypes_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101501_userTypes_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101502_interAreaCodes_before_insert.sql
@@ -85,7 +85,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101528_calls_before_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005101529_calls_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Triggers\202005161943_bills_after_insert.sql
 
-REM Section for execute the scripts from \Migrations:
+@REM Section for execute the scripts from \Migrations:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061800_migration_userTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061802_migration_billStates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005061803_migration_lineTypes.sql
@@ -98,10 +98,10 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071547_migration_l
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005071548_migration_cities.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Migrations\202005151624_migration_rates.sql
 
-REM Section for execute the scripts from \Events:
+@REM Section for execute the scripts from \Events:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\Events\202005171041_event_facturation.sql
 
-REM End-status of the implementation of the database utnphones:
+@REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\General\999999999999_endstatus.sql
 
 PAUSE

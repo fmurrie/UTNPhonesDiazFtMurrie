@@ -9,6 +9,7 @@ create database if not exists utnphones;
 use utnphones;
 
 SET NAMES 'utf8';
+SET GLOBAL time_zone = '-3:00';
 SET GLOBAL event_scheduler=ON;
 
 create user if not exists 'fmurrie'@'localhost' identified by 'fmurrie';
