@@ -49,7 +49,6 @@ public class User {
     @NotNull
     private String userpassword;
 
-    @NotNull
     @JsonBackReference(value = "user-phoneLine")
     @OneToMany(mappedBy = "user")
     private List<PhoneLine> phoneLines;
