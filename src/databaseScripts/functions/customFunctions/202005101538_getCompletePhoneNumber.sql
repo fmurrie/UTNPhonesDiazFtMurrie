@@ -11,7 +11,7 @@ delimiter //
 create function getCompletePhoneNumber
 (
 pIdLineType int,
-pIdLocalAreaCode int,
+pIdCity int,
 pPhoneNumber varchar(100)
 )
 returns varchar(100)
@@ -21,8 +21,6 @@ begin
   set vCompletePhoneNumber= (
 							select
 								concat(
-										interAreaCode,
-                                        ' ',
                                         '+',
                                         countryAreaCode,
                                         ' (',
@@ -31,12 +29,12 @@ begin
 										from lineTypes
                                         where idLineType=pIdLineType),
                                         ') ',
-                                        localAreaCode,
+                                        cityAreaCode,
                                         '-',
                                         pPhoneNumber) as  phoneNumber
-							from codeAreasView
+							from areaCodesView
 							where
-								idLocalAreaCode=pIdLocalAreaCode
+								idCity=pIdCity
 							);
 
   return vCompletePhoneNumber;

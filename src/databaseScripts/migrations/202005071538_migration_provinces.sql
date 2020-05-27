@@ -16,29 +16,29 @@ begin
 if(not exists(select 1 from provinces limit 1))
 then
 
-INSERT INTO provinces (name,idCountry) VALUES ('Buenos aires', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Catamarca', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Chaco', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Chubut', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Cordoba', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Corrientes', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Entre rios', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Formosa', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Jujuy', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('La pampa', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('La rioja', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Mendoza', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Misiones', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Neuquen', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Rio negro', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Salta', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('San juan', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('San luis', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Santa cruz', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Santa fe', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Santiago del estero', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Tierra del fuego', 11);
-INSERT INTO provinces (name,idCountry) VALUES ('Tucuman', 11);
+INSERT INTO provinces (name,idCountry) VALUES ('Buenos aires',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Catamarca',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Chaco',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Chubut',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Cordoba',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Corrientes',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Entre Rios',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Formosa',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Jujuy',10);
+INSERT INTO provinces (name,idCountry) VALUES ('La Pampa',10);
+INSERT INTO provinces (name,idCountry) VALUES ('La Rioja',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Mendoza',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Misiones',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Neuquen',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Rio Negro',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Salta',10);
+INSERT INTO provinces (name,idCountry) VALUES ('San Juan',10);
+INSERT INTO provinces (name,idCountry) VALUES ('San Luis',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Santa Cruz',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Santa Fe',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Santiago del Estero',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Tierra del Fuego',10);
+INSERT INTO provinces (name,idCountry) VALUES ('Tucuman',10);
 
 end if;
 

@@ -18,9 +18,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\functions\nativeFunctions\202005122
 
 @REM Section for execute the scripts from \tables:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022156_userTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022216_interAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022227_countryAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022237_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022256_countries.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022325_billStates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005022326_callTypes.sql
@@ -34,10 +31,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005031124_rates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\tables\202005031155_calls.sql
 
 @REM Section for execute the scripts from \views:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\views\202005101927_codeAreasView.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\views\202005101927_areaCodesView.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\views\202005121625_phoneLinesCitiesView.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\views\202005131644_idsPlacesView.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\views\202005141719_localAreaCodeForUsersView.sql
 
 @REM Section for execute the scripts from \functions\customFunctions:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\functions\customFunctions\202005101538_getCompletePhoneNumber.sql
@@ -55,12 +51,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005171953_users_get.s
 @REM Section for execute the scripts from \triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101500_userTypes_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101501_userTypes_before_update.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101502_interAreaCodes_before_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101503_interAreaCodes_before_update.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101504_countryAreaCodes_before_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101505_countryAreaCodes_before_update.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101506_localAreaCodes_before_insert.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101507_localAreaCodes_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101508_countries_before_insert.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101509_countries_before_update.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101510_billStates_before_insert.sql
@@ -90,11 +80,8 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005061800_migration_u
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005061802_migration_billStates.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005061803_migration_lineTypes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005061804_migration_callTypes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005061821_migration_interAreaCodes.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005062121_migration_countryAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005070005_migration_countries.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005071538_migration_provinces.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005071547_migration_localAreaCodes.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005071548_migration_cities.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005151624_migration_rates.sql
 

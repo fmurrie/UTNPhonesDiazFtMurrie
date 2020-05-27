@@ -1,7 +1,5 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.configuration;
 
-//import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionFilter;
-
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
