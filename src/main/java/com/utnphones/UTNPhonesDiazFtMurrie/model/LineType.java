@@ -2,7 +2,6 @@ package com.utnphones.UTNPhonesDiazFtMurrie.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Table(name="lineTypes")
-public class LineType {
-
+public class LineType
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLineType")

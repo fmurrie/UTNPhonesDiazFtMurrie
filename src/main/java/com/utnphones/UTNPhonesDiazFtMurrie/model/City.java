@@ -10,23 +10,21 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="cities")
-public class City {
+@Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "idProvince"})})
+public class City
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCity;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idLocalAreaCode")
-    private LocalAreaCode localAreaCode;
+    private String name;
 
     @NotNull
-    private String name;
+    private String areaCode;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idProvince")
     private Province province;
-
 }

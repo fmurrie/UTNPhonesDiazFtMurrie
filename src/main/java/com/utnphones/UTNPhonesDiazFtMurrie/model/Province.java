@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -24,7 +23,6 @@ public class Province {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties("provincesList")
     @JsonBackReference(value = "province-country")
     @JoinColumn(name = "idCountry")
     private Country country;
@@ -33,8 +31,4 @@ public class Province {
     @JsonBackReference(value = "province-city")
     @OneToMany(mappedBy = "province")
     private List<City> citiesList;
-
-    //public String getCountry (){return country.toString();}
-
-
 }

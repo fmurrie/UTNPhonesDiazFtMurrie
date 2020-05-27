@@ -1,12 +1,8 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -16,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "countries", uniqueConstraints = {@UniqueConstraint(columnNames = {"idCountryAreaCode", "name"})})
+@Table(name = "countries")
 public class Country {
 
     @Id
@@ -24,15 +20,17 @@ public class Country {
     private Integer idCountry;
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idCountryAreaCode")
-    private CountryAreaCode countryAreaCode;
+    @Column(unique=true)
+    private String iso;
 
     @NotNull
+    @Column(unique=true)
     private String name;
 
     @NotNull
-    //@JsonIgnoreProperties("country")
+    private String areaCode;
+
+    @NotNull
     @OneToMany(mappedBy = "country", orphanRemoval = true)
     private List<Province> provincesList;
 }

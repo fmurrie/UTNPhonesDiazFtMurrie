@@ -20,11 +20,6 @@ public class Rate {
     private Integer idRate;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "idLocalAreaCode")
-    private LocalAreaCode localAreaCode;
-
-    @NotNull
     @OneToMany(mappedBy = "rates")
     @JoinColumn(name = "idOriginCity")
     private City originCity;
