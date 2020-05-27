@@ -1,11 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.login;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.UserController;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.LoginRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.InvalidLoginException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

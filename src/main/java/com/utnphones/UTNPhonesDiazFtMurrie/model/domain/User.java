@@ -1,11 +1,9 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -16,8 +14,8 @@ import java.util.List;
 @Data
 @Builder
 @Table(name="users")
-public class User {
-
+public class User
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
@@ -49,8 +47,6 @@ public class User {
     @NotNull
     private String userpassword;
 
-    @JsonBackReference(value = "user-phoneLine")
-    @OneToMany(mappedBy = "user")
-    private List<PhoneLine> phoneLines;
-
+    @Transient
+    private List<PhoneLine> phoneLinesList;
 }

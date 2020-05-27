@@ -1,11 +1,13 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -13,38 +15,40 @@ import java.util.Date;
 @Data
 @Builder
 @Table(name="bills",uniqueConstraints = {@UniqueConstraint(columnNames = {"idPhoneLine", "billMonth"})})
-public class Bill {
-
+public class Bill
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBill;
 
-    //@NotNull
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idBillState")
-    private BillState billState;//default 0
+    private BillState billState;
 
-    //@NotNull
+    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idPhoneLine")
     private PhoneLine phoneLine ;
 
-    //@NotNull
+    @NotNull
     private Integer callsQuantity;
 
-    //@NotNull
+    @NotNull
     private Float costPrice;
 
-    //@NotNull
+    @NotNull
     private Float totalPrice;
 
-    // @NotNull
+    @NotNull
     private String billMonth;
 
-    // @NotNull
-    private Date issueDate;//default now
+    @NotNull
+    private Date issueDate;
 
-    //@NotNull
+    @NotNull
     private Date expiryDate;
 
+    @Transient
+    private List<Call> callList;
 }

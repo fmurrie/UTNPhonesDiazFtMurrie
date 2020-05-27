@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,6 @@ public class Province {
     @JoinColumn(name = "idCountry")
     private Country country;
 
-    @NotNull
-    @JsonBackReference(value = "province-city")
-    @OneToMany(mappedBy = "province")
-    private List<City> citiesList;
+    @Transient
+    private List<City> cityList;
 }

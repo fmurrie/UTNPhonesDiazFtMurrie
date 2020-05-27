@@ -1,10 +1,9 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -15,7 +14,8 @@ import java.util.Date;
 @Data
 @Builder
 @Table(name="calls")
-public class Call {
+public class Call
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCall;
@@ -27,13 +27,11 @@ public class Call {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    //@JsonBackReference(value = "call-phoneLine")
     @JoinColumn(name = "idPhoneLineOrigin")
     private PhoneLine phoneLineOrigin ;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    //@JsonBackReference(value = "call-phoneLine")
     @JoinColumn(name = "idPhoneLineDestiny")
     private PhoneLine phoneLineDestiny ;
 
@@ -48,5 +46,4 @@ public class Call {
 
     @NotNull
     private Float totalPrice;
-
 }

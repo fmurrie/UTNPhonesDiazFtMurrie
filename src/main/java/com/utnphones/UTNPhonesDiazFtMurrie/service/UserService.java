@@ -2,8 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

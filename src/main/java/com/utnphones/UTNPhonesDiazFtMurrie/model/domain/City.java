@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

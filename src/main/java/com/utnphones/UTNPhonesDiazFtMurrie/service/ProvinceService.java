@@ -1,7 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.ProvinceDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.Province;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

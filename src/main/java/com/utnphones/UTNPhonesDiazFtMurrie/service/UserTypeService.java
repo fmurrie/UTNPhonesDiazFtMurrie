@@ -1,7 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserTypeDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.UserType;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

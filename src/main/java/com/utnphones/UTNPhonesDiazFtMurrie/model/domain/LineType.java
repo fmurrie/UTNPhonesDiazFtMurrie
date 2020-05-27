@@ -1,6 +1,5 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="userTypes")
-public class UserType {
+@Table(name="lineTypes")
+public class LineType
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idLineType")
     private Integer idUserType;
 
     @NotNull
@@ -23,8 +24,8 @@ public class UserType {
     private String description;
 
     @NotNull
-    @JsonBackReference(value = "userType-user")
-    @OneToMany(mappedBy = "userType")
-    private List<User> usersList;
+    private String code;
 
+    @Transient
+    private List<PhoneLine> phoneLineList;
 }

@@ -1,8 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.model.Country;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.Province;
-import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryService;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Province;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

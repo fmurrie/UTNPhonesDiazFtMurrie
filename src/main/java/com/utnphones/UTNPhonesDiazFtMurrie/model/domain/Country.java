@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,6 @@ public class Country {
     @NotNull
     private String areaCode;
 
-    @NotNull
-    @OneToMany(mappedBy = "country", orphanRemoval = true)
-    private List<Province> provincesList;
+    @Transient
+    private List<Province> provinceList;
 }

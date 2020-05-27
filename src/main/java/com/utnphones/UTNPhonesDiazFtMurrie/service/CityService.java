@@ -1,12 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.City;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.List;
 
 import static java.util.Objects.isNull;

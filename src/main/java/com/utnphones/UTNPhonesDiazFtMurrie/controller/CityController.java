@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.model.City;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

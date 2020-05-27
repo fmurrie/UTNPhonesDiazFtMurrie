@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +35,5 @@ public class PhoneLine
     private User user;
 
     @Transient
-    private List<Call> callsList;
+    private List<Call> callList;
 }
