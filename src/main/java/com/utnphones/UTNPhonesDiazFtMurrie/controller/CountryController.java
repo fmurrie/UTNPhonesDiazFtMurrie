@@ -13,7 +13,6 @@ import java.util.List;
 public class CountryController {
 
     private final CountryService countryService;
-    private Country country;
 
     @Autowired
     public CountryController(CountryService countryService) {
