@@ -14,11 +14,20 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 @Table(name="rates")
-@IdClass(RateId.class)
 public class Rate
 {
     @EmbeddedId
     private RateId rateId;
+
+    @MapsId("idOriginCity")//value corresponds to property in the ID class
+    @ManyToOne
+    @JoinColumn(name = "idOriginCity")
+    private City idOriginCity;
+
+    @MapsId("idDestinyCity")//value corresponds to property in the ID class
+    @ManyToOne
+    @JoinColumn(name = "idDestinyCity")
+    private City idDestinyCity;
 
     @NotNull
     private Float minutePrice;

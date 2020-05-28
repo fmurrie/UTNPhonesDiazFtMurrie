@@ -22,7 +22,7 @@ public class Province {
     private String name;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value = "province-country")
     @JoinColumn(name = "idCountry")
     private Country country;

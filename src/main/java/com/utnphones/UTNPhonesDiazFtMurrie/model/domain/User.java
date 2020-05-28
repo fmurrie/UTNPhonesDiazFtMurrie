@@ -18,6 +18,7 @@ public class User
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser")
     private Integer idUser;
 
     @NotNull
@@ -26,13 +27,15 @@ public class User
     private UserType userType;
 
     @NotNull
-    @Column(unique = true)
+    @Column(name="dni",unique = true)
     private String dni;
 
     @NotNull
+    @Column(name="firstName")
     private String firstName;
 
     @NotNull
+    @Column(name="lastName")
     private String lastName;
 
     @NotNull
@@ -41,12 +44,10 @@ public class User
     private City city;
 
     @NotNull
-    @Column(unique = true)
+    @Column(name="username",unique = true)
     private String username;
 
     @NotNull
+    @Column(name="userpassword")
     private String userpassword;
-
-    @Transient
-    private List<PhoneLine> phoneLinesList;
 }
