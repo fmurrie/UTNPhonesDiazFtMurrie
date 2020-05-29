@@ -24,5 +24,10 @@ public class CountryService {
 
     public List<Country> getAll() { return countryDao.findAll(); }
 
-    public Optional<Country> getById(Integer id) { return countryDao.findById(id); }
+    public Optional<Country> getById(Integer idCountry) { return countryDao.findById(idCountry); }
+
+    public Country getByIso(String iso)
+    {
+        return countryDao.findByIso(iso);
+    }
 }

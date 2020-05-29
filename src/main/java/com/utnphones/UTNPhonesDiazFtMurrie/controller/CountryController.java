@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/country")
-public class CountryController {
+public class CountryController
+{
     //Properties:
     private final CountryService countryService;
 
@@ -29,8 +30,5 @@ public class CountryController {
     List<Country> getAllCountries() { return countryService.getAll(); }
 
     @GetMapping("/{idCountry}")
-    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) {
-        return ResponseEntity.ok(countryService.getById(idCountry));
-    }
-
+    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) { return ResponseEntity.ok(countryService.getById(idCountry)); }
 }

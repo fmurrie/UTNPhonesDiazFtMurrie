@@ -6,24 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static java.util.Objects.isNull;
+import java.util.Optional;
 
 @Service
 public class CityService {
+    //Properties:
     CityDao cityDao;
 
+    //Constructors:
     @Autowired
     public CityService(CityDao cityDao){this.cityDao=cityDao;}
 
-    public List<City> getCity(String name) {
-        if (isNull(name)){
-            return cityDao.findAll();
-        }
-        else { return cityDao.findByName(name);}
-    }
-
+    //Methods:
     public void add(final City city) {
         cityDao.save(city);
+    }
+
+    public List<City> getAll()
+    {
+        return cityDao.findAll();
+    }
+
+    public Optional<City> getById(Integer idCity)
+    {
+        return cityDao.findById(idCity);
     }
 }

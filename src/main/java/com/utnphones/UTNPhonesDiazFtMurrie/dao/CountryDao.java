@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CountryDao extends JpaRepository<Country,Integer> {
+    Country findByIso(String iso);
 }

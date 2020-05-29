@@ -1,15 +1,17 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Province;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("province")
+@RequestMapping("/province")
 public class ProvinceController
 {
     //Properties:
@@ -28,7 +30,12 @@ public class ProvinceController
     }
 
     @GetMapping("/")
-    List<Province> getProvince(String name) {
-        return provinceService.getProvince(name);
+    List<Province> getAllProvinces() {
+        return provinceService.getAll();
+    }
+
+    @GetMapping("/{idProvince}")
+    ResponseEntity<Optional<Province>> getProvinceById(@PathVariable Integer idProvince) {
+        return ResponseEntity.ok(provinceService.getById(idProvince));
     }
 }
