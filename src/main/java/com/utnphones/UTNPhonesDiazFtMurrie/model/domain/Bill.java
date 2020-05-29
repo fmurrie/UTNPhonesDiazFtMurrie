@@ -17,6 +17,7 @@ import java.util.List;
 @Table(name="bills",uniqueConstraints = {@UniqueConstraint(columnNames = {"idPhoneLine", "billMonth"})})
 public class Bill
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBill;

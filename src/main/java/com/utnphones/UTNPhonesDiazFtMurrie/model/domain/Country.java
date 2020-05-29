@@ -13,8 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Table(name = "countries")
-public class Country {
-
+public class Country
+{
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCountry;

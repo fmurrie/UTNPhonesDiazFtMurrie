@@ -9,16 +9,19 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("province/")
-public class ProvinceController {
-
+@RequestMapping("province")
+public class ProvinceController
+{
+    //Properties:
     private final ProvinceService provinceService;
 
+    //Constructors:
     @Autowired
     public ProvinceController(ProvinceService provinceService) {
         this.provinceService = provinceService;
     }
 
+    //Methods:
     @PostMapping("/")
     public void addProvince(@RequestBody @Valid Province province) {
         provinceService.add(province);

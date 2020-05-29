@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="rates")
 public class Rate
 {
+    //Properties:
     @EmbeddedId
     private RateId rateId;
 

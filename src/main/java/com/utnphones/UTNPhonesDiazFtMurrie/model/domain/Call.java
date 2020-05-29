@@ -16,6 +16,7 @@ import java.util.Date;
 @Table(name="calls")
 public class Call
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCall;

@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @Table(name="billStates")
 public class BillState {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBillState;

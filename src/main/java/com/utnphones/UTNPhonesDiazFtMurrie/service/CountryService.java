@@ -6,24 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static java.util.Objects.isNull;
+import java.util.Optional;
 
 @Service
 public class CountryService {
+    //Properties:
     CountryDao countryDao;
 
+    //Constructors:
     @Autowired
     public CountryService(CountryDao countryDao){this.countryDao=countryDao;}
 
-    public List<Country> getCountry(String name) {
-        if (isNull(name)){
-            return countryDao.findAll();
-        }
-        else { return countryDao.findByName(name);}
-    }
-
+    //Methods:
     public void add(final Country country) {
         countryDao.save(country);
     }
+
+    public List<Country> getAll() { return countryDao.findAll(); }
+
+    public Optional<Country> getById(Integer id) { return countryDao.findById(id); }
 }

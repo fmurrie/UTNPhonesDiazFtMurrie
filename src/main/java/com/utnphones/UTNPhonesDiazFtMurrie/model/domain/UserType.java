@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name="userTypes")
 public class UserType
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUserType;

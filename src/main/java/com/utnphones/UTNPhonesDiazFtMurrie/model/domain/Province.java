@@ -13,7 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Table(name="provinces", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "idCountry"})})
-public class Province {
+public class Province
+{
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProvince;

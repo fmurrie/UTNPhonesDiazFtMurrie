@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name="phoneLines")
 public class PhoneLine
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPhoneLine;

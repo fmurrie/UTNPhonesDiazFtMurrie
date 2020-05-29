@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "idProvince"})})
 public class City
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCity;

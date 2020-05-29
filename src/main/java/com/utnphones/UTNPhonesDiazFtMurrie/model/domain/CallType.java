@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Table(name="callTypes")
 public class CallType {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCallType;

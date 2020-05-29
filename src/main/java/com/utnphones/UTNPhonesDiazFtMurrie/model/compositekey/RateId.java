@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Builder
 public class RateId implements Serializable
 {
+    //Properties:
     @NotNull
     private Integer idOriginCity;
 

@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name="lineTypes")
 public class LineType
 {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLineType")
