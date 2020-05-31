@@ -14,25 +14,25 @@ import java.util.Optional;
 public class CityController
 {
     //Properties:
-    private final CityService cityService;
+    private final CityService service;
 
     //Constructors:
     @Autowired
-    public CityController(CityService cityService) {
-        this.cityService = cityService;
+    public CityController(CityService service) {
+        this.service = service;
     }
 
     //Methods:
     @PostMapping("/")
     public void addCity(@RequestBody @Valid City city) {
-        cityService.add(city);
+        service.add(city);
     }
 
     @GetMapping("/")
     List<City> getAllCities() {
-        return cityService.getAll();
+        return service.getAll();
     }
 
     @GetMapping("/{idCity}")
-    ResponseEntity<Optional<City>> getCityById(@PathVariable Integer idCity) { return ResponseEntity.ok(cityService.getById(idCity)); }
+    ResponseEntity<Optional<City>> getCityById(@PathVariable Integer idCity) { return ResponseEntity.ok(service.getById(idCity)); }
 }

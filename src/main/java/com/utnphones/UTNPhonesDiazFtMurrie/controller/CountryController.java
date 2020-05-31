@@ -14,21 +14,21 @@ import java.util.Optional;
 public class CountryController
 {
     //Properties:
-    private final CountryService countryService;
+    private final CountryService service;
 
     //Constructors:
     @Autowired
-    public CountryController(CountryService countryService) { this.countryService = countryService; }
+    public CountryController(CountryService service) { this.service = service; }
 
     //Methods:
     @PostMapping("/")
     public void addCountry(@RequestBody @Valid Country country) {
-        countryService.add(country);
+        service.add(country);
     }
 
     @GetMapping("/")
-    List<Country> getAllCountries() { return countryService.getAll(); }
+    List<Country> getAllCountries() { return service.getAll(); }
 
     @GetMapping("/{idCountry}")
-    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) { return ResponseEntity.ok(countryService.getById(idCountry)); }
+    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) { return ResponseEntity.ok(service.getById(idCountry)); }
 }

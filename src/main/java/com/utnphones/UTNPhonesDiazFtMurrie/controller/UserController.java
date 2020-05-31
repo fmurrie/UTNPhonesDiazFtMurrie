@@ -2,7 +2,6 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,41 +16,36 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-
+    //Properties:
     private SessionManager sessionManager;
 
-    //Properties:
-
-    private final UserService userService;
+    private final UserService service;
 
     //Constructors:
     @Autowired
-    public UserController(UserService userService, SessionManager sessionManager) {
-        this.userService = userService;
+    public UserController(UserService service, SessionManager sessionManager) {
+        this.service = service;
         this.sessionManager=sessionManager;
     }
 
+    //Methods:
     @PostMapping("/")
     public User addUser(@RequestBody @Valid User user) throws UserAlreadyExistsException {
-        return userService.addUser(user);
+        return service.addUser(user);
     }
-
-
-    //Methods:
 
     @GetMapping("/")
     List<User> getAllUsers() {
-        return userService.getAll();
+        return service.getAll();
     }
 
     @GetMapping("/{idUser}")
-    ResponseEntity<Optional<User>> getUserTypeById(@PathVariable Integer idUser) { return ResponseEntity.ok(userService.getUserById(idUser)); }
-
+    ResponseEntity<Optional<User>> getUserTypeById(@PathVariable Integer idUser) { return ResponseEntity.ok(service.getUserById(idUser)); }
 
     @PostMapping("/login")
     public User login(String username, String password) throws UserNotexistException, ValidationException {
         if ((username != null) && (password != null)) {
-            return userService.login(username, password);
+            return service.login(username, password);
         } else {
             throw new ValidationException("username and password must have a value");
         }
@@ -60,7 +54,7 @@ public class UserController {
     @PutMapping("/")
     public ResponseEntity update (@RequestBody @Valid User updatedUser) throws ValidationException, UserNotexistException {
         if(updatedUser!=null) {
-            return ResponseEntity.ok(userService.updateUser(updatedUser));
+            return ResponseEntity.ok(service.updateUser(updatedUser));
         } else {
             throw new ValidationException("User fields must have a value");
         }
