@@ -2,6 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,14 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
+
     private SessionManager sessionManager;
+
+    //Properties:
+
     private final UserService userService;
 
+    //Constructors:
     @Autowired
     public UserController(UserService userService, SessionManager sessionManager) {
         this.userService = userService;
@@ -30,15 +36,17 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @GetMapping("/{idUser}")
-    public Optional<User> getUserById(@PathVariable Integer userId) {
-        return userService.getUserById(userId);
-    }
+
+    //Methods:
 
     @GetMapping("/")
-    public List<User> getAll() {
+    List<User> getAllUsers() {
         return userService.getAll();
     }
+
+    @GetMapping("/{idUser}")
+    ResponseEntity<Optional<User>> getUserTypeById(@PathVariable Integer idUser) { return ResponseEntity.ok(userService.getUserById(idUser)); }
+
 
     @PostMapping("/login")
     public User login(String username, String password) throws UserNotexistException, ValidationException {

@@ -7,5 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ProvinceDao extends JpaRepository<Province,Integer> {
+    //Methods:
     List<Province> findByName(String name);
 }

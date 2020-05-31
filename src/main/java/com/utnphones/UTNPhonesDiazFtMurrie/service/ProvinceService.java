@@ -9,18 +9,20 @@ import java.util.Optional;
 
 @Service
 public class ProvinceService {
+    //Properties:
+    private final ProvinceDao dao;
 
-    ProvinceDao provinceDao;
-
+    //Constructors:
     @Autowired
-    public ProvinceService(ProvinceDao provinceDao){this.provinceDao=provinceDao;}
+    public ProvinceService(ProvinceDao dao){this.dao = dao;}
 
-    public void add(final Province province) { provinceDao.save(province); }
+    //Methods:
+    public void add(final Province province) { dao.save(province); }
 
-    public List<Province> getAll() { return provinceDao.findAll(); }
+    public List<Province> getAll() { return dao.findAll(); }
 
-    public Optional<Province> getById(Integer idProvince)
+    public Optional<Province> getById(Integer id)
     {
-        return provinceDao.findById(idProvince);
+        return dao.findById(id);
     }
 }

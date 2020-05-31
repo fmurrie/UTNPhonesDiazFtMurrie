@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserTypeDao extends JpaRepository <UserType,Integer> {
-
+    //Methods:
     List<UserType> findByDescription(String description);
-
 }

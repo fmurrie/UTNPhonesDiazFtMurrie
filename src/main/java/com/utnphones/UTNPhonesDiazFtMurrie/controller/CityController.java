@@ -34,7 +34,5 @@ public class CityController
     }
 
     @GetMapping("/{idCity}")
-    ResponseEntity<Optional<City>> getCityById(@PathVariable Integer idCity) {
-        return ResponseEntity.ok(cityService.getById(idCity));
-    }
+    ResponseEntity<Optional<City>> getCityById(@PathVariable Integer idCity) { return ResponseEntity.ok(cityService.getById(idCity)); }
 }

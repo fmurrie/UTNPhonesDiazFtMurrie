@@ -7,8 +7,7 @@ import java.util.List;
 
 @Repository
 public interface UserDao extends JpaRepository<User,Integer> {
-
+    //Methods:
     public User findByUsernameAndUserpassword(String username,String password);
-
     public List<User> findByFirstName(String username);
 }

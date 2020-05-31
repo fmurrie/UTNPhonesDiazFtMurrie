@@ -5,6 +5,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,25 +13,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService
+{
+    //Properties:
+    private final UserDao dao;
 
-    UserDao dao;
-    // public UserService(@Qualifier("userDao"){}
+    //Constructors:
     @Autowired
     public UserService (UserDao dao) {
         this.dao = dao;
     }
 
-    public User addUser(User user) throws UserAlreadyExistsException {
-        return dao.save(user);
-    }
+    public User addUser(User user) throws UserAlreadyExistsException { return dao.save(user); }
 
-    public Optional<User> getUserById(Integer userId){
-        return dao.findById(userId);
-    }
-
-    public List<User> getAll(){
+    //Methods:
+    public List<User> getAll()
+    {
         return dao.findAll();
+    }
+
+    public Optional<User> getUserById(Integer id)
+    {
+        return dao.findById(id);
     }
 
 
