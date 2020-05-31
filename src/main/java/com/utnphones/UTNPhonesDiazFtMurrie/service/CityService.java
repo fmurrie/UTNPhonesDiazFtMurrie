@@ -11,24 +11,24 @@ import java.util.Optional;
 @Service
 public class CityService {
     //Properties:
-    CityDao cityDao;
+    private final CityDao dao;
 
     //Constructors:
     @Autowired
-    public CityService(CityDao cityDao){this.cityDao=cityDao;}
+    public CityService(CityDao dao){this.dao = dao;}
 
     //Methods:
     public void add(final City city) {
-        cityDao.save(city);
+        dao.save(city);
     }
 
     public List<City> getAll()
     {
-        return cityDao.findAll();
+        return dao.findAll();
     }
 
-    public Optional<City> getById(Integer idCity)
+    public Optional<City> getById(Integer id)
     {
-        return cityDao.findById(idCity);
+        return dao.findById(id);
     }
 }

@@ -11,23 +11,23 @@ import java.util.Optional;
 @Service
 public class CountryService {
     //Properties:
-    CountryDao countryDao;
+    private final CountryDao dao;
 
     //Constructors:
     @Autowired
-    public CountryService(CountryDao countryDao){this.countryDao=countryDao;}
+    public CountryService(CountryDao dao){this.dao = dao;}
 
     //Methods:
     public void add(final Country country) {
-        countryDao.save(country);
+        dao.save(country);
     }
 
-    public List<Country> getAll() { return countryDao.findAll(); }
+    public List<Country> getAll() { return dao.findAll(); }
 
-    public Optional<Country> getById(Integer idCountry) { return countryDao.findById(idCountry); }
+    public Optional<Country> getById(Integer id) { return dao.findById(id); }
 
     public Country getByIso(String iso)
     {
-        return countryDao.findByIso(iso);
+        return dao.findByIso(iso);
     }
 }
