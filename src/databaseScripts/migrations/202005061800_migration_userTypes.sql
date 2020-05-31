@@ -15,11 +15,16 @@ begin
 
 if(not exists(select 1 from userTypes limit 1))
 then
+
+set autocommit=0;
+start transaction;
+
 insert into userTypes (description) values ("Client");
 insert into userTypes (description) values ("Employee");
+
+commit;
+
 end if;
 
 end //
 delimiter ;
-
-call migration_userTypes();

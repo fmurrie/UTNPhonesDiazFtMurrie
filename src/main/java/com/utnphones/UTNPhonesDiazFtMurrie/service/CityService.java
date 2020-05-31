@@ -1,31 +1,34 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.City;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
 
-import static java.util.Objects.isNull;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
-    CityDao cityDao;
+    //Properties:
+    private final CityDao dao;
 
+    //Constructors:
     @Autowired
-    public CityService(CityDao cityDao){this.cityDao=cityDao;}
+    public CityService(CityDao dao){this.dao = dao;}
 
-    public List<City> getCity(String name) {
-        if (isNull(name)){
-            return cityDao.findAll();
-        }
-        else { return cityDao.findByName(name);}
+    //Methods:
+    public void add(final City city) {
+        dao.save(city);
     }
 
-    public void add(final City city) {
-        cityDao.save(city);
+    public List<City> getAll()
+    {
+        return dao.findAll();
+    }
+
+    public Optional<City> getById(Integer id)
+    {
+        return dao.findById(id);
     }
 }

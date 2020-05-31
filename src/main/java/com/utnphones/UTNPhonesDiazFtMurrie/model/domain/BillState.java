@@ -1,7 +1,6 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,7 @@ import java.util.List;
 @Data
 @Table(name="billStates")
 public class BillState {
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBillState;
@@ -22,8 +22,6 @@ public class BillState {
     @Column(unique = true)
     private String description;
 
-    @NotNull
-    @JsonBackReference(value = "billState-bill")
-    @OneToMany(mappedBy = "billState")
-    private List<Bill> billsList;
+    @Transient
+    private List<Bill> billList;
 }

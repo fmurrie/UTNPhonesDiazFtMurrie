@@ -16,6 +16,9 @@ begin
 if(not exists(select 1 from countries limit 1))
 then
 
+set autocommit=0;
+start transaction;
+
 INSERT INTO countries (name, iso, areaCode) VALUES ('Afghanistan', 'AFG', '93');
 INSERT INTO countries (name, iso, areaCode) VALUES ('Albania', 'ALB', '355');
 INSERT INTO countries (name, iso, areaCode) VALUES ('Algeria', 'DZA', '213');
@@ -257,9 +260,9 @@ INSERT INTO countries (name, iso, areaCode) VALUES ('Yemen', 'YEM', '967');
 INSERT INTO countries (name, iso, areaCode) VALUES ('Zambia', 'ZMB', '260');
 INSERT INTO countries (name, iso, areaCode) VALUES ('Zimbabwe', 'ZWE', '263');
 
+commit;
+
 end if;
 
 end //
 delimiter ;
-
-call migration_countries();

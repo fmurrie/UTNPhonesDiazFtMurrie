@@ -1,9 +1,11 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,11 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("user/")
+@RequestMapping("/user")
 public class UserController {
-
+    //Properties:
     private final UserService userService;
 
+    //Constructors:
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -26,15 +29,14 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @GetMapping("{idUser}")
-    public Optional<User> getUserById(@PathVariable Integer userId) {
-        return userService.getUserById(userId);
-    }
-
+    //Methods:
     @GetMapping("/")
-    public List<User> getAll() {
+    List<User> getAllUsers() {
         return userService.getAll();
     }
+
+    @GetMapping("/{idUser}")
+    ResponseEntity<Optional<User>> getUserTypeById(@PathVariable Integer idUser) { return ResponseEntity.ok(userService.getById(idUser)); }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

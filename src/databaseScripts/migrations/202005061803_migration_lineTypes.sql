@@ -16,12 +16,15 @@ begin
 if(not exists(select 1 from lineTypes limit 1))
 then
 
+set autocommit=0;
+start transaction;
+
 insert into lineTypes (description,code) values ("Mobile","9");
 insert into lineTypes (description,code) values ("Residential","11");
+
+commit;
 
 end if;
 
 end //
 delimiter ;
-
-call migration_lineTypes();
