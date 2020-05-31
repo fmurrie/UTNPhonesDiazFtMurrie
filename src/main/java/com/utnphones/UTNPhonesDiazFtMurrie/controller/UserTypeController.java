@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("userType/")
+@RequestMapping("/userType")
 public class UserTypeController {
 
     private final UserTypeService userTypeService;
