@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.session;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.model.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

@@ -13,8 +13,28 @@ create procedure migration_rates
 )
 begin
 
+declare vCitiesCount int;
+declare vCounter int default 1;
+
+declare vLocalCallMinutePrice float;
+declare vProvincialCallMinutePrice float;
+declare vNationalCallMinutePrice float;
+declare vInternationalCallMinutePrice float;
+
 if(not exists(select 1 from rates limit 1))
 then
+
+set vCitiesCount=(select count(*) from cities);
+set vLocalCallMinutePrice= (select minutePrice from callTypes where idCallType=1);
+set vProvincialCallMinutePrice= (select minutePrice from callTypes where idCallType=2);
+set vNationalCallMinutePrice= (select minutePrice from callTypes where idCallType=3);
+set vInternationalCallMinutePrice= (select minutePrice from callTypes where idCallType=4);
+
+
+WHILE vCounter <= vCitiesCount DO
+
+set autocommit=0;
+start transaction;
 
 insert
 into rates
@@ -25,35 +45,31 @@ minutePrice
 )
 
 select
-
 	ipv1.idCity as idOriginCity,
 	ipv2.idCity as idDestinyCity,
 	case
 		when ipv1.idCity=ipv2.idCity
-		then (select minutePrice from callTypes where idCallType=1)
+		then vLocalCallMinutePrice
 		when ipv1.idProvince=ipv2.idProvince
-		then (select minutePrice from callTypes where idCallType=2)
+		then vProvincialCallMinutePrice
 		when ipv1.idCountry=ipv2.idCountry
-		then (select minutePrice from callTypes where idCallType=3)
-		else (select minutePrice from callTypes where idCallType=4)
+		then vNationalCallMinutePrice
+		else vInternationalCallMinutePrice
 	end as minutePrice
 
 from
-	(select
-		c.idCity as idCity,
-        c.idProvince as idProvince,
-        (select p.idCountry from provinces p where p.idProvince=c.idProvince) as idCountry
-	from cities c) as ipv1
-inner join
-	(select
-		c.idCity as idCity,
-		c.idProvince as idProvince,
-        (select p.idCountry from provinces p where p.idProvince=c.idProvince) as idCountry
-	from cities c) as ipv2;
+	idsPlacesView ipv1
+    ,
+	idsPlacesView ipv2
+    where ipv1.idCity=vCounter;
+    
+commit;
+
+set vCounter=vCounter+1;
+
+END WHILE;
 
 end if;
 
 end //
 delimiter ;
-
-/*call migration_rates();*/

@@ -1,11 +1,9 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -16,10 +14,12 @@ import java.util.List;
 @Data
 @Builder
 @Table(name="users")
-public class User {
-
+public class User
+{
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser")
     private Integer idUser;
 
     @NotNull
@@ -28,13 +28,15 @@ public class User {
     private UserType userType;
 
     @NotNull
-    @Column(unique = true)
+    @Column(name="dni",unique = true)
     private String dni;
 
     @NotNull
+    @Column(name="firstName")
     private String firstName;
 
     @NotNull
+    @Column(name="lastName")
     private String lastName;
 
     @NotNull
@@ -43,14 +45,10 @@ public class User {
     private City city;
 
     @NotNull
-    @Column(unique = true)
+    @Column(name="username",unique = true)
     private String username;
 
     @NotNull
+    @Column(name="userpassword")
     private String userpassword;
-
-    @JsonBackReference(value = "user-phoneLine")
-    @OneToMany(mappedBy = "user")
-    private List<PhoneLine> phoneLines;
-
 }

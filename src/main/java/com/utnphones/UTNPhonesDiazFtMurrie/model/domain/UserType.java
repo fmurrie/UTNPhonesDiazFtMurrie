@@ -1,27 +1,28 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-//@Entity
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="callTypes")
-public class CallType {
+@Table(name="userTypes")
+public class UserType
+{
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCallType;
+    private Integer idUserType;
 
     @NotNull
     @Column(unique = true)
     private String description;
 
-    @NotNull
-    private Float minutePrice;
+    @Transient
+    private List<User> userList;
 }

@@ -1,10 +1,9 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.model;
+package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -14,9 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="phoneLines", uniqueConstraints = {@UniqueConstraint(columnNames = {"idLocalAreaCode", "phoneNumber"})})
-public class PhoneLine {
-
+@Table(name="phoneLines")
+public class PhoneLine
+{
+    //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPhoneLine;
@@ -27,11 +27,7 @@ public class PhoneLine {
     private LineType lineType;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idLocalAreaCode")
-    private LocalAreaCode localAreaCode ;
-
-    @NotNull
+    @Column(unique=true)
     private String phoneNumber;
 
     @NotNull
@@ -39,8 +35,6 @@ public class PhoneLine {
     @JoinColumn(name = "idUser")
     private User user;
 
-    /*@NotNull
-    @OneToMany(mappedBy = "phoneLine",orphanRemoval = true)
-    private List<Call> callsList;*/
-
+    @Transient
+    private List<Call> callList;
 }

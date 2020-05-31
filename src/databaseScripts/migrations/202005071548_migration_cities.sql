@@ -16,6 +16,9 @@ begin
 if(not exists(select 1 from cities limit 1))
 then
 
+set autocommit=0;
+start transaction;
+
 INSERT INTO cities (idProvince,name,areaCode) VALUES (1, '12 de octubre', '2317');
 INSERT INTO cities (idProvince,name,areaCode) VALUES (1, '17 de agosto', '2924');
 INSERT INTO cities (idProvince,name,areaCode) VALUES (1, '25 de mayo (prov. Buenos aires)', '2345');
@@ -2980,9 +2983,9 @@ INSERT INTO cities (idProvince,name,areaCode) VALUES (23, 'Villa nougues', '381'
 INSERT INTO cities (idProvince,name,areaCode) VALUES (23, 'Villa quinteros', '3863');
 INSERT INTO cities (idProvince,name,areaCode) VALUES (23, 'Villa rescate', '3869');
 
+commit;
+
 end if;
 
 end //
 delimiter ;
-
-call migration_cities();
