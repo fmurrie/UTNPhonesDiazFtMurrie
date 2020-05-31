@@ -33,6 +33,6 @@ public class UserTypeController {
     }
 
     @GetMapping("/{idUserType}")
-    ResponseEntity<Optional<UserType>> getUserTypeById(@PathVariable Integer idUserType) { return ResponseEntity.ok(service.getById(idUserType)); }
+    ResponseEntity<Optional<UserType>>getUserTypeById(@PathVariable Integer idUserType) { return ResponseEntity.ok(service.getById(idUserType)); }
 
 }
