@@ -16,6 +16,9 @@ begin
 if(not exists(select 1 from provinces limit 1))
 then
 
+set autocommit=0;
+start transaction;
+
 INSERT INTO provinces (name,idCountry) VALUES ('Buenos aires',10);
 INSERT INTO provinces (name,idCountry) VALUES ('Catamarca',10);
 INSERT INTO provinces (name,idCountry) VALUES ('Chaco',10);
@@ -40,11 +43,11 @@ INSERT INTO provinces (name,idCountry) VALUES ('Santiago del Estero',10);
 INSERT INTO provinces (name,idCountry) VALUES ('Tierra del Fuego',10);
 INSERT INTO provinces (name,idCountry) VALUES ('Tucuman',10);
 
+commit;
+
 end if;
 
 end //
 delimiter ;
-
-call migration_provinces();
 
 

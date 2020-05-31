@@ -16,13 +16,16 @@ begin
 if(not exists(select 1 from billStates limit 1))
 then
 
+set autocommit=0;
+start transaction;
+
 insert into billStates (description) values ("Unpaid");
 insert into billStates (description) values ("Partially-paid");
 insert into billStates (description) values ("Paid");
+
+commit;
 
 end if;
 
 end //
 delimiter ;
-
-call migration_billStates();

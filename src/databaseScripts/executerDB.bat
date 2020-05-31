@@ -87,6 +87,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005151624_migration_r
 
 @REM Section for execute the scripts from \events:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005171041_event_facturation.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005302018_event_migration.sql
 
 @REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\general\999999999999_endstatus.sql
