@@ -52,9 +52,9 @@ public class UserService
         else throw new UserNotexistException();
     }
 
-    public List<UserCall> getCallsCountByDni()
+    public List<UserCall> getCallsCountByDni(String dni)
     {
-        return dao.getUserCall();
+        return dao.getUserCall(dni);
     }
 
    /* public void removeUser(User user) throws UserNotexistException {

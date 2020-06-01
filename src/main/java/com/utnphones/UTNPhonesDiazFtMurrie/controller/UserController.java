@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @GetMapping("/callsbydni")
-    public List<UserCall> getCallsCountByDni() { return service.getCallsCountByDni(); }
+    public List<UserCall> getCallsCountByDni(@RequestParam String dni) { return service.getCallsCountByDni(dni); }
 
 
     private URI getLocation (User user){
