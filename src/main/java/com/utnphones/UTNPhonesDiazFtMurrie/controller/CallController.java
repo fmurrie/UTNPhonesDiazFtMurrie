@@ -6,6 +6,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CallService;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class CallController {
     //Constructors:
     @Autowired
     public CallController(CallService service) {
+
         this.callService = service;
     }
 
@@ -35,10 +37,19 @@ public class CallController {
 
     @GetMapping("/")
     public ResponseEntity<List<Call>> getAllCalls() {
-        return ResponseEntity.ok(callService.getAll());
+        List<Call> callList = callService.getAll();
+        if(callList.size() > 0)
+            return ResponseEntity.ok(callList);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{idCall}")
-    public ResponseEntity<Optional<Call>> getCallById(@PathVariable Integer idCall) { return ResponseEntity.ok(callService.getCallById(idCall)); }
-
+    public ResponseEntity<Optional<Call>> getCallById(@PathVariable Integer idCall) {
+        Optional<Call> callList = callService.getCallById(idCall);
+        if (callList != null)
+            return ResponseEntity.ok(callList);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

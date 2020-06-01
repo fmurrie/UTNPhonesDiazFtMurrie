@@ -4,11 +4,14 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +33,11 @@ public class UserController {
 
     //Methods:
     @PostMapping("/")
-    public User addUser(@RequestBody @Valid User user) throws UserAlreadyExistsException {
-        return service.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody  User user) throws UserAlreadyExistsException {
+        User newUser =  service.addUser(user);
+
+        return ResponseEntity.created(getLocation(newUser)).build();
+
     }
 
     @GetMapping("/")
@@ -58,6 +64,14 @@ public class UserController {
         } else {
             throw new ValidationException("User fields must have a value");
         }
+    }
+
+    private URI getLocation (User user){
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{userId}")
+                .buildAndExpand(user.getIdUser())
+                .toUri();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

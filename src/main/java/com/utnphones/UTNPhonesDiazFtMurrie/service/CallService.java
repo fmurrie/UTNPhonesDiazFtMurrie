@@ -1,10 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CallDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

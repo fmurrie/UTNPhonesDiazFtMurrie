@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.LineType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.LineTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,14 +27,24 @@ public class LineTypeController {
     }
 
     //Methods:
-
     @GetMapping("/")
     public ResponseEntity<List<LineType>> getAllLineTypes() {
-        return ResponseEntity.ok(service.getAll());
+        List<LineType> lineTypeList = service.getAll();
+        if(lineTypeList.size() > 0)
+            return ResponseEntity.ok(lineTypeList);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
     }
 
     @GetMapping("/{idLineType}")
-    ResponseEntity<Optional<LineType>> getLineTypeById(@PathVariable Integer idLineType) { return ResponseEntity.ok(service.getLineById(idLineType)); }
+    ResponseEntity<Optional<LineType>> getLineTypeById(@PathVariable Integer idLineType) {
+        Optional<LineType> lineType = service.getLineById(idLineType);
+        if(lineType != null)
+            return ResponseEntity.ok(lineType);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }
 

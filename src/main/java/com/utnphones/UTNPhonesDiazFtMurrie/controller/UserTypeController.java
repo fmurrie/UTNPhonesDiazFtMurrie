@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class UserTypeController {
 
     //Methods:
     @PostMapping("/")
-    public void addUserType(@RequestBody @Valid UserType userType) {
-        service.add(userType);
+    public ResponseEntity<UserType> addUserType(@RequestBody @Valid UserType userType) {
+        return ResponseEntity.ok(service.add(userType));
     }
 
     @GetMapping("/")
