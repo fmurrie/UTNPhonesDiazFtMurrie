@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -37,14 +38,21 @@ public class CountryControllerTest
     @Test
     public void addCountry()
     {
+        Integer id=10;
+        Country country=new Country(id,"ARG","Argentina","54",null);
+        Mockito.when(service.add(country)).thenReturn(country);
+        ResponseEntity<Country> result= controller.addCountry(country);
+        assertNotNull(result);
+        assertEquals(ResponseEntity.of(Optional.of(country)),result);
     }
 
     @Test
     public void getAllCountries()
     {
         Mockito.when(service.getAll()).thenReturn(new ArrayList<Country>());
-        ArrayList<Country> result= (ArrayList<Country>) controller.getAllCountries();
+        ResponseEntity<List<Country>> result= controller.getAllCountries();
         assertNotNull(result);
+        assertEquals(ResponseEntity.status(HttpStatus.NO_CONTENT).build(),result);
     }
 
     @Test
@@ -55,6 +63,7 @@ public class CountryControllerTest
         Optional<Country> expected=Optional.of(country);
         Mockito.when(service.getById(id)).thenReturn(Optional.of(country));
         ResponseEntity<Optional<Country>> result=controller.getCountryById(id);
+        assertNotNull(result);
         assertEquals(expected,result.getBody());
     }
 }
