@@ -21,7 +21,6 @@ public class Call
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCall;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idBill")
     private Bill bill;
@@ -42,9 +41,7 @@ public class Call
     @NotNull
     private Date endTime;
 
-    @NotNull
     private Float durationSeconds;
 
-    @NotNull
     private Float totalPrice;
 }

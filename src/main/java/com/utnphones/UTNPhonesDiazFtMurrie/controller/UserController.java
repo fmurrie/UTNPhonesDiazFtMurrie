@@ -37,7 +37,6 @@ public class UserController {
         User newUser =  service.addUser(user);
 
         return ResponseEntity.created(getLocation(newUser)).build();
-
     }
 
     @GetMapping("/")
@@ -46,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/{idUser}")
-    ResponseEntity<Optional<User>> getUserTypeById(@PathVariable Integer idUser) { return ResponseEntity.ok(service.getUserById(idUser)); }
+    ResponseEntity<Optional<User>> getUserById(@PathVariable Integer idUser) { return ResponseEntity.ok(service.getUserById(idUser)); }
 
     @PostMapping("/login")
     public User login(String username, String password) throws UserNotexistException, ValidationException {
