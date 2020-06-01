@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
@@ -30,8 +31,8 @@ public class CallController {
     }
 
     //Methods:
-    @PostMapping("/")
-    public ResponseEntity<Call> addCall(@RequestBody @Valid Call call) {
+
+    public ResponseEntity addCall(@RequestBody @Valid Call call) {
         return ResponseEntity.ok(callService.addCall(call));
     }
 
