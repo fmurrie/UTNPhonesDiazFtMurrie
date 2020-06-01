@@ -6,6 +6,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
+import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +50,11 @@ public class UserService
             return dao.save(updatedUser);
         }
         else throw new UserNotexistException();
+    }
+
+    public List<UserCall> getCallsCountByDni()
+    {
+        return dao.getUserCall();
     }
 
    /* public void removeUser(User user) throws UserNotexistException {

@@ -2,6 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.apache.catalina.Server;
@@ -64,6 +65,10 @@ public class UserController {
             throw new ValidationException("User fields must have a value");
         }
     }
+
+    @GetMapping("/callsbydni")
+    public List<UserCall> getCallsCountByDni() { return service.getCallsCountByDni(); }
+
 
     private URI getLocation (User user){
         return ServletUriComponentsBuilder
