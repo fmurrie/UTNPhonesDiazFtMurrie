@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,8 @@ public class PhoneLine
     private String phoneNumber;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @JsonBackReference(value = "phoneLine-user")
     @JoinColumn(name = "idUser")
     private User user;
 

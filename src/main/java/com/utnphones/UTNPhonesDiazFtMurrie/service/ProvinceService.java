@@ -17,7 +17,7 @@ public class ProvinceService {
     public ProvinceService(ProvinceDao dao){this.dao = dao;}
 
     //Methods:
-    public void add(final Province province) { dao.save(province); }
+    public Province add(final Province province) { return dao.save(province); }
 
     public List<Province> getAll() { return dao.findAll(); }
 

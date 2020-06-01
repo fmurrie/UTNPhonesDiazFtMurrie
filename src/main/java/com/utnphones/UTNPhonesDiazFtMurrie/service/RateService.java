@@ -21,7 +21,7 @@ public class RateService
     public RateService(RateDao dao) { this.dao = dao; }
 
     //Methods:
-    public void add(final Rate rate) { dao.save(rate); }
+    public Rate add(final Rate rate) { return dao.save(rate); }
 
     public List<Rate> getAll() { return dao.findAll(); }
 

@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -22,13 +23,25 @@ public class CountryController
 
     //Methods:
     @PostMapping("/")
-    public void addCountry(@RequestBody @Valid Country country) {
-        service.add(country);
+    public ResponseEntity<Country> addCountry(@RequestBody @Valid Country country) {
+        return ResponseEntity.ok(service.add(country));
     }
 
     @GetMapping("/")
-    List<Country> getAllCountries() { return service.getAll(); }
+    ResponseEntity<List<Country>> getAllCountries() {
+        List<Country> countryList = service.getAll();
+        if(countryList.size() > 0 )
+            return ResponseEntity.ok(countryList);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
     @GetMapping("/{idCountry}")
-    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) { return ResponseEntity.ok(service.getById(idCountry)); }
+    ResponseEntity<Optional<Country>> getCountryById(@PathVariable Integer idCountry) {
+        Optional<Country> country = service.getById(idCountry);
+        if(country != null)
+            return ResponseEntity.ok(country);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

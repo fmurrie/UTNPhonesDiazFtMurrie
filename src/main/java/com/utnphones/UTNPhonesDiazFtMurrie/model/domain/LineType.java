@@ -18,7 +18,7 @@ public class LineType
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLineType")
-    private Integer idUserType;
+    private Integer idLineType;
 
     @NotNull
     @Column(unique = true)

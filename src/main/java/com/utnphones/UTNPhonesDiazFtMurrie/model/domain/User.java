@@ -51,4 +51,8 @@ public class User
     @NotNull
     @Column(name="userpassword")
     private String userpassword;
+
+    @NotNull
+    @OneToMany(mappedBy = "user")
+    private List<PhoneLine> phoneLines;
 }

@@ -4,6 +4,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +27,26 @@ public class RateController
 
     //Methods:
     @PostMapping("/")
-    public void addRate(@RequestBody @Valid Rate rate) {
-        service.add(rate);
+    public ResponseEntity <Rate> addRate(@RequestBody @Valid Rate rate) {
+        return ResponseEntity.ok(service.add(rate));
     }
 
     @GetMapping("/")
-    List<Rate> getAllRates() {
-        return service.getAll();
+    ResponseEntity<List<Rate>> getAllRates() {
+        List<Rate> rateList = service.getAll();
+        if(rateList.size() > 0)
+             return ResponseEntity.ok(rateList);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
     }
 
     @GetMapping("/{idOriginCity}-{idDestinyCity}")
     ResponseEntity<Optional<Rate>> getRateById(@PathVariable Integer idOriginCity,@PathVariable Integer idDestinyCity) {
-        return ResponseEntity.ok(service.getById(new RateId(idOriginCity,idDestinyCity)));
+        Optional<Rate> rate = service.getById(new RateId(idOriginCity,idDestinyCity));
+        if(rate != null)
+            return ResponseEntity.ok(rate);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

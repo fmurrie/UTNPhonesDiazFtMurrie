@@ -17,8 +17,8 @@ public class UserTypeService {
     public UserTypeService(UserTypeDao dao){this.dao = dao;}
 
     //Methods:
-    public void add(final UserType userType) {
-        dao.save(userType);
+    public UserType add(final UserType userType) {
+        return dao.save(userType);
     }
 
     public List<UserType> getAll()
