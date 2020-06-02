@@ -15,4 +15,6 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     @Query(value = "SELECT u.dni,count(*) as callsCount FROM users u inner join phoneLines p on p.idUser=u.idUser inner join calls c on c.idPhoneLineOrigin=p.idPhoneLine group by u.dni",nativeQuery = true)
     List<UserCall> getUserCall();
+
+
 }

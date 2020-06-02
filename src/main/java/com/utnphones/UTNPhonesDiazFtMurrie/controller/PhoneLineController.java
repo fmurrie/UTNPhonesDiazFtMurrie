@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +52,12 @@ public class PhoneLineController {
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/favoriteDestinataries/{idUser}")
+    public ResponseEntity<List<LineAndCallsQuantityDto>> top3Destinataries (@PathVariable Integer idUser){
+
+        return ResponseEntity.ok(phoneLineService.top3Destinataries(idUser));
+    }
+
 
 }

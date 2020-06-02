@@ -1,11 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CallService;
-import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

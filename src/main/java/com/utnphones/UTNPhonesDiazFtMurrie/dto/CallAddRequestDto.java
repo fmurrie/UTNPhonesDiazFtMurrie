@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CallRequestDto {
+public class CallAddRequestDto {
 
     @NotNull
     private PhoneLine phoneLineOrigin ;

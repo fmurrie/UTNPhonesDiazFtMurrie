@@ -1,8 +1,8 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.dto;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.CallController;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
-import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class CallDtoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Call> addCall (@RequestBody CallRequestDto callDto){
+    public ResponseEntity<Call> addCall (@RequestBody CallAddRequestDto callDto){
         ResponseEntity responseEntity = null;
         Call call = new Call();
         if(callDto != null){
