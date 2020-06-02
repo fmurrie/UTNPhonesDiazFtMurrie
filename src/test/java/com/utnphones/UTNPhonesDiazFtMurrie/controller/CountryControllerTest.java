@@ -38,8 +38,7 @@ public class CountryControllerTest
     @Test
     public void addCountry()
     {
-        Integer id=10;
-        Country country=new Country(id,"ARG","Argentina","54",null);
+        Country country=new Country(null,"ARG","Argentina","54",null);
         Mockito.when(service.add(country)).thenReturn(country);
         ResponseEntity<Country> result= controller.addCountry(country);
         assertNotNull(result);
