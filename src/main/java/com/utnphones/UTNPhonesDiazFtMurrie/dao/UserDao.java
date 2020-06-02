@@ -13,8 +13,13 @@ public interface UserDao extends JpaRepository<User,Integer> {
     public User findByUsernameAndUserpassword(String username,String password);
     public List<User> findByFirstName(String username);
 
+
     @Query(value = "SELECT u.dni,count(*) as callsCount FROM users u inner join phoneLines p on p.idUser=u.idUser inner join calls c on c.idPhoneLineOrigin=p.idPhoneLine group by u.dni",nativeQuery = true)
     List<UserCall> getUserCall();
 
+
+
+    @Query(value = "SELECT u.dni,count(*) as callsCount FROM users u inner join phoneLines p on p.idUser=u.idUser inner join calls c on c.idPhoneLineOrigin=p.idPhoneLine where u.dni=?1 group by u.dni",nativeQuery = true)
+    List<UserCall> getUserCall(String dni);
 
 }
