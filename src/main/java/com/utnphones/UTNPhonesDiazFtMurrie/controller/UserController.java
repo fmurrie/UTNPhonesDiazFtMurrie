@@ -1,11 +1,11 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
-import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
-import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +21,14 @@ import java.util.Optional;
 public class UserController {
 
     //Properties:
-    private SessionManager sessionManager;
+
 
     private final UserService service;
 
     //Constructors:
     @Autowired
-    public UserController(UserService service, SessionManager sessionManager) {
+    public UserController(UserService service) {
         this.service = service;
-        this.sessionManager=sessionManager;
     }
 
     //Methods:
@@ -66,9 +65,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/callsbydni")
-    public List<UserCall> getCallsCountByDni(@RequestParam String dni) { return service.getCallsCountByDni(dni); }
-
+    /*@GetMapping("/callsbydni")
+    public List<UserCall> getCallsCountByDni(@RequestParam String dni) { return service.getCallsCountByDni(dni); }*/
 
     private URI getLocation (User user){
         return ServletUriComponentsBuilder
@@ -77,6 +75,25 @@ public class UserController {
                 .buildAndExpand(user.getIdUser())
                 .toUri();
     }
+
+    ////////////////////////////////////////////PARCIAL//////////////////////////////////////////////
+    ////////////////////////////////////////////PARCIAL//////////////////////////////////////////////
+    ////////////////////////////////////////////PARCIAL//////////////////////////////////////////////
+
+    //endpoint que liste las personas con DNI impar/par pasado por parametro
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<List<User>> getUsersByDni(@PathVariable String dni) {
+        return ResponseEntity.ok(service.getUsersByDni(dni));
+    }
+
+
+
+
+
+
+
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

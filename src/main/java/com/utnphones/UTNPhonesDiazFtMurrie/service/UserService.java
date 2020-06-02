@@ -10,6 +10,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,10 +53,32 @@ public class UserService
         else throw new UserNotexistException();
     }
 
-    public List<UserCall> getCallsCountByDni(String dni)
+   /* public List<UserCall> getCallsCountByDni(String dni)
     {
         return dao.getUserCall(dni);
+    }*/
+
+    /////////////////////////////////////////////////PARCIAL/////////////////////////////////////////////////
+    /////////////////////////////////////////////////PARCIAL/////////////////////////////////////////////////
+    /////////////////////////////////////////////////PARCIAL/////////////////////////////////////////////////
+
+    public List<User> getUsersByDni(String dni){
+        List<User> list = new ArrayList<>();
+        if(dni == "par")
+            list =dao.getUsersByDniPar();
+        else if (dni == "impar")
+            list= dao.getUsersByDniImpar();
+
+        return list;
     }
+
+
+
+
+
+
+
+
 
    /* public void removeUser(User user) throws UserNotexistException {
         if(dao.findById(user.getIdUser()) != null )
