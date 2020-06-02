@@ -20,4 +20,7 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
             " inner join phoneLines op on op.idPhoneLine = c.idPhoneLineOrigin where op.idUser = ?1" +
             " and dp.idPhoneLine =?2", nativeQuery = true)
     Integer callsQuantity(Integer idUser, Integer idPhoneLine);
+
+    @Query(value = "select * from phonelines p where phoneNumber like '%) 221-%'",nativeQuery = true)
+    List<PhoneLine> getByAreaCode221();
 }
