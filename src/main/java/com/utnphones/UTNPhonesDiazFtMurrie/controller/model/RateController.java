@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;

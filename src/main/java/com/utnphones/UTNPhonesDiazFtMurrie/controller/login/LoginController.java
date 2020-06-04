@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.login;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.UserController;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LoginRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.InvalidLoginException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;

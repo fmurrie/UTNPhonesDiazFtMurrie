@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.update;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.UserController;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;

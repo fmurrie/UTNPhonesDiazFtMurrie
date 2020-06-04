@@ -16,10 +16,10 @@ public class BillState {
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idBillState")
     private Integer idBillState;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(name="description",unique=true,nullable = false,length = 100)
     private String description;
 
     @Transient

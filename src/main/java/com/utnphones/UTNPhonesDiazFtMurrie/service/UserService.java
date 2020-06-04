@@ -51,18 +51,4 @@ public class UserService
         }
         else throw new UserNotexistException();
     }
-
-    public List<UserCall> getCallsCountByDni(String dni)
-    {
-        return dao.getUserCall(dni);
-    }
-
-   /* public void removeUser(User user) throws UserNotexistException {
-        if(dao.findById(user.getIdUser()) != null )
-            dao.delete(user);
-        else
-            throw new UserNotexistException();
-    }
-
-*/
 }

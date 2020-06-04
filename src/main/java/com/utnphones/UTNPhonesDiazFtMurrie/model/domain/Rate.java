@@ -22,14 +22,14 @@ public class Rate
 
     @MapsId("idOriginCity")//value corresponds to property in the ID class
     @ManyToOne
-    @JoinColumn(name = "idOriginCity")
+    @JoinColumn(name = "idOriginCity",nullable = false,insertable = false,updatable = false)
     private City idOriginCity;
 
     @MapsId("idDestinyCity")//value corresponds to property in the ID class
     @ManyToOne
-    @JoinColumn(name = "idDestinyCity")
+    @JoinColumn(name = "idDestinyCity",nullable = false,insertable = false,updatable = false)
     private City idDestinyCity;
 
-    @NotNull
+    @Column(name="minutePrice",nullable = false,insertable = false,updatable = false)
     private Float minutePrice;
 }

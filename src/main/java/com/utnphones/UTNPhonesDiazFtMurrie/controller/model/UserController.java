@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -66,10 +66,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/callsbydni")
-    public List<UserCall> getCallsCountByDni(@RequestParam String dni) { return service.getCallsCountByDni(dni); }
-
-
     private URI getLocation (User user){
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -77,21 +73,4 @@ public class UserController {
                 .buildAndExpand(user.getIdUser())
                 .toUri();
     }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /*@PostMapping("removeAll/")
-    public void removeUsers(List<User> userList) throws UserNotexistException {
-        for (User u : userList) {
-            userService.removeUser(u);
-        }
-    }
-    @PostMapping("remove/")
-    public void removeUser(User user) throws UserNotexistException {
-        userService.removeUser(user);
-    }
-    */
 }
