@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.configuration;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.session.BackofficeSessionFilter;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -13,11 +14,23 @@ public class Configuration {
     @Autowired
     SessionFilter sessionFilter;
 
+    @Autowired
+    BackofficeSessionFilter backofficeSessionFilter;
+
     @Bean
-    public FilterRegistrationBean myFilter() {
+    public FilterRegistrationBean myApiFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(sessionFilter);
         registration.addUrlPatterns("/api/*");
         return registration;
     }
+
+    @Bean
+    public FilterRegistrationBean myBackofficeFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(backofficeSessionFilter);
+        registration.addUrlPatterns("/api/backoffice/*");
+        return registration;
+    }
+
 }

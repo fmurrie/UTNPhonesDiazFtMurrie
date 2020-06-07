@@ -1,4 +1,4 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller.login;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LoginRequestDto;
@@ -19,11 +19,13 @@ public class LoginController {
 
     UserController userController;
     SessionManager sessionManager;
+    AdviceController adviceController;
 
     @Autowired
-    public LoginController(UserController userController, SessionManager sessionManager) {
+    public LoginController(UserController userController, SessionManager sessionManager,AdviceController adviceController) {
         this.userController = userController;
         this.sessionManager = sessionManager;
+        this.adviceController = adviceController;
     }
 
 
@@ -48,7 +50,7 @@ public class LoginController {
             return ResponseEntity.ok().build();
         }
         else{
-            throw new SessionNotExistsException(new UserNotexistException ());
+            return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
         }
     }
 
