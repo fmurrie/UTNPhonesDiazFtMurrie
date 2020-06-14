@@ -2,22 +2,23 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/phoneLine")
-public class PhoneLineController {
+public class PhoneLineController implements LocationInterface<PhoneLine> {
 
     //Properties:
 
@@ -32,7 +33,7 @@ public class PhoneLineController {
     //Methods:
     @PostMapping("/")
     public ResponseEntity<PhoneLine> addPhoneLine(@RequestBody @Valid PhoneLine phoneLine) throws LineAlreadyExistsException {
-        return ResponseEntity.ok(phoneLineService.addPhoneLine(phoneLine));
+        return ResponseEntity.created(getLocation(phoneLine)).build();
     }
 
     @GetMapping("/")
@@ -54,10 +55,18 @@ public class PhoneLineController {
     }
 
     @GetMapping("/favoriteDestinataries/{idUser}")
-    public ResponseEntity<List<LineAndCallsQuantityDto>> top3Destinataries (@PathVariable Integer idUser){
+    public ResponseEntity<List<LineAndCallsQuantityDto>> top10Destinataries (@PathVariable Integer idUser){
 
-        return ResponseEntity.ok(phoneLineService.top3Destinataries(idUser));
+        return ResponseEntity.ok(phoneLineService.top10Destinataries(idUser));
     }
 
 
+    @Override
+    public URI getLocation(PhoneLine line) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{lineId}")
+                .buildAndExpand(line.getIdPhoneLine())
+                .toUri();
+    }
 }

@@ -26,7 +26,7 @@ public class UserUpdateController {
         this.sessionManager = sessionManager;
 
     }
-    @PutMapping("/")
+    /*@PutMapping("/")
     public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserUpdateRequestDto userUpdateRequestDto) throws SessionNotExistsException, ValidationException
     {
         ResponseEntity response;
@@ -40,7 +40,7 @@ public class UserUpdateController {
                     updatedUser.setUsername(userUpdateRequestDto.getUsername());
                     updatedUser.setUserpassword(userUpdateRequestDto.getUserpassword());
                 }
-                response = ResponseEntity.ok(userController.update(updatedUser));
+                response = ResponseEntity.ok(userController.updateUser(updatedUser));
             }
             else
                 throw new UserNotexistException();
@@ -50,6 +50,6 @@ public class UserUpdateController {
         catch(UserNotexistException e){
             throw new SessionNotExistsException(e);
         }
-    }
+    }*/
 
 }

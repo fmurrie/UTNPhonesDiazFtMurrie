@@ -33,9 +33,11 @@ public class UserService
         return dao.findAll();
     }
 
-    public Optional<User> getUserById(Integer id)
-    {
-        return dao.findById(id);
+    public Optional<User> getUserById(Integer id) throws UserNotexistException {
+        if(dao.existsById(id))
+             return dao.findById(id);
+        else
+            throw new UserNotexistException();
     }
 
 

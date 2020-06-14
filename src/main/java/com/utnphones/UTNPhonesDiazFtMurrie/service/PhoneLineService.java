@@ -36,9 +36,9 @@ public class PhoneLineService {
         return dao.findById(id);
     }
 
-    public List<LineAndCallsQuantityDto> top3Destinataries(Integer userId) {
+    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) {
         List<LineAndCallsQuantityDto> list = new ArrayList<>();
-        for (PhoneLine phoneLine : dao.top3Destinataries(userId)){
+        for (PhoneLine phoneLine : dao.top10Destinataries(userId)){
                 LineAndCallsQuantityDto dto = new LineAndCallsQuantityDto();
                 dto.setFavoritePhoneLine(phoneLine);
                 dto.setCallsQuantity(dao.callsQuantity(userId,phoneLine.getIdPhoneLine()));
