@@ -10,6 +10,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/client")
 public class ClientWebController {
 
     //Properties:
@@ -32,22 +33,23 @@ public class ClientWebController {
         this.adviceController = adviceController;
     }
 
-    @GetMapping("/currentUser")
+    @GetMapping("/me")
     ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token) throws UserNotexistException {
-        User currentUser = sessionManager.getCurrentUser(token);
-        if (currentUser != null){
-            Integer id = currentUser.getIdUser();
-            ResponseEntity<Optional<User>> response = userController.getUserById(id);
-            if (response != null)
-                return response;
-            else
-                return ResponseEntity.ok(adviceController.handleUserNotExists());
-        } else
-            return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
+        try{
+            User currentUser = sessionManager.getCurrentUser(token);
+            if (currentUser != null){
+                Integer id = currentUser.getIdUser();
+                User user = userController.getUserById(id);
+                return ResponseEntity.ok(user);
+            } else
+                return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
 
+        }catch (UserNotexistException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(adviceController.handleUserNotExists(exc));
+        }
     }
 
-    @PutMapping("/update")
+    /*@PutMapping("/update")
     public ResponseEntity updateUser (@RequestHeader("Authorization") String token, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
         User user = sessionManager.getCurrentUser(token);
             if (user != null) {
@@ -70,5 +72,5 @@ public class ClientWebController {
                  return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
 
 
-    }
+    }*/
 }
