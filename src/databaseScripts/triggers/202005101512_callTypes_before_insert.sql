@@ -12,6 +12,7 @@ create trigger if not exists callTypes_before_insert
 before insert on callTypes
 for each row
 begin
+set new.minutePrice=new.cost+(new.cost*new.valueAdded);
 set new.creatorUser=getDbUserName();
 end //
 delimiter ;
