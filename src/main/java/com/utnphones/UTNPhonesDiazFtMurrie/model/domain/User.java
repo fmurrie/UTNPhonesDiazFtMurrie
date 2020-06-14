@@ -22,33 +22,30 @@ public class User
     @Column(name = "idUser")
     private Integer idUser;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idUserType")
+    @JoinColumn(name = "idUserType",nullable = false)
     private UserType userType;
 
-    @NotNull
-    @Column(name="dni",unique = true)
+    @Column(name="dni",unique=true,nullable = false,length = 100)
     private String dni;
 
-    @NotNull
-    @Column(name="firstName")
+    @Column(name="firstName",nullable = false,length = 100)
     private String firstName;
 
-    @NotNull
-    @Column(name="lastName")
+    @Column(name="lastName",nullable = false,length = 100)
     private String lastName;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idCity")
+    @JoinColumn(name = "idCity",nullable = false)
     private City city;
 
-    @NotNull
-    @Column(name="username",unique = true)
+    @Column(name="username",unique=true,nullable = false,length = 100)
     private String username;
 
     @NotNull
-    @Column(name="userpassword")
+    @Column(name="userpassword",nullable = false,length = 100)
     private String userpassword;
+
+    @OneToMany(mappedBy = "user")
+    private List<PhoneLine> phoneLines;
 }

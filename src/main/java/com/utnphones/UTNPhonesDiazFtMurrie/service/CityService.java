@@ -18,8 +18,8 @@ public class CityService {
     public CityService(CityDao dao){this.dao = dao;}
 
     //Methods:
-    public void add(final City city) {
-        dao.save(city);
+    public City add(final City city) {
+        return dao.save(city);
     }
 
     public List<City> getAll()

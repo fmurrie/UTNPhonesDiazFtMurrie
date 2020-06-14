@@ -1,9 +1,11 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller.login;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.ErrorResponseDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.InvalidLoginException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import org.hibernate.SessionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,5 +35,8 @@ public class AdviceController extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(3, "User not exists");
     }
 
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponseDto handleSessionNotExists(SessionNotExistsException sessionNotExistsException) {
+        return new ErrorResponseDto(400, sessionNotExistsException.getMessage());
+    }
 }

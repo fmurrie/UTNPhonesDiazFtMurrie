@@ -12,7 +12,7 @@ create table if not exists phoneLines
 	idLineType int not null,
 	phoneNumber varchar(100) not null,
 	idUser int not null,
-	suspended bit(1) default(0),
+	suspended boolean default(false),
     creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),

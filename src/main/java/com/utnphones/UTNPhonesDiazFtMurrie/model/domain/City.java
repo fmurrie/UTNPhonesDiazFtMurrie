@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,17 @@ public class City
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCity")
     private Integer idCity;
 
-    @NotNull
+    @Column(name="name",unique=true,nullable = false,length = 100)
     private String name;
 
-    @NotNull
+    @Column(name="areaCode",nullable = false,length = 100)
     private String areaCode;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idProvince")
+    @JsonBackReference(value = "province-country")
+    @JoinColumn(name = "idProvince",nullable = false)
     private Province province;
 }

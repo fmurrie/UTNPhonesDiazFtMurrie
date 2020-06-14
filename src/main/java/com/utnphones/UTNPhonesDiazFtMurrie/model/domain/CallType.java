@@ -15,12 +15,12 @@ public class CallType {
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idCallType")
     private Integer idCallType;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(name="description",unique=true,nullable = false,length = 100)
     private String description;
 
-    @NotNull
+    @Column(name="minutePrice",nullable = false)
     private Float minutePrice;
 }
