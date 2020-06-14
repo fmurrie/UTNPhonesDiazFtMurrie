@@ -16,5 +16,6 @@ create table if not exists lineTypes
     updaterUser varchar(100),
     updatedDate datetime,
 	constraint PK_lineTypes_idLineType primary key(idLineType),
-	constraint UK_lineTypes_description unique(description)
+	constraint UK_lineTypes_description unique(description),
+	constraint UK_lineTypes_code unique(code)
 );

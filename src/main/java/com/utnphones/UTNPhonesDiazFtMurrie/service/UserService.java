@@ -1,9 +1,12 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
+import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,27 +33,24 @@ public class UserService
         return dao.findAll();
     }
 
-    public Optional<User> getById(Integer id)
-    {
-        return dao.findById(id);
-    }
-
-
-
-   /* public void removeUser(User user) throws UserNotexistException {
-        if(dao.findById(user.getIdUser()) != null )
-            dao.delete(user);
+    public Optional<User> getUserById(Integer id) throws UserNotexistException {
+        if(dao.existsById(id))
+             return dao.findById(id);
         else
             throw new UserNotexistException();
     }
-    public User updateUser(User user) throws UserNotexistException {
-        if (dao.delete(user);) {
-            return user;
-        } else
-            throw new UserNotexistException();
-    }
+
+
     public User login(String username, String password) throws UserNotexistException {
-        User user = dao.findByUsername(username, password);
+        User user = dao.findByUsernameAndUserpassword(username, password);
         return Optional.ofNullable(user).orElseThrow(() -> new UserNotexistException());
-    }*/
+    }
+
+    public User updateUser(User updatedUser) throws UserNotexistException {
+        if(dao.existsById(updatedUser.getIdUser())){
+            dao.deleteById(updatedUser.getIdUser());
+            return dao.save(updatedUser);
+        }
+        else throw new UserNotexistException();
+    }
 }

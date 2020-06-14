@@ -17,10 +17,10 @@ public class UserType
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idUserType")
     private Integer idUserType;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(name="description",unique = true,nullable = false,length = 100)
     private String description;
 
     @Transient

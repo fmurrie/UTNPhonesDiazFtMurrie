@@ -18,8 +18,8 @@ public class CountryService {
     public CountryService(CountryDao dao){this.dao = dao;}
 
     //Methods:
-    public void add(final Country country) {
-        dao.save(country);
+    public Country add(final Country country) {
+        return dao.save(country);
     }
 
     public List<Country> getAll() { return dao.findAll(); }

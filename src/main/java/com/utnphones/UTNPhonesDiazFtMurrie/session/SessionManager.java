@@ -1,11 +1,15 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.session;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class SessionManager {
 
     Map<String, Session> sessionMap = new Hashtable<>();
@@ -14,6 +18,11 @@ public class SessionManager {
 
     public String createSession(User user) {
         String token = UUID.randomUUID().toString();
+        sessionMap.put(token, new Session(token, user, new Date(System.currentTimeMillis())));
+        return token;
+    }
+
+    public String createSession(User user, String token) {
         sessionMap.put(token, new Session(token, user, new Date(System.currentTimeMillis())));
         return token;
     }

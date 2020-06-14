@@ -13,6 +13,7 @@ create procedure bills_monthFacturation
 )
 begin
 
+set autocommit=0;
 start transaction;
 
 insert into bills (idPhoneLine) select idPhoneLine from phoneLines;

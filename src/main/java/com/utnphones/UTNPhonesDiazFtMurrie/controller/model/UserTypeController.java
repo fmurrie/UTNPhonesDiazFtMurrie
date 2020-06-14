@@ -1,5 +1,6 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +14,26 @@ import java.util.Optional;
 @RequestMapping("/userType")
 public class UserTypeController {
     //Properties:
-    private final UserTypeService userTypeService;
+    private final UserTypeService service;
 
     //Constructors:
     @Autowired
-    public UserTypeController(UserTypeService userTypeService) {
-        this.userTypeService = userTypeService;
+    public UserTypeController(UserTypeService service) {
+        this.service = service;
     }
 
     //Methods:
     @PostMapping("/")
-    public void addUserType(@RequestBody @Valid UserType userType) {
-        userTypeService.add(userType);
+    public ResponseEntity<UserType> addUserType(@RequestBody @Valid UserType userType) {
+        return ResponseEntity.ok(service.add(userType));
     }
 
     @GetMapping("/")
     List<UserType> getAllUserTypes() {
-        return userTypeService.getAll();
+        return service.getAll();
     }
 
     @GetMapping("/{idUserType}")
-    ResponseEntity<Optional<UserType>> getUserTypeById(@PathVariable Integer idUserType) { return ResponseEntity.ok(userTypeService.getById(idUserType)); }
+    ResponseEntity<Optional<UserType>>getUserTypeById(@PathVariable Integer idUserType) { return ResponseEntity.ok(service.getById(idUserType)); }
 
 }
