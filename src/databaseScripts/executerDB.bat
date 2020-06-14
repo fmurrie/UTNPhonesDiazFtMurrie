@@ -41,7 +41,6 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\functions\customFunctions\202005121
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\functions\customFunctions\202005131925_getIdCallTypeBetweenCities.sql
 
 @REM Section for execute the scripts from \procedures:
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005081536_rates_insertAndGetPrice.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161130_users_registerAnUser.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161204_phoneLines_registerAphoneLine.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161228_calls_addAcall.sql

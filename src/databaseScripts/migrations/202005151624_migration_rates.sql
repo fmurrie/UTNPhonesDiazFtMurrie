@@ -17,19 +17,23 @@ declare vCitiesCount int;
 declare vCounter int default 1;
 
 declare vLocalCallMinutePrice float;
+declare vLocalCallCost float;
 declare vProvincialCallMinutePrice float;
+declare vProvincialCallCost float;
 declare vNationalCallMinutePrice float;
+declare vNationalCallCost float;
 declare vInternationalCallMinutePrice float;
+declare vInternationalCallCost float;
 
 if(not exists(select 1 from rates limit 1))
 then
 
 set vCitiesCount=(select count(*) from cities);
-set vLocalCallMinutePrice= (select minutePrice from callTypes where idCallType=1);
-set vProvincialCallMinutePrice= (select minutePrice from callTypes where idCallType=2);
-set vNationalCallMinutePrice= (select minutePrice from callTypes where idCallType=3);
-set vInternationalCallMinutePrice= (select minutePrice from callTypes where idCallType=4);
 
+select minutePrice,cost into vLocalCallMinutePrice,vLocalCallCost from callTypes where idCallType=1;
+select minutePrice,cost into vProvincialCallMinutePrice,vProvincialCallCost from callTypes where idCallType=2;
+select minutePrice,cost into vNationalCallMinutePrice,vNationalCallCost from callTypes where idCallType=3;
+select minutePrice,cost into vInternationalCallCost,vInternationalCallCost from callTypes where idCallType=4;
 
 WHILE vCounter <= vCitiesCount DO
 
@@ -41,7 +45,8 @@ into rates
 (
 idOriginCity,
 idDestinyCity,
-minutePrice
+minutePrice,
+cost
 )
 
 select
@@ -55,14 +60,22 @@ select
 		when ipv1.idCountry=ipv2.idCountry
 		then vNationalCallMinutePrice
 		else vInternationalCallMinutePrice
-	end as minutePrice
-
+	end as minutePrice,
+    case
+		when ipv1.idCity=ipv2.idCity
+		then vLocalCallCost
+		when ipv1.idProvince=ipv2.idProvince
+		then vProvincialCallCost
+		when ipv1.idCountry=ipv2.idCountry
+		then vNationalCallCost
+		else vInternationalCallCost
+	end as cost
 from
 	idsPlacesView ipv1
     ,
 	idsPlacesView ipv2
     where ipv1.idCity=vCounter;
-    
+
 commit;
 
 set vCounter=vCounter+1;
