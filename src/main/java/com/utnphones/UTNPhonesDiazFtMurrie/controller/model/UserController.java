@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
@@ -34,17 +34,19 @@ public class UserController implements LocationInterface<User> {
     }
 
     //Methods:
-    public ResponseEntity<User> addUser(@RequestBody  User user) throws UserAlreadyExistsException {
-        User newUser =  service.addUser(user);
-
-        return ResponseEntity.created(getLocation(newUser)).build();
+    public User addUser(@RequestBody  User user) throws ValidationException {
+        return service.addUser(user);
     }
 
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(service.getAll());
+    public List<User> getAllUsers() {
+        return service.getAll();
     }
 
-    public ResponseEntity<Optional<User>> getUserById( Integer idUser) throws UserNotexistException { return ResponseEntity.ok(service.getUserById(idUser)); }
+    public List<User> getAllClients() {
+        return service.getAllClients();
+    }
+
+    public User getUserById(Integer idUser) throws UserNotexistException { return service.getUserById(idUser); }
     
     public User login(String username, String password) throws UserNotexistException, ValidationException {
         if ((username != null) && (password != null)) {
@@ -54,8 +56,8 @@ public class UserController implements LocationInterface<User> {
         }
     }
 
-    public ResponseEntity updateUser (@RequestBody @Valid User updatedUser) throws ValidationException, UserNotexistException {
-            return ResponseEntity.ok(service.updateUser(updatedUser));
+    public ResponseEntity updateUser (Integer userId, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
+            return ResponseEntity.ok(service.updateUser(userId,updatedUser));
     }
 
     @Override

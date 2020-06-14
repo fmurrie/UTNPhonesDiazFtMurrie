@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 public class UserUpdateRequestDto {
 
     @NotNull
+    private String dni;
+
+    @NotNull
     private String firstName;
 
     @NotNull
