@@ -11,5 +11,14 @@ import java.util.List;
 public interface UserDao extends JpaRepository<User,Integer> {
     //Methods:
     public User findByUsernameAndUserpassword(String username,String password);
-    public List<User> findByFirstName(String username);
+
+    public boolean existsByUsername(String username);
+
+    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' ", nativeQuery = true)
+    public List<User> findClients();
+
+    public boolean existsByDni(String dni);
+
+    @Query(value = "select * from users u where u.idUser = ?1 ", nativeQuery = true)
+    public User getById(Integer id);
 }
