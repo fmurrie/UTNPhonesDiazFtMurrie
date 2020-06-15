@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -20,11 +19,10 @@ public class LineType
     @Column(name = "idLineType")
     private Integer idLineType;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(name="description",unique=true,nullable = false,length = 100)
     private String description;
 
-    @NotNull
+    @Column(name="code",unique=true,nullable = false,length = 100)
     private String code;
 
     @Transient

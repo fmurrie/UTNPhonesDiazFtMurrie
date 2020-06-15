@@ -20,34 +20,33 @@ public class Bill
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idBill")
     private Integer idBill;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idBillState")
+    @JoinColumn(name = "idBillState",nullable = false,insertable = false,updatable = false)
     private BillState billState;
 
-    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idPhoneLine")
+    @JoinColumn(name = "idPhoneLine",nullable = false,insertable = false,updatable = false)
     private PhoneLine phoneLine ;
 
-    @NotNull
+    @Column(name = "callsQuantity",nullable = false,insertable = false,updatable = false)
     private Integer callsQuantity;
 
-    @NotNull
+    @Column(name = "costPrice",nullable = false,insertable = false,updatable = false)
     private Float costPrice;
 
-    @NotNull
+    @Column(name = "totalPrice",nullable = false,insertable = false,updatable = false)
     private Float totalPrice;
 
-    @NotNull
+    @Column(name = "billMonth",nullable = false,insertable = false,updatable = false)
     private String billMonth;
 
-    @NotNull
+    @Column(name = "issueDate",nullable = false,insertable = false,updatable = false)
     private Date issueDate;
 
-    @NotNull
+    @Column(name = "expiryDate",nullable = false,insertable = false,updatable = false)
     private Date expiryDate;
 
     @Transient

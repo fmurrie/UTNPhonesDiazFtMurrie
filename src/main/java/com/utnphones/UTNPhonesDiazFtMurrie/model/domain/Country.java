@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -18,17 +17,16 @@ public class Country
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idCountry")
     private Integer idCountry;
 
-    @NotNull
-    @Column(unique=true)
+    @Column(name="iso",unique=true,nullable = false,length = 100)
     private String iso;
 
-    @NotNull
-    @Column(unique=true)
+    @Column(name="name",unique=true,nullable = false,length = 100)
     private String name;
 
-    @NotNull
+    @Column(name="areaCode",unique=true,nullable = false,length = 100)
     private String areaCode;
 
     @Transient

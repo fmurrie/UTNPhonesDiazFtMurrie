@@ -20,21 +20,20 @@ public class PhoneLine
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idPhoneLine")
     private Integer idPhoneLine;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idLineType")
+    @JoinColumn(name = "idLineType",nullable = false)
     private LineType lineType;
 
-    @NotNull
-    @Column(unique=true)
+    @Column(name="phoneNumber",unique=true,nullable = false,length = 100)
     private String phoneNumber;
 
     @NotNull
     @ManyToOne
     @JsonBackReference(value = "phoneLine-user")
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "idUser",nullable = false)
     private User user;
 
     @Transient

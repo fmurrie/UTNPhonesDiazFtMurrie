@@ -14,7 +14,7 @@ public class SessionScheduler {
     SessionManager sessionManager;
 
     @Async
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 1000000)
     public void expiresSessions() {
         sessionManager.expireSessions();
     }

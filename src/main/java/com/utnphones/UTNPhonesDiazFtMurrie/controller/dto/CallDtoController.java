@@ -1,6 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.dto;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.CallController;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.CallController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import org.springframework.beans.factory.annotation.Autowired;

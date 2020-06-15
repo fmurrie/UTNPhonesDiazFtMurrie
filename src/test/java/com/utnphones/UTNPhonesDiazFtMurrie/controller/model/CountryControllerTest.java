@@ -1,4 +1,5 @@
-package com.utnphones.UTNPhonesDiazFtMurrie.controller;
+package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
+
 
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryService;
@@ -6,10 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class CountryControllerTest
     public void addCountry()
     {
         Integer id=10;
-        Country country=new Country(id,"ARG","Argentina","54",null);
+        Country country=new Country(null,"ARG","Argentina","54",null);
         Mockito.when(service.add(country)).thenReturn(country);
         ResponseEntity<Country> result= controller.addCountry(country);
         assertNotNull(result);

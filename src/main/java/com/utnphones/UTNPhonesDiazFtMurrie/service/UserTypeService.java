@@ -26,9 +26,9 @@ public class UserTypeService {
         return dao.findAll();
     }
 
-    public Optional<UserType> getById(Integer id)
+    public UserType getById(Integer id)
     {
-        return dao.findById(id);
+        return dao.getById(id);
     }
 
 }

@@ -11,15 +11,14 @@ import java.util.List;
 public interface UserDao extends JpaRepository<User,Integer> {
     //Methods:
     public User findByUsernameAndUserpassword(String username,String password);
-    public List<User> findByFirstName(String username);
 
+    public boolean existsByUsername(String username);
 
-    @Query(value = "SELECT u.dni,count(*) as callsCount FROM users u inner join phoneLines p on p.idUser=u.idUser inner join calls c on c.idPhoneLineOrigin=p.idPhoneLine group by u.dni",nativeQuery = true)
-    List<UserCall> getUserCall();
+    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' ", nativeQuery = true)
+    public List<User> findClients();
 
+    public boolean existsByDni(String dni);
 
-
-    @Query(value = "SELECT u.dni,count(*) as callsCount FROM users u inner join phoneLines p on p.idUser=u.idUser inner join calls c on c.idPhoneLineOrigin=p.idPhoneLine where u.dni=?1 group by u.dni",nativeQuery = true)
-    List<UserCall> getUserCall(String dni);
-
+    @Query(value = "select * from users u where u.idUser = ?1 ", nativeQuery = true)
+    public User getById(Integer id);
 }

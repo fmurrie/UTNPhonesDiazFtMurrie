@@ -13,10 +13,39 @@ before insert on calls
 for each row
 begin
 
+declare vCost float;
 declare vMinutePrice float;
+declare vIdOriginCity int;
+declare vIdDestinyCity int;
 
-call rates_insertAndGetPrice(getIdCityForIdPhoneLine(new.idPhoneLineOrigin),getIdCityForIdPhoneLine(new.idPhoneLineDestiny),vMinutePrice);
+set vIdOriginCity=getIdCityForIdPhoneLine(new.idPhoneLineOrigin);
+set vIdDestinyCity=getIdCityForIdPhoneLine(new.idPhoneLineDestiny);
 
+select
+minutePrice,cost
+into
+vMinutePrice,vCost
+from rates
+where
+idOriginCity=vIdOriginCity and
+idDestinyCity=vIdDestinyCity;
+
+set new.idCallType=(
+					select
+					case
+						when ipv1.idCity=ipv2.idCity
+						then 1
+						when ipv1.idProvince=ipv2.idProvince
+						then 2
+						when ipv1.idCountry=ipv2.idCountry
+						then 3
+						else 4
+						end as idCallType
+					from
+						(select * from idsPlacesView where idCity=vIdOriginCity) as ipv1
+					inner join
+						(select * from idsPlacesView where idCity=vIdDestinyCity) as ipv2);
+    
 set new.durationSeconds=getSecondsBetweenTwoDateTimes(new.initTime,new.endTime);
 set new.totalPrice=vMinutePrice*convertSecondsInMinutes(new.durationSeconds);
 set new.creatorUser=getDbUserName();

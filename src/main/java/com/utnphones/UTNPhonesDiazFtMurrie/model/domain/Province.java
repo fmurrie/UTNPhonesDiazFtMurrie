@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+
 
 @Entity
 @NoArgsConstructor
@@ -18,15 +18,15 @@ public class Province
     //Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idProvince")
     private Integer idProvince;
 
-    @NotNull
+    @Column(name="name",unique=true,nullable = false,length = 100)
     private String name;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value = "province-country")
-    @JoinColumn(name = "idCountry")
+    @JoinColumn(name = "idCountry",nullable = false)
     private Country country;
 
     @Transient

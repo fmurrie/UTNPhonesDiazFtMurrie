@@ -13,26 +13,48 @@ create procedure bills_monthFacturation
 )
 begin
 
+declare vIdCurrentPhoneLine int;
+declare vIdBillInserted int;
+declare done boolean default false;
+declare phoneLines_cursor cursor for select idPhoneLine from phoneLines where suspended=false;
+declare continue handler for sqlstate '02000' set done = true;
+
+set autocommit=0;
+
+open phoneLines_cursor;
+facturation_phoneLines: loop
+
+FETCH phoneLines_cursor into  vIdCurrentPhoneLine;
+
+IF `done` then leave facturation_phoneLines; end if;
+
 start transaction;
 
-insert into bills (idPhoneLine) select idPhoneLine from phoneLines;
+insert into bills (idPhoneLine) values(vIdCurrentPhoneLine);
+set vIdBillInserted=last_insert_id();
 
 update
 bills b
 inner join
-(select
-c.idBill as idBill,
+(select 
+c.idBill,
 count(*) as quantity,
-sum(c.totalPrice) as totalPrice
-from calls c group by c.idBill) as slcCalls
+ifnull(sum(ct.cost*convertSecondsInMinutes(c.durationSeconds)),0) as costPrice,
+ifnull(sum(c.totalPrice),0) as totalPrice 
+from calls c 
+inner join callTypes ct on ct.idCallType=c.idCallType 
+where c.idBill=vIdBillInserted) as callsQuery
 set
-b.callsQuantity=slcCalls.quantity,
-b.costPrice=slcCalls.totalPrice,
-b.totalPrice=slcCalls.totalPrice
+b.callsQuantity=callsQuery.quantity,
+b.costPrice=callsQuery.costPrice,
+b.totalPrice=callsQuery.totalPrice
 where
-b.idBill=slcCalls.idBill and b.billMonth=getYearMonth();
+b.idBill=vIdBillInserted and b.billMonth=getYearMonth();
 
 commit;
+
+end loop facturation_phoneLines;
+close phoneLines_cursor;
 
 end //
 delimiter ;

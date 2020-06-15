@@ -13,8 +13,8 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
 
     @Query(value = "select * from phoneLines dp inner join calls c on dp.idPhoneLine = c.idPhoneLineDestiny" +
             " inner join phoneLines op on op.idPhoneLine = c.idPhoneLineOrigin where op.idUser = ?1 " +
-            " group by c.idPhoneLineDestiny order by count(c.idPhoneLineDestiny) DESC limit 3", nativeQuery = true)
-    List<PhoneLine> top3Destinataries(Integer userId);
+            " group by c.idPhoneLineDestiny order by count(c.idPhoneLineDestiny) DESC limit 10", nativeQuery = true)
+    List<PhoneLine> top10Destinataries(Integer userId);
 
     @Query(value = "select count(c.idCall) from phoneLines dp inner join calls c on dp.idPhoneLine = c.idPhoneLineDestiny" +
             " inner join phoneLines op on op.idPhoneLine = c.idPhoneLineOrigin where op.idUser = ?1" +

@@ -9,6 +9,7 @@ use utnphones;
 create table if not exists calls
 (
 	idCall int auto_increment,
+	idCallType int not null,
 	idBill int,
 	idPhoneLineOrigin int not null,
 	idPhoneLineDestiny int not null,
@@ -23,6 +24,7 @@ create table if not exists calls
 	constraint PK_calls_idCall primary key(idCall),
 	constraint CHK_calls_idPhoneLines_not_equal check(idPhoneLineOrigin!=idPhoneLineDestiny),
 	constraint CHK_calls_endTime_bigger_or_equal_than_initTime check(initTime<=endTime),
+	constraint FK_calls_idCallType foreign key(idCallType) references callTypes(idCallType) on update cascade on delete cascade,
 	constraint FK_calls_idBill foreign key(idBill) references bills(idBill) on update cascade on delete cascade,
 	constraint FK_calls_idPhoneLineOrigin foreign key(idPhoneLineOrigin) references phoneLines(idPhoneLine) on update cascade,
 	constraint FK_calls_idPhoneLineDestiny foreign key(idPhoneLineDestiny) references phoneLines(idPhoneLine) on update cascade
