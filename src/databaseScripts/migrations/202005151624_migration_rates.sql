@@ -33,7 +33,7 @@ set vCitiesCount=(select count(*) from cities);
 select minutePrice,cost into vLocalCallMinutePrice,vLocalCallCost from callTypes where idCallType=1;
 select minutePrice,cost into vProvincialCallMinutePrice,vProvincialCallCost from callTypes where idCallType=2;
 select minutePrice,cost into vNationalCallMinutePrice,vNationalCallCost from callTypes where idCallType=3;
-select minutePrice,cost into vInternationalCallCost,vInternationalCallCost from callTypes where idCallType=4;
+select minutePrice,cost into vInternationalCallMinutePrice,vInternationalCallCost from callTypes where idCallType=4;
 
 WHILE vCounter <= vCitiesCount DO
 
