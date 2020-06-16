@@ -2,12 +2,14 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,8 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/phoneLine")
+@Controller
 public class PhoneLineController implements LocationInterface<PhoneLine> {
 
     //Properties:
@@ -31,12 +32,12 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     }
 
     //Methods:
-    @PostMapping("/")
+   // @PostMapping("/")
     public ResponseEntity<PhoneLine> addPhoneLine(@RequestBody @Valid PhoneLine phoneLine) throws LineAlreadyExistsException {
         return ResponseEntity.created(getLocation(phoneLine)).build();
     }
 
-    @GetMapping("/")
+    //@GetMapping("/")
     public ResponseEntity<List<PhoneLine>> getAllPhoneLines() {
         List<PhoneLine> phoneLineList = phoneLineService.getAll();
         if (phoneLineList.size() > 0)
@@ -45,7 +46,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{idPhoneLine}")
+    //@GetMapping("/{idPhoneLine}")
     public ResponseEntity<Optional<PhoneLine>> getPhoneLineById(@PathVariable Integer idPhoneLine) {
         Optional<PhoneLine> phoneLine = phoneLineService.getPhoneLineById(idPhoneLine);
         if(phoneLine != null)
@@ -54,10 +55,8 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/favoriteDestinataries/{idUser}")
-    public ResponseEntity<List<LineAndCallsQuantityDto>> top10Destinataries (@PathVariable Integer idUser){
-
-        return ResponseEntity.ok(phoneLineService.top10Destinataries(idUser));
+    public List<LineAndCallsQuantityDto> top10Destinataries (@PathVariable Integer idUser) throws UserNotexistException {
+        return phoneLineService.top10Destinataries(idUser);
     }
 
 

@@ -1,8 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
+import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineAlreadyExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,35 +17,42 @@ import java.util.Optional;
 public class PhoneLineService {
 
     //Properties:
-    private final PhoneLineDao dao;
+    private final PhoneLineDao phoneLineDao;
+    private final UserDao userDao;
 
     //Constructors:
     @Autowired
-    public PhoneLineService (PhoneLineDao dao) {
-        this.dao = dao;
+    public PhoneLineService(PhoneLineDao phoneLineDao, UserDao userDao) {
+        this.phoneLineDao = phoneLineDao;
+        this.userDao = userDao;
     }
 
-    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineAlreadyExistsException { return dao.save(phoneLine); }
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineAlreadyExistsException { return phoneLineDao.save(phoneLine); }
 
     //Methods:
     public List<PhoneLine> getAll()
     {
-        return dao.findAll();
+        return phoneLineDao.findAll();
     }
 
     public Optional<PhoneLine> getPhoneLineById(Integer id)
     {
-        return dao.findById(id);
+        return phoneLineDao.findById(id);
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) {
+    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotexistException {
         List<LineAndCallsQuantityDto> list = new ArrayList<>();
-        for (PhoneLine phoneLine : dao.top10Destinataries(userId)){
+        if (userDao.existsById(userId)){
+            for (PhoneLine phoneLine : phoneLineDao.top10Destinataries(userId)){
                 LineAndCallsQuantityDto dto = new LineAndCallsQuantityDto();
                 dto.setFavoritePhoneLine(phoneLine);
-                dto.setCallsQuantity(dao.callsQuantity(userId,phoneLine.getIdPhoneLine()));
+                dto.setCallsQuantity(phoneLineDao.callsQuantity(userId,phoneLine.getIdPhoneLine()));
                 list.add(dto);
+            }
+            return list;
         }
-        return list;
+        else
+            throw new UserNotexistException();
+
     }
 }

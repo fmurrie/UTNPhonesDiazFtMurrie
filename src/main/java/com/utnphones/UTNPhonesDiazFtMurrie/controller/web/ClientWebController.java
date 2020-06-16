@@ -1,10 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
-import ch.qos.logback.core.net.server.Client;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -15,21 +15,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("api/user/client")
 public class ClientWebController {
 
     //Properties:
     private final SessionManager sessionManager;
     private final UserController userController;
+    private final PhoneLineController phoneLineController;
     private final AdviceController adviceController;
 
     @Autowired
-    public ClientWebController(SessionManager sessionManager, UserController userController, AdviceController adviceController){
+    public ClientWebController(SessionManager sessionManager, UserController userController, PhoneLineController phoneLineController ,AdviceController adviceController){
         this.sessionManager = sessionManager;
         this.userController = userController;
+        this.phoneLineController = phoneLineController;
         this.adviceController = adviceController;
     }
 
@@ -49,28 +51,23 @@ public class ClientWebController {
         }
     }
 
-    /*@PutMapping("/update")
+    @PutMapping("/me")
     public ResponseEntity updateUser (@RequestHeader("Authorization") String token, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
-        User user = sessionManager.getCurrentUser(token);
-            if (user != null) {
-                if (updatedUser != null){
-                    user.setFirstName(updatedUser.getFirstName());
-                    user.setLastName(updatedUser.getLastName());
-                    user.setCity(updatedUser.getCity());
-                    user.setUsername(updatedUser.getUsername());
-                    user.setUserpassword(updatedUser.getUserpassword());
-                }
-                else
-                    return ResponseEntity.ok(adviceController.handleValidationException(new ValidationException("Error: check your fields and try again")));
+        try {
+            return ResponseEntity.ok(userController.updateUser(sessionManager.getCurrentUser(token).getIdUser(), updatedUser));
+        } catch (ValidationException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
+        } catch (UserNotexistException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
 
-                ResponseEntity response = userController.updateUser(user);
-                if(response != null)
-                    return response;
-                else
-                    return ResponseEntity.ok(adviceController.handleValidationException(new ValidationException("Error: the username is alredy in use")));
-             }else
-                 return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
-
-
-    }*/
+    @GetMapping("me/phoneLine/favoriteDestinataries")
+    public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+        try{
+            return ResponseEntity.ok(phoneLineController.top10Destinataries(idUser));
+        }
+        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
 }
