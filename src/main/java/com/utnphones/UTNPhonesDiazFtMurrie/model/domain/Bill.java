@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class Bill
     private Integer idBill;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idBillState",nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "idBillState",nullable = false,insertable = false)
     private BillState billState;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -48,6 +50,9 @@ public class Bill
 
     @Column(name = "expiryDate",nullable = false,insertable = false,updatable = false)
     private Date expiryDate;
+
+    @Column(name = "expired",nullable = false,insertable = false,updatable = false)
+    private boolean expired;
 
     @Transient
     private List<Call> callList;

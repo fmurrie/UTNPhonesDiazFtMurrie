@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Immutable
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,12 +24,12 @@ public class Province
     @Column(name = "idProvince")
     private Integer idProvince;
 
-    @Column(name="name",unique=true,nullable = false,length = 100)
+    @Column(name="name",unique=true,nullable = false,length = 100,insertable = false,updatable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value = "province-country")
-    @JoinColumn(name = "idCountry",nullable = false)
+    @JoinColumn(name = "idCountry",nullable = false,insertable = false,updatable = false)
     private Country country;
 
     @Transient

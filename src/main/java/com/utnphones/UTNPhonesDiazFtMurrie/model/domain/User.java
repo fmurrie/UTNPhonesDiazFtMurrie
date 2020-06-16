@@ -46,6 +46,12 @@ public class User
     @Column(name="userpassword",nullable = false,length = 100)
     private String userpassword;
 
+    @Column(name="suspended",insertable = false)
+    private boolean suspended;
+
+    @Column(name="deleted",insertable = false)
+    private boolean deleted;
+
     @OneToMany(mappedBy = "user")
     private List<PhoneLine> phoneLines;
 }
