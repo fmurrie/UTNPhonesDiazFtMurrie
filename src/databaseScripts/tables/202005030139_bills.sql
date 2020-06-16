@@ -25,3 +25,5 @@ create table if not exists bills
 	constraint UK_bills_idPhoneLine_billMonth unique(idPhoneLine,billMonth),
 	constraint FK_bills_idPhoneLine foreign key(idPhoneLine) references phoneLines(idPhoneLine) on update cascade on delete cascade
 );
+
+/*Indexes for the searchs in the table bills*/

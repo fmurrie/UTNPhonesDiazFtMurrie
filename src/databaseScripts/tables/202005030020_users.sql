@@ -17,6 +17,7 @@ create table if not exists users
 	username varchar(100) not null,
 	userpassword varchar(100) not null,
 	suspended boolean default(false),
+	deleted boolean default(false),
     creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
