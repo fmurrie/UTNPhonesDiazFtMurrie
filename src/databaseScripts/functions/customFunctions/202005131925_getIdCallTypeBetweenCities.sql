@@ -14,7 +14,7 @@ pIdOriginCity int,
 pIdDestinyCity int
 )
 returns int
-not deterministic
+deterministic
 begin
   declare vIdCallType int;
 

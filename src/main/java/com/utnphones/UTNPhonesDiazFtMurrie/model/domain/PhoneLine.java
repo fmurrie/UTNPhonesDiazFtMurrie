@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -30,11 +29,16 @@ public class PhoneLine
     @Column(name="phoneNumber",unique=true,nullable = false,length = 100)
     private String phoneNumber;
 
-    @NotNull
     @ManyToOne
     @JsonBackReference(value = "phoneLine-user")
     @JoinColumn(name = "idUser",nullable = false)
     private User user;
+
+    @Column(name="suspended",insertable = false)
+    private boolean suspended;
+
+    @Column(name="deleted",insertable = false)
+    private boolean deleted;
 
     @Transient
     private List<Call> callList;

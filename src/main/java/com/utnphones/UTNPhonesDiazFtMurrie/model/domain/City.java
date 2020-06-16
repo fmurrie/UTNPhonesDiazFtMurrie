@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Immutable
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,14 +23,14 @@ public class City
     @Column(name = "idCity")
     private Integer idCity;
 
-    @Column(name="name",unique=true,nullable = false,length = 100)
+    @Column(name="name",unique=true,nullable = false,length = 100,insertable = false,updatable = false)
     private String name;
 
-    @Column(name="areaCode",nullable = false,length = 100)
+    @Column(name="areaCode",nullable = false,length = 100,insertable = false,updatable = false)
     private String areaCode;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value = "province-country")
-    @JoinColumn(name = "idProvince",nullable = false)
+    @JoinColumn(name = "idProvince",nullable = false,insertable = false,updatable = false)
     private Province province;
 }
