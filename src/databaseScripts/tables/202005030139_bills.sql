@@ -17,6 +17,7 @@ create table if not exists bills
 	billMonth varchar(100) not null,
 	issueDate datetime default(now()),
 	expiryDate datetime not null,
+	expired boolean default(false),
     creatorUser varchar(100) not null,
     createdDate datetime default(now()),
     updaterUser varchar(100),
