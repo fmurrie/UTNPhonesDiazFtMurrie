@@ -50,4 +50,10 @@ public class AdviceController extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(400, "ERROR! UserType does not exists");
     }
 
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PhoneLineException.class)
+    public ErrorResponseDto handlePhoneLineException(PhoneLineException exc) {
+        return new ErrorResponseDto(400, exc.getMessage());
+    }
 }

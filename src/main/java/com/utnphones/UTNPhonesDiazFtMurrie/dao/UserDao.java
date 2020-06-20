@@ -14,7 +14,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     public boolean existsByUsername(String username);
 
-    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' ", nativeQuery = true)
+    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' and u.deleted = 0 ", nativeQuery = true)
     public List<User> findClients();
 
     public boolean existsByDni(String dni);

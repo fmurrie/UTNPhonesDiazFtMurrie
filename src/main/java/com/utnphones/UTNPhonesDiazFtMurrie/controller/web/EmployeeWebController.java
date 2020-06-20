@@ -35,8 +35,8 @@ public class EmployeeWebController {
     }
 
     //Methods:
-    @PostMapping("/")
-    public ResponseEntity addUser(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException {
+    @PostMapping("/client")
+    public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException {
            try{
                UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType());
                if(userTypeAux != null){
@@ -70,20 +70,35 @@ public class EmployeeWebController {
 
     }
 
-    @GetMapping("/clients")
-    public ResponseEntity getAllClients(@RequestHeader("Authorization") String token) {
-        if (sessionManager.getCurrentUser(token) != null) {
-            ResponseEntity response = ResponseEntity.ok(userController.getAllClients());
+    @GetMapping("/clients/")
+    public ResponseEntity getClients(@RequestHeader("Authorization") String token, @RequestParam(required = false) Integer idClient) {
+            ResponseEntity response = ResponseEntity.ok(userController.getClients());
             if (null != response)
                 return response;
             else
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleSessionNotExists(new SessionNotExistsException()));
-        } else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleSessionNotExists(new SessionNotExistsException()));
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleValidationException(new ValidationException("Sorry! no clients have been added yet!")));
     }
 
-    @PutMapping("/{idUser}")
-    public ResponseEntity updateUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
+    @GetMapping("/clients/{idClient}")
+    public ResponseEntity getClient(@RequestHeader("Authorization") String token, @PathVariable Integer idClient) throws UserNotexistException, ValidationException {
+       try{
+           ResponseEntity response = ResponseEntity.ok(userController.getClientById(idClient));
+           if (null != response)
+               return response;
+           else
+               return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleValidationException(new ValidationException("Sorry! no clients have been added yet!")));
+       }
+       catch(UserNotexistException exc){
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+       }
+       catch(ValidationException exc){
+           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+       }
+
+    }
+
+    @PutMapping("/client/{idUser}")
+    public ResponseEntity updateClient (@RequestHeader("Authorization") String token, @PathVariable Integer idUser, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
         try {
             return ResponseEntity.ok(userController.updateUser(idUser, updatedUser));
         } catch (ValidationException exc) {
@@ -93,4 +108,30 @@ public class EmployeeWebController {
         }
     }
 
+    @PutMapping("/client/{idUser}/suspension")
+    public ResponseEntity suspendUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+        try {
+            return ResponseEntity.ok(userController.suspendUser(idUser));
+        } catch (UserNotexistException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
+
+    @PutMapping("/client/{idUser}/enable")
+    public ResponseEntity enableUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+        try {
+            return ResponseEntity.ok(userController.enableUser(idUser));
+        } catch (UserNotexistException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
+
+    @DeleteMapping("/client/{idUser}")
+    public ResponseEntity deleteUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+        try {
+            return ResponseEntity.ok(userController.deleteUser(idUser));
+        } catch (UserNotexistException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
 }
