@@ -8,7 +8,6 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
-import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class UserService
@@ -54,13 +55,25 @@ public class UserService
             throw new UserNotexistException();
     }
 
+    public User getClientById(Integer id) throws UserNotexistException, ValidationException {
+        if(dao.existsById(id)) {
+            User user = dao.getById(id);
+            if (user.getUserType().getDescription().equals("Client"))
+                return dao.getById(id);
+            else
+                throw new ValidationException("Sorry! you are not allowed to see this user!");
+        }
+        else
+            throw new UserNotexistException();
+    }
+
     public List<User> getAll()
     {
         return dao.findAll();
     }
 
-    public List<User> getAllClients() {
-        return dao.findClients();
+    public List<User> getClients() {
+            return dao.findClients();
     }
 
     public User updateUser(Integer idUser, UserUpdateRequestDto updatedUser) throws UserNotexistException, ValidationException {
@@ -87,5 +100,33 @@ public class UserService
             throw new UserNotexistException();
     }
 
+    public User suspendUser(Integer idUser) throws UserNotexistException {
+        User user = dao.getById(idUser);
+        if(user != null){
+            user.setSuspended(true);
+            return dao.save(user);
+        }
+        else
+            throw new UserNotexistException();
+    }
 
+    public User enableUser(Integer idUser) throws UserNotexistException {
+        User user = dao.getById(idUser);
+        if(user != null){
+            user.setSuspended(false);
+            return dao.save(user);
+        }
+        else
+            throw new UserNotexistException();
+    }
+
+    public User deleteUser(Integer idUser) throws UserNotexistException {
+        User user = dao.getById(idUser);
+        if(user != null){
+            user.setDeleted(true);
+            return dao.save(user);
+        }
+        else
+            throw new UserNotexistException();
+    }
 }

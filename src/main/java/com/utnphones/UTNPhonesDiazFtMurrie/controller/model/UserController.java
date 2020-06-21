@@ -38,15 +38,17 @@ public class UserController implements LocationInterface<User> {
         return service.addUser(user);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getUsers() {
         return service.getAll();
     }
 
-    public List<User> getAllClients() {
-        return service.getAllClients();
+    public User getUserById(Integer idUser) throws UserNotexistException { return service.getUserById(idUser); }
+
+    public List<User> getClients() {
+        return service.getClients();
     }
 
-    public User getUserById(Integer idUser) throws UserNotexistException { return service.getUserById(idUser); }
+    public User getClientById(Integer idClient) throws UserNotexistException, ValidationException { return service.getClientById(idClient); }
     
     public User login(String username, String password) throws UserNotexistException, ValidationException {
         if ((username != null) && (password != null)) {
@@ -56,8 +58,20 @@ public class UserController implements LocationInterface<User> {
         }
     }
 
-    public ResponseEntity updateUser (Integer userId, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
-            return ResponseEntity.ok(service.updateUser(userId,updatedUser));
+    public User updateUser (Integer userId, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
+            return service.updateUser(userId,updatedUser);
+    }
+
+    public User suspendUser(Integer idUser) throws UserNotexistException {
+        return service.suspendUser(idUser);
+    }
+
+    public User enableUser(Integer idUser) throws UserNotexistException {
+        return service.enableUser(idUser);
+    }
+
+    public User deleteUser(Integer idUser) throws UserNotexistException {
+        return service.deleteUser(idUser);
     }
 
     @Override
@@ -68,4 +82,5 @@ public class UserController implements LocationInterface<User> {
                 .buildAndExpand(user.getIdUser())
                 .toUri();
     }
+
 }
