@@ -15,11 +15,11 @@ import java.util.Date;
 public class GetCallRequestDto
 {
     //region Properties:
-    @JsonProperty
+    //@JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date initDate;
 
-    @JsonProperty
+    //@JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date endDate;
     //endregion

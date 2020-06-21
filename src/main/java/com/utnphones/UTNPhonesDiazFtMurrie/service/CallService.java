@@ -69,7 +69,7 @@ public class CallService {
     public List<Call> getCallsBetweenDates(Integer userId, GetCallRequestDto callRequestDto) throws UserNotexistException {
         List<Call> callList = new ArrayList<>();
         if(userDao.existsById(userId))
-            callList = dao.getCallsBetweenDates(userId, callRequestDto.getInidDate(), callRequestDto.getEndDate());
+            callList = dao.getCallsBetweenDates(userId, callRequestDto.getInitDate(), callRequestDto.getEndDate());
         else
             throw new UserNotexistException();
 

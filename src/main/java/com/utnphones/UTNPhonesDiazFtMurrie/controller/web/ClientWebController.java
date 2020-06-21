@@ -78,15 +78,15 @@ public class ClientWebController
     }
 
     @GetMapping("/phoneLine/favoriteDestinataries")
-    public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token, @PathVariable Integer idUser){
+    public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token){
         try{
-            return ResponseEntity.ok(phoneLineController.top10Destinataries(idUser));
+            return ResponseEntity.ok(phoneLineController.top10Destinataries(sessionManager.getCurrentUser(token).getIdUser()));
         }
         catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
 
-    @GetMapping("/calls")
+    @GetMapping("phoneLine/calls")
     public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token){
         try{
             return ResponseEntity.ok(callController.getCallsByUser(sessionManager.getCurrentUser(token).getIdUser()));
@@ -95,7 +95,7 @@ public class ClientWebController
         }
     }
 
-    @GetMapping("/calls/between")
+    @GetMapping("phoneLine/calls/between")
     public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetCallRequestDto getCallRequestDto){
         try{
             return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getCallRequestDto));
