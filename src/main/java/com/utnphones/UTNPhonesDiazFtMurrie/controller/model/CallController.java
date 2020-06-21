@@ -48,7 +48,7 @@ public class CallController implements LocationInterface<Call> {
     }
 
     public Call getCallById(@PathVariable Integer idCall) {
-        return callService.getCallById(idCall);
+        return callService.getCallById(idCall).get();
     }
 
     @Override

@@ -19,8 +19,6 @@ public class ProvinceService {
     //endregion
 
     //region Methods:
-    public Province add(final Province province) { return dao.save(province); }
-
     public List<Province> getAll() { return dao.findAll(); }
 
     public Optional<Province> getById(Integer id)

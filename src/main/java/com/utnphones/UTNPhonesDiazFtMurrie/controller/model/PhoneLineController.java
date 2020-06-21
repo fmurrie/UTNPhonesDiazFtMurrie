@@ -45,7 +45,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     }
 
     public PhoneLine getPhoneLine(@PathVariable Integer idPhoneLine) throws PhoneLineException {
-        return phoneLineService.getPhoneLine(idPhoneLine);
+        return phoneLineService.getPhoneLine(idPhoneLine).get();
 
     }
 

@@ -26,11 +26,6 @@ public class ProvinceController
     //endregion
 
     //region Methods:
-    @PostMapping("/")
-    public ResponseEntity<Province> addProvince(@RequestBody @Valid Province province) {
-        return ResponseEntity.ok(service.add(province));
-    }
-
     @GetMapping("/")
     ResponseEntity<List<Province>> getAllProvinces()
     {

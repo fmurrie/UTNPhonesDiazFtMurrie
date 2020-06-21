@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserTypeService {
+public class UserTypeService
+{
     //region Properties:
     private final UserTypeDao dao;
     //endregion
@@ -19,19 +20,12 @@ public class UserTypeService {
     //endregion
 
     //region Methods:
-    public UserType add(final UserType userType) {
-        return dao.save(userType);
-    }
-
     public List<UserType> getAll()
     {
         return dao.findAll();
     }
 
-    public UserType getById(Integer id)
-    {
-        return dao.getById(id);
-    }
+    public Optional<UserType> getById(Integer id) { return dao.findById(id); }
     //endregion
 }
 

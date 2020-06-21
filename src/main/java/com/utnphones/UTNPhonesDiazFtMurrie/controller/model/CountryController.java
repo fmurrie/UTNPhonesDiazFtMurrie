@@ -24,11 +24,6 @@ public class CountryController
     //endregion
 
     //region Methods:
-    @PostMapping("/")
-    public ResponseEntity<Country> addCountry(@RequestBody @Valid Country country) {
-        return ResponseEntity.ok(service.add(country));
-    }
-
     @GetMapping("/")
     ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countryList = service.getAll();

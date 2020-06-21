@@ -28,11 +28,6 @@ public class RateController
     //endregion
 
     //region Methods:
-    @PostMapping("/")
-    public ResponseEntity <Rate> addRate(@RequestBody @Valid Rate rate) {
-        return ResponseEntity.ok(service.add(rate));
-    }
-
     @GetMapping("/")
     ResponseEntity<List<Rate>> getAllRates() {
         List<Rate> rateList = service.getAll();

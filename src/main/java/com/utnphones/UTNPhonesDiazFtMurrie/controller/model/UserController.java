@@ -43,13 +43,13 @@ public class UserController implements LocationInterface<User> {
         return service.getAll();
     }
 
-    public User getUserById(Integer idUser) throws UserNotexistException { return service.getUserById(idUser); }
+    public User getUserById(Integer idUser) throws UserNotexistException { return service.getUserById(idUser).get(); }
 
     public List<User> getClients() {
         return service.getClients();
     }
 
-    public User getClientById(Integer idClient) throws UserNotexistException, ValidationException { return service.getClientById(idClient); }
+    public User getClientById(Integer idClient) throws UserNotexistException, ValidationException { return service.getClientById(idClient).get(); }
     
     public User login(String username, String password) throws UserNotexistException, ValidationException {
         if ((username != null) && (password != null)) {

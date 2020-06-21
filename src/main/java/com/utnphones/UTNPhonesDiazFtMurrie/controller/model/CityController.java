@@ -27,11 +27,6 @@ public class CityController
     //endregion
 
     //region Methods:
-    @PostMapping("/")
-    public ResponseEntity<City> addCity(@RequestBody @Valid City city) {
-        return ResponseEntity.ok(service.add(city));
-    }
-
     @GetMapping("/")
     ResponseEntity<List<City>> getAllCities() {
         List<City> cityList = service.getAll();
