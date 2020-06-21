@@ -4,12 +4,12 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CityService {
+public class CityService
+{
     //region Properties:
     private final CityDao dao;
     //endregion
@@ -20,10 +20,6 @@ public class CityService {
     //endregion
 
     //region Methods:
-    public City add(final City city) {
-        return dao.save(city);
-    }
-
     public List<City> getAll()
     {
         return dao.findAll();

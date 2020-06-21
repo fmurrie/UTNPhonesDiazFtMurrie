@@ -1,6 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.RateController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserTypeController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
@@ -15,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("api/backoffice")
@@ -28,27 +27,30 @@ public class EmployeeWebController
     private final AdviceController adviceController;
     private final UserTypeController userTypeController;
     private final PhoneLineController phoneLineController;
+    private final RateController rateController;
     //endregion
 
     //region Constructors:
     @Autowired
     public EmployeeWebController(SessionManager sessionManager, UserController userController,
                                  AdviceController adviceController, UserTypeController userTypeController,
-                                 PhoneLineController phoneLineController){
+                                 PhoneLineController phoneLineController, RateController rateController){
 
         this.sessionManager = sessionManager;
         this.userController = userController;
         this.adviceController = adviceController;
         this.userTypeController = userTypeController;
         this.phoneLineController = phoneLineController;
+        this.rateController = rateController;
     }
     //endregion
 
     //region Methods:
     @PostMapping("/client")
-    public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException {
+    public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException
+    {
            try{
-               UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType());
+               UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType()).get();
                if(userTypeAux != null){
                    if(userTypeAux.getDescription().equals("Client")){
                        userController.addUser(user);
@@ -66,7 +68,8 @@ public class EmployeeWebController
     }
 
     @GetMapping("/me")
-    ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token) throws UserNotexistException {
+    ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token) throws UserNotexistException
+    {
         User currentUser = sessionManager.getCurrentUser(token);
         if (currentUser != null){
             Integer id = currentUser.getIdUser();
@@ -153,7 +156,7 @@ public class EmployeeWebController
             phoneLineController.addPhoneLine(phoneLine);
             return ResponseEntity.created(phoneLineController.getLocation(phoneLine)).build();
         }
-        catch(LineTypeNotExistsException  exc){
+        catch(LineTypeNotExistsException exc){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleLineTypeNotExists(exc));
         }
         catch(UserNotexistException exc){
@@ -210,6 +213,17 @@ public class EmployeeWebController
         } catch (PhoneLineException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
+    }
+
+    ////////////////////////////////// RATES ///////////////////////////////////////////
+    @GetMapping("/rates")
+    public ResponseEntity getAllRates(@RequestHeader("Authorization") String token ) {
+            return ResponseEntity.ok(rateController.getAllRates());
+    }
+
+    @GetMapping("/rate/{idOriginCity}-{idDestinyCity}")
+    ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable Integer idOriginCity, @PathVariable Integer idDestinyCity) {
+            return ResponseEntity.ok(rateController.getRateById(idOriginCity,idDestinyCity));
     }
     //endregion
 }

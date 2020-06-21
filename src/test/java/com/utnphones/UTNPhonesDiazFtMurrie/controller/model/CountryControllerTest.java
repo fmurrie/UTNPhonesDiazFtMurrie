@@ -35,23 +35,11 @@ public class CountryControllerTest
     }
 
     @Test
-    public void addCountry()
-    {
-        Integer id=10;
-        Country country=new Country(null,"ARG","Argentina","54",null);
-        Mockito.when(service.add(country)).thenReturn(country);
-        ResponseEntity<Country> result= controller.addCountry(country);
-        assertNotNull(result);
-        assertEquals(ResponseEntity.of(Optional.of(country)),result);
-    }
-
-    @Test
     public void getAllCountries()
     {
         Mockito.when(service.getAll()).thenReturn(new ArrayList<Country>());
-        ResponseEntity<List<Country>> result= controller.getAllCountries();
+        List<Country> result= controller.getAllCountries();
         assertNotNull(result);
-        assertEquals(ResponseEntity.status(HttpStatus.NO_CONTENT).build(),result);
     }
 
     @Test
@@ -61,8 +49,8 @@ public class CountryControllerTest
         Country country=new Country(id,"ARG","Argentina","54",null);
         Optional<Country> expected=Optional.of(country);
         Mockito.when(service.getById(id)).thenReturn(Optional.of(country));
-        ResponseEntity<Optional<Country>> result=controller.getCountryById(id);
+        Optional<Country> result=controller.getCountryById(id);
         assertNotNull(result);
-        assertEquals(expected,result.getBody());
+        assertEquals(expected,result);
     }
 }

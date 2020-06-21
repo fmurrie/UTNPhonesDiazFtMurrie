@@ -23,8 +23,6 @@ public class RateService
     //endregion
 
     //region Methods:
-    public Rate add(final Rate rate) { return dao.save(rate); }
-
     public List<Rate> getAll() { return dao.findAll(); }
 
     public Optional<Rate> getById(RateId id)

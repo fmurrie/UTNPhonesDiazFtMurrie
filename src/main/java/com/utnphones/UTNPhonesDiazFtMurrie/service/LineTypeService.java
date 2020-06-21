@@ -21,10 +21,6 @@ public class LineTypeService
     //endregion
 
     //region Methods:
-    public void add(final LineType lineType) {
-        dao.save(lineType);
-    }
-
     public List<LineType> getAll()
     {
         return dao.findAll();

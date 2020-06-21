@@ -10,8 +10,6 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +17,16 @@ import java.util.Optional;
 public class CallService {
 
     //region Properties:
-    private final CallDao dao;
+    private final CallDao callDao;
     private final UserDao userDao;
-    PhoneLineDao phoneLineDao;
+    private final PhoneLineDao phoneLineDao;
     //endregion
 
     //Constructors:
     @Autowired
-    public CallService (CallDao dao, UserDao userDao, PhoneLineDao phoneLineDao) {
-        this.dao = dao;
+    public CallService (CallDao callDao, UserDao userDao, PhoneLineDao phoneLineDao)
+    {
+        this.callDao = callDao;
         this.userDao=userDao;
         this.phoneLineDao = phoneLineDao;
     }
@@ -43,7 +42,7 @@ public class CallService {
                 call.setPhoneLineDestiny(callDto.getPhoneLineDestiny());
                 call.setInitTime(callDto.getInitTime());
                 call.setEndTime(callDto.getEndTime());
-                return dao.save(call);
+                return callDao.save(call);
             }
             else
                 throw new PhoneLineException("ERROR! The origin line does not exists!");
@@ -55,52 +54,24 @@ public class CallService {
 
     public List<Call> getCallsByUser(Integer userId) throws UserNotexistException
     {
-        if(dao.existsById(userId))
-            return dao.getCallsByUser(userId);
+        if(callDao.existsById(userId))
+            return callDao.getCallsByUser(userId);
         else
             throw new UserNotexistException();
     }
 
-    public Call getCallById(Integer id)
+    public Optional<Call> getCallById(Integer id)
     {
-        return dao.findById(id).get();
+        return callDao.findById(id);
     }
 
     public List<Call> getCallsBetweenDates(Integer userId, GetCallRequestDto callRequestDto) throws UserNotexistException {
-        List<Call> callList = new ArrayList<>();
+        List<Call> callList;
         if(userDao.existsById(userId))
-            callList = dao.getCallsBetweenDates(userId, callRequestDto.getInitDate(), callRequestDto.getEndDate());
+            callList = callDao.getCallsBetweenDates(userId, callRequestDto.getInitDate(), callRequestDto.getEndDate());
         else
             throw new UserNotexistException();
 
         return callList;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /*for (Call c : callList) {
-                callQueryResult.add(
-
-
-                    callQueryResult.builder().idCall(c.getIdCall()).originLine(c.getOriginLine())
-                            .destinationLine(c.getDestinationLine()).callDate(c.getCallDate())
-                            .idRate(c.getRate().getIdRate()).callDuration(c.getCallDuration())
-                            .callCost(c.getCallCost()).callPrice(c.getCallPrice())
-                            .idBill(c.getBill().getIdBill()).build());
-            }*/
 }

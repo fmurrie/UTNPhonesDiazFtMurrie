@@ -36,7 +36,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     //endregion
 
     //region Methods:
-    public PhoneLine addPhoneLine(@RequestBody @Valid PhoneLine phoneLine) throws UserNotexistException, LineTypeNotExistsException, Exception {
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, Exception {
         return phoneLineService.addPhoneLine(phoneLine);
     }
 
@@ -44,12 +44,12 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
         return  phoneLineService.getAll();
     }
 
-    public PhoneLine getPhoneLine(@PathVariable Integer idPhoneLine) throws PhoneLineException {
-        return phoneLineService.getPhoneLine(idPhoneLine);
+    public PhoneLine getPhoneLine(Integer idPhoneLine) throws PhoneLineException {
+        return phoneLineService.getPhoneLine(idPhoneLine).get();
 
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries (@PathVariable Integer idUser) throws UserNotexistException {
+    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotexistException {
         return phoneLineService.top10Destinataries(idUser);
     }
 
