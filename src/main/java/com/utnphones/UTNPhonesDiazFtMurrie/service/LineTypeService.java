@@ -9,15 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LineTypeService {
-    //Properties:
+public class LineTypeService
+{
+    //region Properties:
     private final LineTypeDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public LineTypeService(LineTypeDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
+    //region Methods:
     public void add(final LineType lineType) {
         dao.save(lineType);
     }
@@ -31,5 +34,5 @@ public class LineTypeService {
     {
         return dao.findById(id);
     }
-
+    //endregion
 }

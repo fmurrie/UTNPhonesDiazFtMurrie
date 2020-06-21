@@ -8,15 +8,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableAsync
-public class SessionScheduler {
-
+public class SessionScheduler
+{
+    //region Properties:
     @Autowired
     SessionManager sessionManager;
+    //endregion
 
+    //region Methods:
     @Async
     @Scheduled(fixedRate = 1000000)
     public void expiresSessions() {
         sessionManager.expireSessions();
     }
-
+    //endregion
 }

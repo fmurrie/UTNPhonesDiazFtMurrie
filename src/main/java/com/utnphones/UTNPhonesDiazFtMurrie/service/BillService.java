@@ -12,27 +12,24 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class BillService {
-
+public class BillService
+{
+    //region Properties:
     private final BillDao billDao;
-    //PhoneLineDao phoneLineDao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public BillService (BillDao billDao) {
         this.billDao = billDao;
     }
+    //endregion
 
-    public Bill getBillById(Integer  idBill){
-        return billDao.getById(idBill);
-    }
+    //region Methods:
+    public Bill getBillById(Integer  idBill) { return billDao.findById(idBill).get(); }
 
-    List<Bill> getBillsByUser(Integer userId){
-        return billDao.getBillsByUser(userId);
-    }
+    List<Bill> getBillsByUser(Integer userId){ return billDao.getBillsByUser(userId); }
 
-    List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate){
-        return billDao.getBillsBetweenDates(userId, fromDate, toDate);
-    }
-
+    List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate){ return billDao.getBillsBetweenDates(userId, fromDate, toDate); }
+    //endregion
 }

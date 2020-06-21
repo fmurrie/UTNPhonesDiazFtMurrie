@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name="provinces", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "idCountry"})})
 public class Province
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProvince")
@@ -34,4 +34,5 @@ public class Province
 
     @Transient
     private List<City> cityList;
+    //endregion
 }

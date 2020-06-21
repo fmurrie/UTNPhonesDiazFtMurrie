@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-public class LoginController {
-
+public class LoginController
+{
+    //region Properties:
     UserController userController;
     SessionManager sessionManager;
     AdviceController adviceController;
+    //endregion
 
+    //region Constructors:
     @Autowired
     public LoginController(UserController userController, SessionManager sessionManager,AdviceController adviceController) {
         this.userController = userController;
         this.sessionManager = sessionManager;
         this.adviceController = adviceController;
     }
+    //endregion
 
-
+    //region Methods:
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws InvalidLoginException, ValidationException {
         ResponseEntity response;
@@ -59,6 +63,5 @@ public class LoginController {
         responseHeaders.set("Authorization", token);
         return responseHeaders;
     }
-
-
+    //endregion
 }

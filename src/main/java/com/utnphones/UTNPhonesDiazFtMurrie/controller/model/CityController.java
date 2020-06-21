@@ -15,16 +15,18 @@ import java.util.Optional;
 @RequestMapping("/city")
 public class CityController
 {
-    //Properties:
+    //region Properties:
     private final CityService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public CityController(CityService service) {
         this.service = service;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     @PostMapping("/")
     public ResponseEntity<City> addCity(@RequestBody @Valid City city) {
         return ResponseEntity.ok(service.add(city));
@@ -47,4 +49,5 @@ public class CityController
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    //endregion
 }

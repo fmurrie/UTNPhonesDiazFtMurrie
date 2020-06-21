@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name="bills",uniqueConstraints = {@UniqueConstraint(columnNames = {"idPhoneLine", "billMonth"})})
 public class Bill
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idBill")
@@ -56,4 +56,5 @@ public class Bill
 
     @Transient
     private List<Call> callList;
+    //endregion
 }

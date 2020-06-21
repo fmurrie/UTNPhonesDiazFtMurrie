@@ -10,14 +10,16 @@ import java.util.Optional;
 
 @Service
 public class CityService {
-    //Properties:
+    //region Properties:
     private final CityDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public CityService(CityDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
+    //region Methods:
     public City add(final City city) {
         return dao.save(city);
     }
@@ -31,4 +33,5 @@ public class CityService {
     {
         return dao.findById(id);
     }
+    //endregion
 }

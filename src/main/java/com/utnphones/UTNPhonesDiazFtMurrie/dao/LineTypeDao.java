@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LineTypeDao extends JpaRepository<LineType, Integer> {
-
-
-
 }

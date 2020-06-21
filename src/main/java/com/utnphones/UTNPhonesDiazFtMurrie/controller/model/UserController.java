@@ -21,19 +21,20 @@ import java.util.Optional;
 @Controller
 public class UserController implements LocationInterface<User> {
 
-    //Properties:
+    //region Properties:
     private SessionManager sessionManager;
-
     private final UserService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserController(UserService service, SessionManager sessionManager) {
         this.service = service;
         this.sessionManager=sessionManager;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     public User addUser(@RequestBody  User user) throws ValidationException {
         return service.addUser(user);
     }
@@ -82,5 +83,5 @@ public class UserController implements LocationInterface<User> {
                 .buildAndExpand(user.getIdUser())
                 .toUri();
     }
-
+    //endregion
 }

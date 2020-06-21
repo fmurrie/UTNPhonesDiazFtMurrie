@@ -17,16 +17,18 @@ import java.util.Optional;
 @RequestMapping("/lineType")
 public class LineTypeController {
 
-    //Properties:
+    //region Properties:
     private final LineTypeService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public LineTypeController(LineTypeService service) {
         this.service = service;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     @GetMapping("/")
     public ResponseEntity<List<LineType>> getAllLineTypes() {
         List<LineType> lineTypeList = service.getAll();
@@ -45,6 +47,6 @@ public class LineTypeController {
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
+    //endregion
 }
 

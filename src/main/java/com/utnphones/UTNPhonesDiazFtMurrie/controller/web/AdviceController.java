@@ -13,7 +13,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestControllerAdvice
 public class AdviceController extends ResponseEntityExceptionHandler {
-
+    //region Methods:
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(InvalidLoginException.class)
     public ErrorResponseDto handleLoginException(InvalidLoginException exc) {
@@ -68,4 +68,5 @@ public class AdviceController extends ResponseEntityExceptionHandler {
     public ErrorResponseDto handlePhoneNumberExists() {
         return new ErrorResponseDto(400, "Sorry! then number already exists!");
     }
+    //endregion
 }

@@ -22,19 +22,22 @@ import static java.util.Objects.isNull;
 @Service
 public class PhoneLineService {
 
-    //Properties:
+    //region Properties:
     private final PhoneLineDao phoneLineDao;
     private final UserDao userDao;
     private final LineTypeDao linetypeDao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public PhoneLineService(PhoneLineDao phoneLineDao, UserDao userDao, LineTypeDao linetypeDao) {
         this.phoneLineDao = phoneLineDao;
         this.userDao = userDao;
         this.linetypeDao = linetypeDao;
     }
+    //endregion
 
+    //region Methods:
     public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, UserNotexistException, Exception {
         if (linetypeDao.existsById(phoneLine.getLineType().getIdLineType()))
             if(userDao.existsById(phoneLine.getUser().getIdUser()))
@@ -45,7 +48,6 @@ public class PhoneLineService {
             throw new LineTypeNotExistsException();
     }
 
-    //Methods:
     public List<PhoneLine> getAll() throws PhoneLineException {
         List<PhoneLine> phoneLineList = phoneLineDao.getAll();
         if(isNull(phoneLineList))
@@ -104,6 +106,6 @@ public class PhoneLineService {
         }
         else
             throw new UserNotexistException();
-
     }
+    //endregion
 }

@@ -22,16 +22,18 @@ import static java.util.Objects.isNull;
 @Service
 public class UserService
 {
-    //Properties:
+    //region Properties:
     private final UserDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserService (UserDao dao) {
         this.dao = dao;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     public User addUser(User user) throws ValidationException {
 
         if(dao.existsByDni(user.getDni()))
@@ -129,4 +131,5 @@ public class UserService
         else
             throw new UserNotexistException();
     }
+    //endregion
 }

@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginRequestDto {
+public class LoginRequestDto
+{
+    //region Properties:
     String username;
     String userpassword;
-
+    //endregion
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="users")
 public class User
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUser")
@@ -54,4 +54,5 @@ public class User
 
     @OneToMany(mappedBy = "user")
     private List<PhoneLine> phoneLines;
+    //endregion
 }

@@ -14,16 +14,18 @@ import java.util.Optional;
 
 @Controller
 public class UserTypeController {
-    //Properties:
+    //region Properties:
     private final UserTypeService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserTypeController(UserTypeService service) {
         this.service = service;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     public ResponseEntity<UserType> addUserType(@RequestBody @Valid UserType userType) {
         return ResponseEntity.ok(service.add(userType));
     }
@@ -32,7 +34,6 @@ public class UserTypeController {
         return service.getAll();
     }
 
-
     public UserType getUserTypeById(Integer idUserType) { return service.getById(idUserType); }
-
+    //endregion
 }

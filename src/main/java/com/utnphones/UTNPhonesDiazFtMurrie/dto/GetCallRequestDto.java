@@ -12,8 +12,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCallRequestDto {
-
+public class GetCallRequestDto
+{
+    //region Properties:
     @JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date inidDate;
@@ -21,4 +22,5 @@ public class GetCallRequestDto {
     @JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date endDate;
+    //endregion
 }

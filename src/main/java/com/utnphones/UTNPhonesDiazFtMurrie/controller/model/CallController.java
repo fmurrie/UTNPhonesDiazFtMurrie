@@ -23,18 +23,18 @@ import java.util.Optional;
 @Controller
 public class CallController implements LocationInterface<Call> {
 
-    //Properties:
-
+    //region Properties:
     private CallService callService;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public CallController(CallService service) {
         this.callService = service;
     }
+    //endregion
 
-    //Methods:
-
+    //region Methods:
     public Call addCall(@RequestBody @Valid CallAddRequestDto call) throws PhoneLineException {
         return callService.addCall(call);
     }
@@ -59,4 +59,5 @@ public class CallController implements LocationInterface<Call> {
                 .buildAndExpand(call.getIdCall())
                 .toUri();
     }
+    //endregion
 }

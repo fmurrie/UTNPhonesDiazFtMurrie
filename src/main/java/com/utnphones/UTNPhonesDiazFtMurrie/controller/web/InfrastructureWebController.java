@@ -18,17 +18,22 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/infrastructure")
-public class InfrastructureWebController {
-
+public class InfrastructureWebController
+{
+    //region Properties:
     CallController callController;
     AdviceController adviceController;
+    //endregion
 
+    //region Constructors:
     @Autowired
     public InfrastructureWebController(CallController callController, AdviceController adviceController){
         this.callController = callController;
         this.adviceController = adviceController;
     }
+    //endregion
 
+    //region Methods:
     @PostMapping("/call")
     public ResponseEntity addCall (@RequestBody @Valid CallAddRequestDto callDto) throws PhoneLineException {
         try{
@@ -39,7 +44,5 @@ public class InfrastructureWebController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
     }
-
-
-
+    //endregion
 }

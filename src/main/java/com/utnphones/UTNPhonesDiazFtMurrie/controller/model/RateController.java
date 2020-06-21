@@ -16,16 +16,18 @@ import java.util.Optional;
 @RequestMapping("/rate")
 public class RateController
 {
-    //Properties:
+    //region Properties:
     private final RateService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public RateController(RateService service) {
         this.service = service;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     @PostMapping("/")
     public ResponseEntity <Rate> addRate(@RequestBody @Valid Rate rate) {
         return ResponseEntity.ok(service.add(rate));
@@ -49,4 +51,5 @@ public class RateController
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    //endregion
 }

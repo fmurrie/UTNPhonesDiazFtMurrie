@@ -14,14 +14,16 @@ import java.util.Optional;
 @RequestMapping("/country")
 public class CountryController
 {
-    //Properties:
+    //region Properties:
     private final CountryService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public CountryController(CountryService service) { this.service = service; }
+    //endregion
 
-    //Methods:
+    //region Methods:
     @PostMapping("/")
     public ResponseEntity<Country> addCountry(@RequestBody @Valid Country country) {
         return ResponseEntity.ok(service.add(country));
@@ -44,4 +46,5 @@ public class CountryController
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    //endregion
 }

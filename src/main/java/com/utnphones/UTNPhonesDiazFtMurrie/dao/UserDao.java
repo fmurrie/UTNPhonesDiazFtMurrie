@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UserDao extends JpaRepository<User,Integer> {
-    //Methods:
+    //region Methods:
     public User findByUsernameAndUserpassword(String username,String password);
 
     public boolean existsByUsername(String username);
@@ -20,4 +20,5 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     @Query(value = "select * from users u where u.idUser = ?1 ", nativeQuery = true)
     public User getById(Integer id);
+    //endregion
 }

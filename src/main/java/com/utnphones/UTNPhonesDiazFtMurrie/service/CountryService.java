@@ -10,14 +10,16 @@ import java.util.Optional;
 
 @Service
 public class CountryService {
-    //Properties:
+    //region Properties:
     private final CountryDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public CountryService(CountryDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
+    //region Methods:
     public Country add(final Country country) {
         return dao.save(country);
     }
@@ -30,4 +32,5 @@ public class CountryService {
     {
         return dao.findByIso(iso);
     }
+    //endregion
 }

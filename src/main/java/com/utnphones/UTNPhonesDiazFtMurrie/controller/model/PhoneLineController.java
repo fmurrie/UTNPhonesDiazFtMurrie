@@ -24,18 +24,18 @@ import java.util.Optional;
 @Controller
 public class PhoneLineController implements LocationInterface<PhoneLine> {
 
-    //Properties:
-
+    //region Properties:
     private final PhoneLineService phoneLineService;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public PhoneLineController(PhoneLineService service) {
         this.phoneLineService = service;
     }
+    //endregion
 
-    //Methods:
-
+    //region Methods:
     public PhoneLine addPhoneLine(@RequestBody @Valid PhoneLine phoneLine) throws UserNotexistException, LineTypeNotExistsException, Exception {
         return phoneLineService.addPhoneLine(phoneLine);
     }
@@ -52,7 +52,6 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     public List<LineAndCallsQuantityDto> top10Destinataries (@PathVariable Integer idUser) throws UserNotexistException {
         return phoneLineService.top10Destinataries(idUser);
     }
-
 
     @Override
     public URI getLocation(PhoneLine line) {
@@ -74,4 +73,5 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException {
         return phoneLineService.deletePhoneLine(idPhoneLine);
     }
+    //endregion
 }

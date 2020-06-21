@@ -9,14 +9,16 @@ import java.util.Optional;
 
 @Service
 public class ProvinceService {
-    //Properties:
+    //region Properties:
     private final ProvinceDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public ProvinceService(ProvinceDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
+    //region Methods:
     public Province add(final Province province) { return dao.save(province); }
 
     public List<Province> getAll() { return dao.findAll(); }
@@ -25,4 +27,5 @@ public class ProvinceService {
     {
         return dao.findById(id);
     }
+    //endregion
 }

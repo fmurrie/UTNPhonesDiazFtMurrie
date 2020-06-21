@@ -18,10 +18,11 @@ import java.util.Optional;
 @Service
 public class CallService {
 
-    //Properties:
+    //region Properties:
     private final CallDao dao;
     private final UserDao userDao;
     PhoneLineDao phoneLineDao;
+    //endregion
 
     //Constructors:
     @Autowired
@@ -31,6 +32,7 @@ public class CallService {
         this.phoneLineDao = phoneLineDao;
     }
 
+    //Methods:
     public Call addCall(CallAddRequestDto callDto) throws PhoneLineException{
         Call call = new Call();
         Integer idOrigin = callDto.getPhoneLineOrigin().getIdPhoneLine();
@@ -50,8 +52,9 @@ public class CallService {
             throw new PhoneLineException("ERROR! The destiny line does not exists!");
     }
 
-    //Methods:
-    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException {
+
+    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException
+    {
         if(dao.existsById(userId))
             return dao.getCallsByUser(userId);
         else
@@ -60,7 +63,7 @@ public class CallService {
 
     public Call getCallById(Integer id)
     {
-        return dao.getById(id);
+        return dao.findById(id).get();
     }
 
     public List<Call> getCallsBetweenDates(Integer userId, GetCallRequestDto callRequestDto) throws UserNotexistException {

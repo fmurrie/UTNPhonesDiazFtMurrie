@@ -2,17 +2,24 @@ package com.utnphones.UTNPhonesDiazFtMurrie.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ErrorResponseDto {
+public class ErrorResponseDto
+{
+    //region Properties:
     @JsonProperty
     int code;
     @JsonProperty
     String description;
+    //endregion
 
-    public ErrorResponseDto(int code, String description) {
+    //region Constructors:
+    public ErrorResponseDto(int code, String description)
+    {
         this.code = code;
         this.description = description;
     }
+    //endregion
 
+    //region Methods:
     public int getCode() {
         return code;
     }
@@ -28,5 +35,5 @@ public class ErrorResponseDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    //endregion
 }

@@ -20,14 +20,17 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("api/backoffice")
-public class EmployeeWebController {
-
+public class EmployeeWebController
+{
+    //region Properties:
     private final SessionManager sessionManager;
     private final UserController userController;
     private final AdviceController adviceController;
     private final UserTypeController userTypeController;
     private final PhoneLineController phoneLineController;
+    //endregion
 
+    //region Constructors:
     @Autowired
     public EmployeeWebController(SessionManager sessionManager, UserController userController,
                                  AdviceController adviceController, UserTypeController userTypeController,
@@ -39,8 +42,9 @@ public class EmployeeWebController {
         this.userTypeController = userTypeController;
         this.phoneLineController = phoneLineController;
     }
+    //endregion
 
-    //Methods:
+    //region Methods:
     @PostMapping("/client")
     public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException {
            try{
@@ -207,5 +211,5 @@ public class EmployeeWebController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
     }
-
+    //endregion
 }

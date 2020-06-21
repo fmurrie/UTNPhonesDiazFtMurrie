@@ -10,9 +10,10 @@ import java.util.List;
 
 @Repository
 public interface UserTypeDao extends JpaRepository <UserType,Integer> {
-    //Methods:
+    //region Methods:
     List<UserType> findByDescription(String description);
 
     @Query(value = "select * from userTypes ut where ut.idUserType = ?1", nativeQuery = true)
     UserType getById(Integer id);
+    //endregion
 }

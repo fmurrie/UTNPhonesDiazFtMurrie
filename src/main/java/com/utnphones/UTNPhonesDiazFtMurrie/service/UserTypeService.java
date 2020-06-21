@@ -9,14 +9,16 @@ import java.util.Optional;
 
 @Service
 public class UserTypeService {
-    //Properties:
+    //region Properties:
     private final UserTypeDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserTypeService(UserTypeDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
+    //region Methods:
     public UserType add(final UserType userType) {
         return dao.save(userType);
     }
@@ -30,7 +32,7 @@ public class UserTypeService {
     {
         return dao.getById(id);
     }
-
+    //endregion
 }
 
 
