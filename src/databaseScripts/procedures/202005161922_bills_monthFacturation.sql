@@ -16,10 +16,12 @@ begin
 declare vIdCurrentPhoneLine int;
 declare vIdBillInserted int;
 declare done boolean default false;
-declare phoneLines_cursor cursor for select idPhoneLine from phoneLines where suspended=false;
+declare phoneLines_cursor cursor for select idPhoneLine from phoneLines where suspended=false and deleted=false;
 declare continue handler for sqlstate '02000' set done = true;
-
-set autocommit=0;
+declare exit handler for sqlexception
+begin
+    rollback;
+end;
 
 open phoneLines_cursor;
 facturation_phoneLines: loop
@@ -28,6 +30,7 @@ FETCH phoneLines_cursor into  vIdCurrentPhoneLine;
 
 IF `done` then leave facturation_phoneLines; end if;
 
+set autocommit=0;
 start transaction;
 
 insert into bills (idPhoneLine) values(vIdCurrentPhoneLine);

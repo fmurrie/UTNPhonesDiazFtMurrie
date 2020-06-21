@@ -28,3 +28,10 @@ create table if not exists bills
 );
 
 /*Indexes for the searchs in the table bills*/
+
+create index if not exists idx_bills_ on bills(idPhoneLine,issueDate) using btree;
+create index if not exists idx_bills_ on bills(issueDate) using btree;
+
+
+
+
