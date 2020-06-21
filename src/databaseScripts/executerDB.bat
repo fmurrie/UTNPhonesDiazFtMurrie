@@ -46,6 +46,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161204_phoneLines_
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161228_calls_addAcall.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005161922_bills_monthFacturation.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202005171953_users_get.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\procedures\202006161937_bills_checkExpiration.sql
 
 @REM Section for execute the scripts from \triggers:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\triggers\202005101500_userTypes_before_insert.sql
@@ -85,8 +86,9 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005071548_migration_c
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\migrations\202005151624_migration_rates.sql
 
 @REM Section for execute the scripts from \events:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005162018_event_migration.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005171041_event_facturation.sql
-xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005302018_event_migration.sql
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202006161855_event_verifyPays.sql
 
 @REM End-status of the implementation of the database utnphones:
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\general\999999999999_endstatus.sql

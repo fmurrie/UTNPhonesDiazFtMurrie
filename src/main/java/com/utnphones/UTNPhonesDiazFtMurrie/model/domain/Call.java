@@ -24,6 +24,10 @@ public class Call
     private Integer idCall;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idCallType",nullable = false,insertable = false,updatable = false)
+    private CallType callType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idBill",nullable = true,insertable = false,updatable = false)
     private Bill bill;
 
