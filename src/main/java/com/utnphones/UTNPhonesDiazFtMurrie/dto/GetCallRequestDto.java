@@ -17,7 +17,7 @@ public class GetCallRequestDto
     //region Properties:
     @JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date inidDate;
+    private Date initDate;
 
     @JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")

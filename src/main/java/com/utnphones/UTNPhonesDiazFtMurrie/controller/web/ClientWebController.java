@@ -95,7 +95,7 @@ public class ClientWebController
         }
     }
 
-    @GetMapping("/calls/dates")
+    @GetMapping("/calls/between")
     public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetCallRequestDto getCallRequestDto){
         try{
             return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getCallRequestDto));

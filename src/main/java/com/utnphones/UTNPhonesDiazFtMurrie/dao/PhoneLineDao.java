@@ -26,6 +26,7 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
     PhoneLine getById(Integer id);
 
     @Query(value = "select * from phoneLines pl where pl.deleted = 0 ", nativeQuery = true)
-    List<PhoneLine> getAll();
+    public List<PhoneLine> getAll();
+
     //endregion
 }
