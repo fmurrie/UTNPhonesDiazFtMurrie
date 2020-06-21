@@ -23,10 +23,10 @@ public class BillService
     //endregion
 
     //region Methods:
-    public Optional<Bill> getBillById(Integer  idBill) { return billDao.findById(idBill); }
+    public Optional<Bill> getById(Integer  idBill) { return billDao.findById(idBill); }
 
-    List<Bill> getBillsByUser(Integer userId){ return billDao.getBillsByUser(userId); }
+    public List<Bill> getBillsByUser(Integer userId){ return billDao.getBillsByUser(userId); }
 
-    List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate){ return billDao.getBillsBetweenDates(userId, fromDate, toDate); }
+    public List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate){ return billDao.getBillsBetweenDates(userId, fromDate, toDate); }
     //endregion
 }

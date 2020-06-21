@@ -10,7 +10,6 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -75,32 +74,4 @@ public class CallService {
 
         return callList;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /*for (Call c : callList) {
-                callQueryResult.add(
-
-
-                    callQueryResult.builder().idCall(c.getIdCall()).originLine(c.getOriginLine())
-                            .destinationLine(c.getDestinationLine()).callDate(c.getCallDate())
-                            .idRate(c.getRate().getIdRate()).callDuration(c.getCallDuration())
-                            .callCost(c.getCallCost()).callPrice(c.getCallPrice())
-                            .idBill(c.getBill().getIdBill()).build());
-            }*/
 }

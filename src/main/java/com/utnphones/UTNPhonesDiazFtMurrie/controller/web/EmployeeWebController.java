@@ -48,7 +48,7 @@ public class EmployeeWebController
     @PostMapping("/client")
     public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException {
            try{
-               UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType());
+               UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType()).get();
                if(userTypeAux != null){
                    if(userTypeAux.getDescription().equals("Client")){
                        userController.addUser(user);

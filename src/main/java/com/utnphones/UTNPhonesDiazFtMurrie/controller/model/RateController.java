@@ -4,16 +4,11 @@ import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.stereotype.Controller;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/rate")
+@Controller
 public class RateController
 {
     //region Properties:
@@ -28,23 +23,11 @@ public class RateController
     //endregion
 
     //region Methods:
-    @GetMapping("/")
-    ResponseEntity<List<Rate>> getAllRates() {
-        List<Rate> rateList = service.getAll();
-        if(rateList.size() > 0)
-             return ResponseEntity.ok(rateList);
-        else
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
+    public List<Rate> getAllRates()
+    {
+        return service.getAll();
     }
 
-    @GetMapping("/{idOriginCity}-{idDestinyCity}")
-    ResponseEntity<Optional<Rate>> getRateById(@PathVariable Integer idOriginCity,@PathVariable Integer idDestinyCity) {
-        Optional<Rate> rate = service.getById(new RateId(idOriginCity,idDestinyCity));
-        if(rate != null)
-            return ResponseEntity.ok(rate);
-        else
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+    public Optional<Rate> getRateById(Integer idOriginCity,Integer idDestinyCity) { return service.getById(new RateId(idOriginCity,idDestinyCity)); }
     //endregion
 }

@@ -5,6 +5,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -16,15 +17,20 @@ public class UserTypeController {
     //region Constructors:
     @Autowired
     public UserTypeController(UserTypeService service) {
+
         this.service = service;
     }
     //endregion
 
     //region Methods:
-    List<UserType> getAllUserTypes() {
+    public List<UserType> getAllUserTypes()
+    {
         return service.getAll();
     }
 
-    public UserType getUserTypeById(Integer idUserType) { return service.getById(idUserType).get(); }
+    public Optional<UserType> getUserTypeById(Integer idUserType)
+    {
+        return service.getById(idUserType);
+    }
     //endregion
 }

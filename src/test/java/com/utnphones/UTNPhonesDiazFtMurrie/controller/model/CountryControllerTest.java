@@ -38,9 +38,8 @@ public class CountryControllerTest
     public void getAllCountries()
     {
         Mockito.when(service.getAll()).thenReturn(new ArrayList<Country>());
-        ResponseEntity<List<Country>> result= controller.getAllCountries();
+        List<Country> result= controller.getAllCountries();
         assertNotNull(result);
-        assertEquals(ResponseEntity.status(HttpStatus.NO_CONTENT).build(),result);
     }
 
     @Test
@@ -50,8 +49,8 @@ public class CountryControllerTest
         Country country=new Country(id,"ARG","Argentina","54",null);
         Optional<Country> expected=Optional.of(country);
         Mockito.when(service.getById(id)).thenReturn(Optional.of(country));
-        ResponseEntity<Optional<Country>> result=controller.getCountryById(id);
+        Optional<Country> result=controller.getCountryById(id);
         assertNotNull(result);
-        assertEquals(expected,result.getBody());
+        assertEquals(expected,result);
     }
 }

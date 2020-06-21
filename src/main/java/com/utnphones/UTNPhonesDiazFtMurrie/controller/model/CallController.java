@@ -7,18 +7,11 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CallService;
-import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CallController implements LocationInterface<Call> {
@@ -35,7 +28,7 @@ public class CallController implements LocationInterface<Call> {
     //endregion
 
     //region Methods:
-    public Call addCall(@RequestBody @Valid CallAddRequestDto call) throws PhoneLineException {
+    public Call addCall(CallAddRequestDto call) throws PhoneLineException {
         return callService.addCall(call);
     }
 
@@ -47,7 +40,7 @@ public class CallController implements LocationInterface<Call> {
         return callService.getCallsBetweenDates(userId,callRequestDto);
     }
 
-    public Call getCallById(@PathVariable Integer idCall) {
+    public Call getCallById(Integer idCall) {
         return callService.getCallById(idCall).get();
     }
 

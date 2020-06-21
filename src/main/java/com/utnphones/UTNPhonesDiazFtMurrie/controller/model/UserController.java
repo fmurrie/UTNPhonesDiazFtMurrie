@@ -35,7 +35,7 @@ public class UserController implements LocationInterface<User> {
     //endregion
 
     //region Methods:
-    public User addUser(@RequestBody  User user) throws ValidationException {
+    public User addUser(User user) throws ValidationException {
         return service.addUser(user);
     }
 
@@ -59,7 +59,7 @@ public class UserController implements LocationInterface<User> {
         }
     }
 
-    public User updateUser (Integer userId, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
+    public User updateUser (Integer userId,UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
             return service.updateUser(userId,updatedUser);
     }
 
