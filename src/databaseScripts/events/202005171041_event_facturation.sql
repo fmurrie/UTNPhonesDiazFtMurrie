@@ -10,6 +10,7 @@ drop event if exists event_facturation;
 delimiter //
 create event if not exists event_facturation
 on schedule every 1 month starts date_format(date_add(subdate(now(), dayofmonth(now()) - 1), interval 1 month),'%Y-%m-%d 00:00:00')
+on completion preserve
 do
 begin
 call bills_monthFacturation();

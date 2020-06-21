@@ -1,7 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.dao;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
-import com.utnphones.UTNPhonesDiazFtMurrie.projection.UserCall;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     public boolean existsByUsername(String username);
 
-    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' ", nativeQuery = true)
+    @Query(value = "select * from users u inner join userTypes ut on (u.idUserType = ut.idUserType) where ut.description = 'Client' and u.deleted = 0 ", nativeQuery = true)
     public List<User> findClients();
 
     public boolean existsByDni(String dni);
