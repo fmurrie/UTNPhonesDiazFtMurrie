@@ -22,4 +22,9 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
     Integer callsQuantity(Integer idUser, Integer idPhoneLine);
 
 
+    @Query(value = "select * from phoneLines pl where pl.idPhoneLine = ?1", nativeQuery = true)
+    PhoneLine getById(Integer id);
+
+    @Query(value = "select * from phoneLines pl where pl.deleted = 0 ", nativeQuery = true)
+    List<PhoneLine> getAll();
 }

@@ -1,12 +1,11 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserTypeController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.AddUserException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
@@ -16,22 +15,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
-@RequestMapping("api/backoffice/employee")
+@RequestMapping("api/backoffice")
 public class EmployeeWebController {
 
     private final SessionManager sessionManager;
     private final UserController userController;
     private final AdviceController adviceController;
     private final UserTypeController userTypeController;
+    private final PhoneLineController phoneLineController;
 
     @Autowired
-    public EmployeeWebController(SessionManager sessionManager, UserController userController, AdviceController adviceController, UserTypeController userTypeController){
+    public EmployeeWebController(SessionManager sessionManager, UserController userController,
+                                 AdviceController adviceController, UserTypeController userTypeController,
+                                 PhoneLineController phoneLineController){
+
         this.sessionManager = sessionManager;
         this.userController = userController;
         this.adviceController = adviceController;
         this.userTypeController = userTypeController;
+        this.phoneLineController = phoneLineController;
     }
 
     //Methods:
@@ -70,7 +76,7 @@ public class EmployeeWebController {
 
     }
 
-    @GetMapping("/clients/")
+    @GetMapping("/clients")
     public ResponseEntity getClients(@RequestHeader("Authorization") String token, @RequestParam(required = false) Integer idClient) {
             ResponseEntity response = ResponseEntity.ok(userController.getClients());
             if (null != response)
@@ -79,7 +85,7 @@ public class EmployeeWebController {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleValidationException(new ValidationException("Sorry! no clients have been added yet!")));
     }
 
-    @GetMapping("/clients/{idClient}")
+    @GetMapping("/client/{idClient}")
     public ResponseEntity getClient(@RequestHeader("Authorization") String token, @PathVariable Integer idClient) throws UserNotexistException, ValidationException {
        try{
            ResponseEntity response = ResponseEntity.ok(userController.getClientById(idClient));
@@ -109,7 +115,7 @@ public class EmployeeWebController {
     }
 
     @PutMapping("/client/{idUser}/suspension")
-    public ResponseEntity suspendUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+    public ResponseEntity suspendUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser)   {
         try {
             return ResponseEntity.ok(userController.suspendUser(idUser));
         } catch (UserNotexistException exc) {
@@ -126,7 +132,7 @@ public class EmployeeWebController {
         }
     }
 
-    @DeleteMapping("/client/{idUser}")
+    @DeleteMapping("/client/{idUser}/elimination")
     public ResponseEntity deleteUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
         try {
             return ResponseEntity.ok(userController.deleteUser(idUser));
@@ -134,4 +140,72 @@ public class EmployeeWebController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
+
+    //////////////////////////////////PHONE LINES///////////////////////////////////////////
+
+    @PostMapping("/phoneLine")
+    public ResponseEntity AddPhoneLine(@RequestHeader("Authorization") String token, @RequestBody PhoneLine phoneLine) {
+        try{
+            phoneLineController.addPhoneLine(phoneLine);
+            return ResponseEntity.created(phoneLineController.getLocation(phoneLine)).build();
+        }
+        catch(LineTypeNotExistsException  exc){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleLineTypeNotExists(exc));
+        }
+        catch(UserNotexistException exc){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(Exception exc)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneNumberExists());
+        }
+    }
+
+    @GetMapping("/phoneLine/{idPhoneLine}")
+    ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable(required = false) Integer idPhoneLine) {
+        try{
+            return ResponseEntity.ok(phoneLineController.getPhoneLine(idPhoneLine));
+        }
+        catch(PhoneLineException exc){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+    }
+
+    @GetMapping("/phoneLines")
+    public ResponseEntity getPhoneLines(@RequestHeader("Authorization") String token ) {
+        try{
+            return ResponseEntity.ok(phoneLineController.getAllPhoneLines());
+        }
+        catch (PhoneLineException exc) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handlePhoneLineException(exc));
+        }
+    }
+
+    @PutMapping("/phoneLine/{idPhoneLine}/suspension")
+    public ResponseEntity suspendPhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine)   {
+        try {
+            return ResponseEntity.ok(phoneLineController.suspendPhoneLine(idPhoneLine));
+        } catch (PhoneLineException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+    }
+
+    @PutMapping("/phoneLine/{idPhoneLine}/enable")
+    public ResponseEntity enablePhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine) {
+        try {
+            return ResponseEntity.ok(phoneLineController.enablePhoneLine(idPhoneLine));
+        } catch (PhoneLineException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+    }
+
+    @DeleteMapping("/phoneLine/{idPhoneLine}/elimination")
+    public ResponseEntity deletePhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine)  {
+        try {
+            return ResponseEntity.ok(phoneLineController.deletePhoneLine(idPhoneLine));
+        } catch (PhoneLineException exc) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+    }
+
 }

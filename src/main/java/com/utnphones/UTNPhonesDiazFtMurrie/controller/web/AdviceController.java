@@ -56,4 +56,16 @@ public class AdviceController extends ResponseEntityExceptionHandler {
     public ErrorResponseDto handlePhoneLineException(PhoneLineException exc) {
         return new ErrorResponseDto(400, exc.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LineTypeNotExistsException.class)
+    public ErrorResponseDto handleLineTypeNotExists(LineTypeNotExistsException exc) {
+        return new ErrorResponseDto(400, exc.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ErrorResponseDto handlePhoneNumberExists() {
+        return new ErrorResponseDto(400, "Sorry! then number already exists!");
+    }
 }

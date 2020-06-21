@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/user/client")
+@RequestMapping("api/client")
 public class ClientWebController {
 
     //Properties:
