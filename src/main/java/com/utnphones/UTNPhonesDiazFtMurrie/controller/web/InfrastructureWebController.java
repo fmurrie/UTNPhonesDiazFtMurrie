@@ -37,7 +37,13 @@ public class InfrastructureWebController
     @PostMapping("/call")
     public ResponseEntity addCall (@RequestBody @Valid CallAddRequestDto callDto) throws PhoneLineException {
         try{
-            Call call = callController.addCall(callDto);
+            Call call = new Call();
+            call.setPhoneLineOrigin(callDto.getPhoneLineOrigin());
+            call.setPhoneLineDestiny(callDto.getPhoneLineDestiny());
+            call.setInitTime(callDto.getInitTime());
+            call.setEndTime(callDto.getEndTime());
+
+            callController.addCall(call);
             return ResponseEntity.created(callController.getLocation(call)).build();
         }
         catch(PhoneLineException exc){

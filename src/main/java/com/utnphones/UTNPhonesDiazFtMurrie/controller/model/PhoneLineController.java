@@ -1,25 +1,17 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class PhoneLineController implements LocationInterface<PhoneLine> {
@@ -36,7 +28,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     //endregion
 
     //region Methods:
-    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, Exception {
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException {
         return phoneLineService.addPhoneLine(phoneLine);
     }
 
@@ -49,7 +41,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
 
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotexistException {
+    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotExistException {
         return phoneLineService.top10Destinataries(idUser);
     }
 

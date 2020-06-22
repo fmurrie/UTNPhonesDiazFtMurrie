@@ -6,8 +6,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
@@ -53,19 +52,11 @@ public class ClientWebController
         try
         {
             User currentUser = sessionManager.getCurrentUser(token);
-
-            if (currentUser != null)
-            {
-                Integer id = currentUser.getIdUser();
-                User user = userController.getUserById(id);
-                return ResponseEntity.ok(user);
-            }
-            else
-            {
-                return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
-            }
+            Integer id = currentUser.getIdUser();
+            User user = userController.getUserById(id);
+            return ResponseEntity.ok(user);
         }
-        catch (UserNotexistException exc)
+        catch (UserNotExistException exc)
         {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(adviceController.handleUserNotExists(exc));
         }
@@ -77,7 +68,7 @@ public class ClientWebController
             return ResponseEntity.ok(userController.updateUser(sessionManager.getCurrentUser(token).getIdUser(), updatedUser));
         } catch (ValidationException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
-        } catch (UserNotexistException exc) {
+        } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
@@ -88,7 +79,7 @@ public class ClientWebController
         try{
             return ResponseEntity.ok(phoneLineController.top10Destinataries(sessionManager.getCurrentUser(token).getIdUser()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
 
@@ -97,7 +88,7 @@ public class ClientWebController
         try{
             return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(), getBetweenDatesRequestDto.getInitDate(), getBetweenDatesRequestDto.getEndDate()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
 
@@ -118,7 +109,9 @@ public class ClientWebController
         try{
             return ResponseEntity.ok(billController.getBillsByUser(sessionManager.getCurrentUser(token).getIdUser()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 
@@ -127,7 +120,7 @@ public class ClientWebController
         try{
             return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
 

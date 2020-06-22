@@ -3,12 +3,11 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CallDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,27 +35,29 @@ public class CallService {
     }
 
     //Methods:
-    public Call addCall(CallAddRequestDto callDto) throws PhoneLineException{
-        Call call = new Call();
-        Integer idOrigin = callDto.getPhoneLineOrigin().getIdPhoneLine();
-        Integer idDestiny = callDto.getPhoneLineDestiny().getIdPhoneLine();
+    public Call addCall(Call call) throws PhoneLineException{
+        Integer idOrigin = call.getPhoneLineOrigin().getIdPhoneLine();
+        Integer idDestiny = call.getPhoneLineDestiny().getIdPhoneLine();
+        PhoneLine origin = phoneLineDao.findById(idOrigin).get();
+        PhoneLine destiny = phoneLineDao.findById(idDestiny).get();
         if(phoneLineDao.existsById(idOrigin)){
             if(phoneLineDao.existsById(idDestiny)){
-                call.setPhoneLineOrigin(callDto.getPhoneLineOrigin());
-                call.setPhoneLineDestiny(callDto.getPhoneLineDestiny());
-                call.setInitTime(callDto.getInitTime());
-                call.setEndTime(callDto.getEndTime());
-                return callDao.save(call);
+                if(origin.isDeleted() || origin.isSuspended())
+                    throw new PhoneLineException("ERROR! The origin line is suspend or deleted!");
+                else if(destiny.isDeleted() || destiny.isSuspended())
+                    throw new PhoneLineException("ERROR! The destiny line is suspend or deleted!");
+                else
+                     return callDao.save(call);
             }
             else
-                throw new PhoneLineException("ERROR! The origin line does not exists!");
+                throw new PhoneLineException("ERROR! The destiny line does not exists!");
         }
         else
-            throw new PhoneLineException("ERROR! The destiny line does not exists!");
+            throw new PhoneLineException("ERROR! The origin line does not exists!");
     }
 
 
-    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException, ValidationException {
+    public List<Call> getCallsByUser(Integer userId) throws UserNotExistException, ValidationException {
         if(callDao.existsById(userId)){
             User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
@@ -65,7 +66,7 @@ public class CallService {
             return callDao.getCallsByUser(userId);
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
     public Optional<Call> getCallById(Integer id)
@@ -73,12 +74,12 @@ public class CallService {
         return callDao.findById(id);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotexistException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotExistException {
         List<Call> callList;
         if(userDao.existsById(userId))
             callList = callDao.getCallsBetweenDates(userId, initTime,endDate);
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
 
         return callList;
     }

@@ -1,9 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
@@ -30,15 +28,15 @@ public class CallController implements LocationInterface<Call> {
     //endregion
 
     //region Methods:
-    public Call addCall(CallAddRequestDto call) throws PhoneLineException {
+    public Call addCall(Call call) throws PhoneLineException {
         return callService.addCall(call);
     }
 
-    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException, ValidationException {
+    public List<Call> getCallsByUser(Integer userId) throws UserNotExistException, ValidationException {
         return callService.getCallsByUser(userId);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotexistException{
+    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotExistException {
         return callService.getCallsBetweenDates(userId,initDate,endTime);
     }
 

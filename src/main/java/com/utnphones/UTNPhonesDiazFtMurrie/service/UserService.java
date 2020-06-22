@@ -2,7 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +36,19 @@ public class UserService
 
     }
 
-    public User login(String username, String password) throws UserNotexistException {
+    public User login(String username, String password) throws UserNotExistException {
         User user = dao.findByUsernameAndUserpassword(username, password);
-        return Optional.ofNullable(user).orElseThrow(() -> new UserNotexistException());
+        return Optional.ofNullable(user).orElseThrow(() -> new UserNotExistException());
     }
 
-    public Optional<User> getUserById(Integer id) throws UserNotexistException {
+    public Optional<User> getUserById(Integer id) throws UserNotExistException {
         if(dao.existsById(id))
             return dao.findById(id);
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
-    public Optional<User> getClientById(Integer id) throws UserNotexistException, ValidationException {
+    public Optional<User> getClientById(Integer id) throws UserNotExistException, ValidationException {
         if(dao.existsById(id)) {
             User user = dao.findById(id).get();
             if (user.getUserType().getDescription().equals("Client"))
@@ -57,7 +57,7 @@ public class UserService
                 throw new ValidationException("Sorry! you are not allowed to see this user!");
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
     public List<User> getAll()
@@ -69,7 +69,7 @@ public class UserService
             return dao.findClients();
     }
 
-    public User updateUser(Integer idUser, UserUpdateRequestDto updatedUser) throws UserNotexistException, ValidationException {
+    public User updateUser(Integer idUser, UserUpdateRequestDto updatedUser) throws UserNotExistException, ValidationException {
         User user = dao.findById(idUser).get();
         if(user != null){
             if(!(updatedUser.getDni().equals(user.getDni()))){
@@ -90,37 +90,37 @@ public class UserService
             return dao.save(user);
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
-    public User suspendUser(Integer idUser) throws UserNotexistException {
+    public User suspendUser(Integer idUser) throws UserNotExistException {
         User user = dao.findById(idUser).get();
         if(user != null){
             user.setSuspended(true);
             return dao.save(user);
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
-    public User enableUser(Integer idUser) throws UserNotexistException {
+    public User enableUser(Integer idUser) throws UserNotExistException {
         User user = dao.findById(idUser).get();
         if(user != null){
             user.setSuspended(false);
             return dao.save(user);
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
 
-    public User deleteUser(Integer idUser) throws UserNotexistException {
+    public User deleteUser(Integer idUser) throws UserNotExistException {
         User user = dao.findById(idUser).get();
         if(user != null){
             user.setDeleted(true);
             return dao.save(user);
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
     //endregion
 }

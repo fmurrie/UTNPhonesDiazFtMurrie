@@ -27,16 +27,11 @@ public class AdviceController extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserNotexistException.class)
-    public ErrorResponseDto handleUserNotExists(UserNotexistException exc) {
+    @ExceptionHandler(UserNotExistException.class)
+    public ErrorResponseDto handleUserNotExists(UserNotExistException exc) {
         return new ErrorResponseDto(400, exc.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(SessionNotExistsException.class)
-    public ErrorResponseDto handleSessionNotExists(SessionNotExistsException sessionNotExistsException) {
-        return new ErrorResponseDto(400, sessionNotExistsException.getMessage());
-    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AddUserException.class)

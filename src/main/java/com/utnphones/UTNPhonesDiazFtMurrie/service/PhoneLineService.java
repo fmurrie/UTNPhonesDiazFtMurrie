@@ -6,9 +6,10 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,18 +37,18 @@ public class PhoneLineService {
     //endregion
 
     //region Methods:
-    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, Exception {
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException {
         if (linetypeDao.existsById(phoneLine.getLineType().getIdLineType()))
             if(userDao.existsById(phoneLine.getUser().getIdUser()))
                 return phoneLineDao.save(phoneLine);
             else
-                throw new UserNotexistException();
+                throw new UserNotExistException();
         else
             throw new LineTypeNotExistsException();
     }
 
     public List<PhoneLine> getAll() throws PhoneLineException {
-        List<PhoneLine> phoneLineList = phoneLineDao.getAll();
+        List<PhoneLine> phoneLineList = phoneLineDao.findAll();
         if(isNull(phoneLineList))
             throw new PhoneLineException("Sorry! no lines available yet");
 
@@ -91,7 +92,7 @@ public class PhoneLineService {
             throw new PhoneLineException("Sorry! The phone line does not exist!");
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotexistException {
+    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotExistException {
         List<LineAndCallsQuantityDto> list = new ArrayList<>();
         if (userDao.existsById(userId)){
             for (PhoneLine phoneLine : phoneLineDao.top10Destinataries(userId)){
@@ -103,7 +104,7 @@ public class PhoneLineService {
             return list;
         }
         else
-            throw new UserNotexistException();
+            throw new UserNotExistException();
     }
     //endregion
 }
