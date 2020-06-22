@@ -96,7 +96,7 @@ public class EmployeeWebController
     }
 
     @GetMapping("/client/{idClient}")
-    public ResponseEntity getClient(@RequestHeader("Authorization") String token, @PathVariable Integer idClient) throws UserNotExistException, ValidationException {
+    public ResponseEntity getClient(@RequestHeader("Authorization") String token, @PathVariable Integer idClient) {
        try{
            ResponseEntity response = ResponseEntity.ok(userController.getClientById(idClient));
            if (null != response)
@@ -114,7 +114,7 @@ public class EmployeeWebController
     }
 
     @PutMapping("/client/{idUser}")
-    public ResponseEntity updateClient (@RequestHeader("Authorization") String token, @PathVariable Integer idUser, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotExistException {
+    public ResponseEntity updateClient (@RequestHeader("Authorization") String token, @PathVariable Integer idUser, @RequestBody @Valid UserUpdateRequestDto updatedUser) {
         try {
             return ResponseEntity.ok(userController.updateUser(idUser, updatedUser));
         } catch (ValidationException exc) {
@@ -134,7 +134,7 @@ public class EmployeeWebController
     }
 
     @PutMapping("/client/{idUser}/enable")
-    public ResponseEntity enableUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotExistException {
+    public ResponseEntity enableUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) {
         try {
             return ResponseEntity.ok(userController.enableUser(idUser));
         } catch (UserNotExistException exc) {
@@ -143,7 +143,7 @@ public class EmployeeWebController
     }
 
     @DeleteMapping("/client/{idUser}/elimination")
-    public ResponseEntity deleteUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotExistException {
+    public ResponseEntity deleteUser (@RequestHeader("Authorization") String token, @PathVariable Integer idUser)  {
         try {
             return ResponseEntity.ok(userController.deleteUser(idUser));
         } catch (UserNotExistException exc) {
