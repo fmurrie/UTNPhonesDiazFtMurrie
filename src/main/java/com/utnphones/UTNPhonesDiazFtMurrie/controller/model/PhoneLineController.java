@@ -28,7 +28,7 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     //endregion
 
     //region Methods:
-    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException {
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException, ValidationException {
         return phoneLineService.addPhoneLine(phoneLine);
     }
 
@@ -36,12 +36,12 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
         return  phoneLineService.getAll();
     }
 
-    public PhoneLine getPhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine getPhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         return phoneLineService.getPhoneLine(idPhoneLine).get();
 
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotExistException {
+    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotExistException, ValidationException {
         return phoneLineService.top10Destinataries(idUser);
     }
 
@@ -54,15 +54,15 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
                 .toUri();
     }
 
-    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         return phoneLineService.suspendPhoneLine(idPhoneLine);
     }
 
-    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         return phoneLineService.enablePhoneLine(idPhoneLine);
     }
 
-    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         return phoneLineService.deletePhoneLine(idPhoneLine);
     }
     //endregion

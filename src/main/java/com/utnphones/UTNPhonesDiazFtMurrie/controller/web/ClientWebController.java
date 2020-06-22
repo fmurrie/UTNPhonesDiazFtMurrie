@@ -81,6 +81,8 @@ public class ClientWebController
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
     }
 
     @GetMapping("phoneLine/calls/between")
@@ -89,6 +91,8 @@ public class ClientWebController
             return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(), getBetweenDatesRequestDto.getInitDate(), getBetweenDatesRequestDto.getEndDate()));
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 
@@ -121,6 +125,8 @@ public class ClientWebController
             return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 

@@ -30,7 +30,7 @@ public class BillController
         return billService.getBillsByUser(idUser);
     }
 
-    public List<Bill> getBillsBetweenDates(Integer idUser, Date initDate, Date endDate) throws UserNotExistException {
+    public List<Bill> getBillsBetweenDates(Integer idUser, Date initDate, Date endDate) throws UserNotExistException, ValidationException {
         return billService.getBillsBetweenDates(idUser,initDate,endDate);
     }
     //endregion

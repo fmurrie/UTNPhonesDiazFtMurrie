@@ -2,6 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
@@ -37,8 +38,7 @@ public class PhoneLineControllerTest
     }
 
     @Test
-    public void addPhoneLine() throws Exception, LineTypeNotExistsException
-    {
+    public void addPhoneLine() throws Exception, LineTypeNotExistsException, ValidationException {
         PhoneLine phoneLine=mock(PhoneLine.class);
         Mockito.when(service.addPhoneLine(phoneLine)).thenReturn(phoneLine);
         PhoneLine result= controller.addPhoneLine(phoneLine);
