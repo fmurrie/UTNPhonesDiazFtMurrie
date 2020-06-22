@@ -52,7 +52,7 @@ public class EmployeeWebController
 
     //region Methods:
     @PostMapping("/client")
-    public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user) throws ValidationException
+    public ResponseEntity addClient(@RequestHeader("Authorization") String token, @RequestBody User user)
     {
            try{
                UserType userTypeAux = userTypeController.getUserTypeById(user.getUserType().getIdUserType()).get();

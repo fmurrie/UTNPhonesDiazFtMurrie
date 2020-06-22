@@ -21,7 +21,7 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
             " and dp.idPhoneLine =?2", nativeQuery = true)
     Integer callsQuantity(Integer idUser, Integer idPhoneLine);
 
-    @Query(value = "select * from phoneLines pl where pl.deleted = 0 ", nativeQuery = true)
+    @Query(value = "select * from phoneLines pl inner join users u on u.idUser = pl.idUser inner join userTypes ut on ut.idUserType = u.idUserType where pl.deleted = 0 and ut.description = 'Client' ", nativeQuery = true)
     public List<PhoneLine> findAll();
 
     //endregion
