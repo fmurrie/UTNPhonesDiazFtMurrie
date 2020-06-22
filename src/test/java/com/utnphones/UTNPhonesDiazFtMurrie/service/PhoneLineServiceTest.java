@@ -5,6 +5,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.LineType;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -41,7 +42,7 @@ public class PhoneLineServiceTest
     }
 
     @Test
-    public void addPhoneLineOK() throws UserNotExistException, LineTypeNotExistsException
+    public void addPhoneLineOK() throws UserNotExistException, LineTypeNotExistsException, ValidationException
     {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(true);
@@ -53,7 +54,7 @@ public class PhoneLineServiceTest
     }
 
     @Test(expected = LineTypeNotExistsException.class)
-    public void addPhoneLineFAILLineTypeNotExistsException() throws UserNotExistException, LineTypeNotExistsException
+    public void addPhoneLineFAILLineTypeNotExistsException() throws UserNotExistException, LineTypeNotExistsException, ValidationException
     {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(false);
@@ -63,7 +64,7 @@ public class PhoneLineServiceTest
     }
 
     @Test(expected = UserNotExistException.class)
-    public void addPhoneLineFAILUserNotExistException() throws UserNotExistException, LineTypeNotExistsException
+    public void addPhoneLineFAILUserNotExistException() throws UserNotExistException, LineTypeNotExistsException, ValidationException
     {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(true);
