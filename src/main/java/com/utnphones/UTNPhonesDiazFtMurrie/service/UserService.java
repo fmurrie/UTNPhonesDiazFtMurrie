@@ -50,9 +50,9 @@ public class UserService
 
     public Optional<User> getClientById(Integer id) throws UserNotExistException, ValidationException {
         if(dao.existsById(id)) {
-            User user = dao.findById(id).get();
-            if (user.getUserType().getDescription().equals("Client"))
-                return dao.findById(id);
+            Optional<User> user = dao.findById(id);
+            if (user.get().getUserType().getDescription().equals("Client"))
+                return user;
             else
                 throw new ValidationException("Sorry! you are not allowed to see this user!");
         }

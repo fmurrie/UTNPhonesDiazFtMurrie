@@ -42,7 +42,9 @@ public class PhoneLineServiceTest
     }
 
     @Test
-    public void addPhoneLineOK() throws UserNotExistException, LineTypeNotExistsException, ValidationException {
+
+    public void addPhoneLineOK() throws UserNotExistException, LineTypeNotExistsException, ValidationException
+    {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(true);
         Mockito.when(userDao.existsById(expected.getUser().getIdUser())).thenReturn(true);
@@ -53,7 +55,9 @@ public class PhoneLineServiceTest
     }
 
     @Test(expected = LineTypeNotExistsException.class)
-    public void addPhoneLineFAILLineTypeNotExistsException() throws UserNotExistException, LineTypeNotExistsException, ValidationException {
+
+    public void addPhoneLineFAILLineTypeNotExistsException() throws UserNotExistException, LineTypeNotExistsException, ValidationException
+    {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(false);
         Mockito.when(userDao.existsById(expected.getUser().getIdUser())).thenReturn(true);
@@ -62,7 +66,9 @@ public class PhoneLineServiceTest
     }
 
     @Test(expected = UserNotExistException.class)
-    public void addPhoneLineFAILUserNotExistException() throws UserNotExistException, LineTypeNotExistsException, ValidationException {
+
+    public void addPhoneLineFAILUserNotExistException() throws UserNotExistException, LineTypeNotExistsException, ValidationException
+    {
         PhoneLine expected=new PhoneLine(null,mock(LineType.class),"1234",mock(User.class),false,false,null);
         Mockito.when(linetypeDao.existsById(expected.getLineType().getIdLineType())).thenReturn(true);
         Mockito.when(userDao.existsById(expected.getUser().getIdUser())).thenReturn(false);
