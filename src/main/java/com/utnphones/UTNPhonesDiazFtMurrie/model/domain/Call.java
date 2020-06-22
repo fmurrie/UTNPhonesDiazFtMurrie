@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name="calls")
 public class Call
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idCall")
@@ -52,4 +52,5 @@ public class Call
 
     @Column(name="totalPrice",insertable = false,updatable = false)
     private Float totalPrice;
+    //endregion
 }

@@ -1,6 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryService;
 import org.junit.After;
@@ -35,34 +36,20 @@ public class CountryControllerTest
     }
 
     @Test
-    public void addCountry()
-    {
-        Integer id=10;
-        Country country=new Country(null,"ARG","Argentina","54",null);
-        Mockito.when(service.add(country)).thenReturn(country);
-        ResponseEntity<Country> result= controller.addCountry(country);
-        assertNotNull(result);
-        assertEquals(ResponseEntity.of(Optional.of(country)),result);
-    }
-
-    @Test
     public void getAllCountries()
     {
         Mockito.when(service.getAll()).thenReturn(new ArrayList<Country>());
-        ResponseEntity<List<Country>> result= controller.getAllCountries();
+        List<Country> result= controller.getAllCountries();
         assertNotNull(result);
-        assertEquals(ResponseEntity.status(HttpStatus.NO_CONTENT).build(),result);
     }
 
     @Test
     public void getCountryById()
     {
-        Integer id=10;
-        Country country=new Country(id,"ARG","Argentina","54",null);
-        Optional<Country> expected=Optional.of(country);
-        Mockito.when(service.getById(id)).thenReturn(Optional.of(country));
-        ResponseEntity<Optional<Country>> result=controller.getCountryById(id);
+        Optional<Country> expected=Optional.of(mock(Country.class));
+        Mockito.when(service.getById(expected.get().getIdCountry())).thenReturn(expected);
+        Optional<Country> result=controller.getCountryById(expected.get().getIdCountry());
         assertNotNull(result);
-        assertEquals(expected,result.getBody());
+        assertEquals(expected,result);
     }
 }

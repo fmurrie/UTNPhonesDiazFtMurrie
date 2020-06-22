@@ -11,8 +11,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserUpdateRequestDto {
-
+public class UserUpdateRequestDto
+{
+    //region Properties:
     @NotNull
     private String dni;
 
@@ -31,4 +32,5 @@ public class UserUpdateRequestDto {
 
     @NotNull
     private String userpassword;
+    //endregion
 }

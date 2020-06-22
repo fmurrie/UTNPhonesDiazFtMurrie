@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="userTypes")
 public class UserType
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idUserType")
@@ -27,4 +27,5 @@ public class UserType
 
     @Transient
     private List<User> userList;
+    //endregion
 }

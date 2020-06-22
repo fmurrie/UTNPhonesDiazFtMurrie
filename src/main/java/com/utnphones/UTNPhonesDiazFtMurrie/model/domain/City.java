@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="cities", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "idProvince"})})
 public class City
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCity")
@@ -33,4 +33,5 @@ public class City
     @JsonBackReference(value = "province-country")
     @JoinColumn(name = "idProvince",nullable = false,insertable = false,updatable = false)
     private Province province;
+    //endregion
 }

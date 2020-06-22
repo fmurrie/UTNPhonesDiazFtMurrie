@@ -10,12 +10,15 @@ import java.util.*;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
-public class SessionManager {
-
+public class SessionManager
+{
+    //region Properties:
     Map<String, Session> sessionMap = new Hashtable<>();
 
     int sesionExpiration = 60;
+    //endregion
 
+    //region Methods:
     public String createSession(User user) {
         String token = UUID.randomUUID().toString();
         sessionMap.put(token, new Session(token, user, new Date(System.currentTimeMillis())));
@@ -52,4 +55,5 @@ public class SessionManager {
     public User getCurrentUser(String token) {
         return getSession(token).getLoggedUser();
     }
+    //endregion
 }

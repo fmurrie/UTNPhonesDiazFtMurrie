@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
-
+    //region Methods:
     @Query(value = "select * from phoneLines dp inner join calls c on dp.idPhoneLine = c.idPhoneLineDestiny" +
             " inner join phoneLines op on op.idPhoneLine = c.idPhoneLineOrigin where op.idUser = ?1 " +
             " group by c.idPhoneLineDestiny order by count(c.idPhoneLineDestiny) DESC limit 10", nativeQuery = true)
@@ -21,10 +21,8 @@ public interface PhoneLineDao extends JpaRepository<PhoneLine, Integer> {
             " and dp.idPhoneLine =?2", nativeQuery = true)
     Integer callsQuantity(Integer idUser, Integer idPhoneLine);
 
-
-    @Query(value = "select * from phoneLines pl where pl.idPhoneLine = ?1", nativeQuery = true)
-    PhoneLine getById(Integer id);
-
     @Query(value = "select * from phoneLines pl where pl.deleted = 0 ", nativeQuery = true)
-    List<PhoneLine> getAll();
+    public List<PhoneLine> findAll();
+
+    //endregion
 }

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="rates")
 public class Rate
 {
-    //Properties:
+    //region Properties:
     @EmbeddedId
     private RateId rateId;
 
@@ -35,4 +35,5 @@ public class Rate
 
     @Column(name="minutePrice",nullable = false,insertable = false,updatable = false)
     private Float minutePrice;
+    //endregion
 }
