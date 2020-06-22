@@ -7,7 +7,9 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -37,12 +39,18 @@ public class PhoneLineService {
     //endregion
 
     //region Methods:
-    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException {
-        if (linetypeDao.existsById(phoneLine.getLineType().getIdLineType()))
-            if(userDao.existsById(phoneLine.getUser().getIdUser()))
+    public PhoneLine addPhoneLine(PhoneLine phoneLine) throws LineTypeNotExistsException, DataIntegrityViolationException, UserNotExistException, ValidationException {
+        if (linetypeDao.existsById(phoneLine.getLineType().getIdLineType())){
+            Integer idUser = phoneLine.getUser().getIdUser();
+            if(userDao.existsById(idUser)){
+                User user = userDao.findById(idUser).get();
+                if(user.getUserType().getDescription().equals("Employee"))
+                    throw new ValidationException("Sorry! You are not allowed to add this Line!");
                 return phoneLineDao.save(phoneLine);
+            }
             else
                 throw new UserNotExistException();
+        }
         else
             throw new LineTypeNotExistsException();
     }
@@ -55,16 +63,26 @@ public class PhoneLineService {
         return phoneLineDao.findAll();
     }
 
-    public Optional<PhoneLine> getPhoneLine(Integer id) throws PhoneLineException {
-        if(phoneLineDao.existsById(id))
+    public Optional<PhoneLine> getPhoneLine(Integer id) throws PhoneLineException, ValidationException {
+        if(phoneLineDao.existsById(id)) {
+            PhoneLine phoneLine = phoneLineDao.findById(id).get();
+            Integer idUser = phoneLine.getUser().getIdUser();
+            User user = userDao.findById(idUser).get();
+            if (user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! You are not allowed to see this Line!");
             return phoneLineDao.findById(id);
+
+        }
         else
             throw new PhoneLineException("ERROR! The line does not exists");
     }
 
-    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         PhoneLine phoneLine = phoneLineDao.findById(idPhoneLine).get();
+        User user = phoneLine.getUser();
         if(phoneLine != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! You are not allowed to enable this user!");
             phoneLine.setSuspended(true);
             return phoneLineDao.save(phoneLine);
         }
@@ -72,9 +90,12 @@ public class PhoneLineService {
             throw new PhoneLineException("Sorry! The phone line does not exist!");
     }
 
-    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         PhoneLine phoneLine = phoneLineDao.findById(idPhoneLine).get();
+        User user = phoneLine.getUser();
         if(phoneLine != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! You are not allowed to enable this user!");
             phoneLine.setSuspended(false);
             return phoneLineDao.save(phoneLine);
         }
@@ -82,9 +103,12 @@ public class PhoneLineService {
             throw new PhoneLineException("Sorry! The phone line does not exist!");
     }
 
-    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException {
+    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
         PhoneLine phoneLine = phoneLineDao.findById(idPhoneLine).get();
+        User user = phoneLine.getUser();
         if(phoneLine != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! You are not allowed to delete this user!");
             phoneLine.setDeleted(true);
             return phoneLineDao.save(phoneLine);
         }
@@ -92,9 +116,12 @@ public class PhoneLineService {
             throw new PhoneLineException("Sorry! The phone line does not exist!");
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotExistException {
+    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotExistException, ValidationException {
         List<LineAndCallsQuantityDto> list = new ArrayList<>();
         if (userDao.existsById(userId)){
+            User user = userDao.findById(userId).get();
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! you are not allowed to see the favorite destinataries of this user");
             for (PhoneLine phoneLine : phoneLineDao.top10Destinataries(userId)){
                 LineAndCallsQuantityDto dto = new LineAndCallsQuantityDto();
                 dto.setFavoritePhoneLine(phoneLine);

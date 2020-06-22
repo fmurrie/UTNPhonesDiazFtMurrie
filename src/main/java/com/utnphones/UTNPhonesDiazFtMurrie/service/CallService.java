@@ -61,7 +61,7 @@ public class CallService {
         if(callDao.existsById(userId)){
             User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
-                throw new ValidationException("Sorry! you are not allowed to do this!");
+                throw new ValidationException("Sorry! you are not allowed to see the calls of this user!");
 
             return callDao.getCallsByUser(userId);
         }
@@ -69,15 +69,27 @@ public class CallService {
             throw new UserNotExistException();
     }
 
-    public Optional<Call> getCallById(Integer id)
-    {
-        return callDao.findById(id);
+    public Optional<Call> getCallById(Integer id) throws ValidationException, UserNotExistException {
+
+        if(userDao.existsById(id)){
+            User user = userDao.findById(id).get();
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! you are not allowed to see the calls of this user!");
+            return callDao.findById(id);
+        }
+        else
+            throw new UserNotExistException();
+
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotExistException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotExistException, ValidationException {
         List<Call> callList;
-        if(userDao.existsById(userId))
-            callList = callDao.getCallsBetweenDates(userId, initTime,endDate);
+        if(userDao.existsById(userId)) {
+            User user = userDao.findById(userId).get();
+            if (user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! you are not allowed to see the calls of this user!");
+            callList = callDao.getCallsBetweenDates(userId, initTime, endDate);
+        }
         else
             throw new UserNotExistException();
 

@@ -169,6 +169,8 @@ public class EmployeeWebController
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneNumberExists());
         }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
     }
 
     @GetMapping("/phoneLine/{idPhoneLine}")
@@ -178,6 +180,8 @@ public class EmployeeWebController
         }
         catch(PhoneLineException exc){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 
@@ -189,6 +193,7 @@ public class EmployeeWebController
         catch (PhoneLineException exc) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handlePhoneLineException(exc));
         }
+
     }
 
     @PutMapping("/phoneLine/{idPhoneLine}/suspension")
@@ -197,6 +202,8 @@ public class EmployeeWebController
             return ResponseEntity.ok(phoneLineController.suspendPhoneLine(idPhoneLine));
         } catch (PhoneLineException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 
@@ -207,6 +214,8 @@ public class EmployeeWebController
         } catch (PhoneLineException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
     }
 
     @DeleteMapping("/phoneLine/{idPhoneLine}/elimination")
@@ -215,6 +224,8 @@ public class EmployeeWebController
             return ResponseEntity.ok(phoneLineController.deletePhoneLine(idPhoneLine));
         } catch (PhoneLineException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
 
@@ -261,6 +272,8 @@ public class EmployeeWebController
             return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
     }
     //endregion

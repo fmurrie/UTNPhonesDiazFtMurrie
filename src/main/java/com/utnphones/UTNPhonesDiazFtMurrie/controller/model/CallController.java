@@ -36,11 +36,11 @@ public class CallController implements LocationInterface<Call> {
         return callService.getCallsByUser(userId);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotExistException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotExistException, ValidationException {
         return callService.getCallsBetweenDates(userId,initDate,endTime);
     }
 
-    public Call getCallById(Integer idCall) {
+    public Call getCallById(Integer idCall) throws ValidationException, UserNotExistException {
         return callService.getCallById(idCall).get();
     }
 
