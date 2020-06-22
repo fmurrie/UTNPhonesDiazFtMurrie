@@ -12,10 +12,10 @@ import java.util.List;
 public interface BillDao extends JpaRepository<Bill, Integer>
 {
     //region Methods:
-    @Query(value = "select * from bills b inner join phoneLines pl on pl.idPhonLine = b.idPhoneLine where pl.idUser = ?1)", nativeQuery = true)
+    @Query(value = "select * from bills b inner join phoneLines pl on pl.idPhoneLine = b.idPhoneLine where pl.idUser = ?1", nativeQuery = true)
     List<Bill> getBillsByUser(Integer userId);
 
-    @Query(value = "select * FROM bills b inner join phoneLines pl on pl.idPhoneLine = b.idPhoneLine where pl.idUser = ?1 and b.issueDate between ?2 and ?3", nativeQuery = true)
+    @Query(value = "select * from bills b inner join phoneLines pl on pl.idPhoneLine = b.idPhoneLine where pl.idUser = ?1 and b.issueDate between ?2 and ?3", nativeQuery = true)
     List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate);
     //endregion
 }

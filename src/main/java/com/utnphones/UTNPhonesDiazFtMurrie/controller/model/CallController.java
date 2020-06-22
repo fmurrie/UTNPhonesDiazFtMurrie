@@ -1,9 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetCallRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CallService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -32,12 +34,12 @@ public class CallController implements LocationInterface<Call> {
         return callService.addCall(call);
     }
 
-    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException {
+    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException, ValidationException {
         return callService.getCallsByUser(userId);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, GetCallRequestDto callRequestDto) throws UserNotexistException{
-        return callService.getCallsBetweenDates(userId,callRequestDto);
+    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotexistException{
+        return callService.getCallsBetweenDates(userId,initDate,endTime);
     }
 
     public Call getCallById(Integer idCall) {

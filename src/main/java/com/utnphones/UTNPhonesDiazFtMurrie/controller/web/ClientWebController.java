@@ -1,9 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.BillController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.CallController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetCallRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
@@ -26,23 +27,27 @@ public class ClientWebController
     private final UserController userController;
     private final PhoneLineController phoneLineController;
     private final CallController callController;
+    private final BillController billController;
     private final AdviceController adviceController;
+
     //endregion
 
     //region Constructors:
     @Autowired
-    public ClientWebController(SessionManager sessionManager, UserController userController, PhoneLineController phoneLineController ,CallController callController, AdviceController adviceController)
+    public ClientWebController(SessionManager sessionManager, UserController userController, PhoneLineController phoneLineController,
+                               CallController callController, BillController billController, AdviceController adviceController)
     {
         this.sessionManager = sessionManager;
         this.userController = userController;
         this.phoneLineController = phoneLineController;
         this.callController = callController;
+        this.billController = billController;
         this.adviceController = adviceController;
     }
     //endregion
 
     //region Methods:
-    @GetMapping("/")
+    @GetMapping("/me")
     ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token)
     {
         try
@@ -77,6 +82,7 @@ public class ClientWebController
         }
     }
 
+    //////////////////////////////////PHONE LINES///////////////////////////////////////////
     @GetMapping("/phoneLine/favoriteDestinataries")
     public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token){
         try{
@@ -86,22 +92,44 @@ public class ClientWebController
         }
     }
 
-    @GetMapping("phoneLine/calls")
+    @GetMapping("phoneLine/calls/between")
+    public ResponseEntity getCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
+        try{
+            return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(), getBetweenDatesRequestDto.getInitDate(), getBetweenDatesRequestDto.getEndDate()));
+        }
+        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
+
+
+    /*@GetMapping("phoneLine/calls")
     public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token){
         try{
             return ResponseEntity.ok(callController.getCallsByUser(sessionManager.getCurrentUser(token).getIdUser()));
         }
         catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
-    }
+    }*/
 
-    @GetMapping("phoneLine/calls/between")
-    public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetCallRequestDto getCallRequestDto){
+    ///////////////////////////////////// BILLS ///////////////////////////////////////////
+
+    @GetMapping("/bills")
+    public ResponseEntity getBills(@RequestHeader("Authorization") String token){
         try{
-            return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getCallRequestDto));
+            return ResponseEntity.ok(billController.getBillsByUser(sessionManager.getCurrentUser(token).getIdUser()));
         }
         catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
     }
+
+    @GetMapping("bills/between")
+    public ResponseEntity getBillsBetweenDates(@RequestHeader("Authorization") String token,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
+        try{
+            return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
+        }
+        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+    }
+
     //endregion
 }

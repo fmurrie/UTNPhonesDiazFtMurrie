@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCallRequestDto
+public class GetBetweenDatesRequestDto
 {
     //region Properties:
     //@JsonProperty

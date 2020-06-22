@@ -1,9 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.RateController;
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
-import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserTypeController;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
@@ -28,13 +25,17 @@ public class EmployeeWebController
     private final UserTypeController userTypeController;
     private final PhoneLineController phoneLineController;
     private final RateController rateController;
+    private final CallController callController;
+    private final BillController billController;
+
     //endregion
 
     //region Constructors:
     @Autowired
     public EmployeeWebController(SessionManager sessionManager, UserController userController,
                                  AdviceController adviceController, UserTypeController userTypeController,
-                                 PhoneLineController phoneLineController, RateController rateController){
+                                 PhoneLineController phoneLineController, RateController rateController,
+                                 CallController callController, BillController billController){
 
         this.sessionManager = sessionManager;
         this.userController = userController;
@@ -42,6 +43,8 @@ public class EmployeeWebController
         this.userTypeController = userTypeController;
         this.phoneLineController = phoneLineController;
         this.rateController = rateController;
+        this.callController = callController;
+        this.billController = billController;
     }
     //endregion
 
@@ -225,5 +228,20 @@ public class EmployeeWebController
     ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable Integer idOriginCity, @PathVariable Integer idDestinyCity) {
             return ResponseEntity.ok(rateController.getRateById(idOriginCity,idDestinyCity));
     }
+
+    //////////////////////////////////CALLS///////////////////////////////////////////
+
+    @GetMapping("phoneLine/calls/{idClient}")
+    public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token, @PathVariable Integer idClient){
+        try{
+            return ResponseEntity.ok(callController.getCallsByUser(idClient));
+        }
+        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+    }
     //endregion
+
+
 }

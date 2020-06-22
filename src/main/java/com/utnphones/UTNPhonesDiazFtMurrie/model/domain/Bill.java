@@ -51,9 +51,6 @@ public class Bill
     @Column(name = "expiryDate",nullable = false,insertable = false,updatable = false)
     private Date expiryDate;
 
-    @Column(name = "expired",nullable = false,insertable = false,updatable = false)
-    private boolean expired;
-
     @Transient
     private List<Call> callList;
     //endregion

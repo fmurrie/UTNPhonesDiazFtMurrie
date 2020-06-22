@@ -4,12 +4,16 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.CallDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetCallRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,10 +56,14 @@ public class CallService {
     }
 
 
-    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException
-    {
-        if(callDao.existsById(userId))
+    public List<Call> getCallsByUser(Integer userId) throws UserNotexistException, ValidationException {
+        if(callDao.existsById(userId)){
+            User user = userDao.findById(userId).get();
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new ValidationException("Sorry! you are not allowed to do this!");
+
             return callDao.getCallsByUser(userId);
+        }
         else
             throw new UserNotexistException();
     }
@@ -65,10 +73,10 @@ public class CallService {
         return callDao.findById(id);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, GetCallRequestDto callRequestDto) throws UserNotexistException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotexistException {
         List<Call> callList;
         if(userDao.existsById(userId))
-            callList = callDao.getCallsBetweenDates(userId, callRequestDto.getInitDate(), callRequestDto.getEndDate());
+            callList = callDao.getCallsBetweenDates(userId, initTime,endDate);
         else
             throw new UserNotexistException();
 
