@@ -29,10 +29,10 @@ public class UserService
 
         if(dao.existsByDni(user.getDni()))
             throw new ValidationException("ERROR! The DNI already Exists");
-        if(dao.existsByUsername(user.getUsername()))
+        else if(dao.existsByUsername(user.getUsername()))
             throw new ValidationException("Sorry! The username already Exists");
-
-        return dao.save(user);
+        else
+            return dao.save(user);
 
     }
 
