@@ -52,5 +52,6 @@ public class Call
 
     @Column(name="totalPrice",insertable = false,updatable = false)
     private Float totalPrice;
+
     //endregion
 }

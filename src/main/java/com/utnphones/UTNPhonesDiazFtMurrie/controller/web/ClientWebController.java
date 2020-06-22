@@ -46,7 +46,7 @@ public class ClientWebController
     //endregion
 
     //region Methods:
-    @GetMapping("/me")
+    @GetMapping("/")
     ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token)
     {
         try
