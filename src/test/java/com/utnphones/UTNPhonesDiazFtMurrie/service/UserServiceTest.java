@@ -168,9 +168,7 @@ public class UserServiceTest
     public void suspendUserUserNotExistException() throws UserNotExistException
     {
         Integer id=1;
-        Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
-        Mockito.when(dao.findById(id)).thenReturn(expected);
-        Mockito.when(service.suspendUser(id)).thenThrow(new UserNotExistException());
+        Mockito.when(dao.findById(id)).thenReturn(null);
         User result=service.suspendUser(id);
     }
 
