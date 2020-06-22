@@ -13,20 +13,21 @@ import java.util.Optional;
 @Service
 public class RateService
 {
-    //Properties:
+    //region Properties:
     private final RateDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public RateService(RateDao dao) { this.dao = dao; }
+    //endregion
 
-    //Methods:
-    public Rate add(final Rate rate) { return dao.save(rate); }
-
+    //region Methods:
     public List<Rate> getAll() { return dao.findAll(); }
 
     public Optional<Rate> getById(RateId id)
     {
         return dao.findById(id);
     }
+    //endregion
 }

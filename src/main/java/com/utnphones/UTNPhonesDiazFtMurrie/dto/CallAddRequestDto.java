@@ -12,8 +12,9 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CallAddRequestDto {
-
+public class CallAddRequestDto
+{
+    //region Properties:
     @NotNull
     private PhoneLine phoneLineOrigin ;
 
@@ -27,5 +28,5 @@ public class CallAddRequestDto {
     @NotNull
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
-
+    //endregion
 }

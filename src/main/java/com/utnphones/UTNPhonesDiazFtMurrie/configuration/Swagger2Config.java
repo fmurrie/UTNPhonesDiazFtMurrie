@@ -12,6 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Config
 {
+    //region Methods:
     @Bean
     public Docket api()
     {
@@ -21,4 +22,5 @@ public class Swagger2Config
                 .paths(PathSelectors.any())
                 .build();
     }
+    //endregion
 }

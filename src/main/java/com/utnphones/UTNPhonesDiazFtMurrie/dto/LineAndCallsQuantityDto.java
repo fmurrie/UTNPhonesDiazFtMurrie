@@ -10,11 +10,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LineAndCallsQuantityDto {
-
+public class LineAndCallsQuantityDto
+{
+    //region Properties:
     @NotNull
     private PhoneLine favoritePhoneLine;
 
     @NotNull
     private Integer callsQuantity;
+    //endregion
 }

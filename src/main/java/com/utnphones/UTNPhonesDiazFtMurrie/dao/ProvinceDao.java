@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProvinceDao extends JpaRepository<Province,Integer> {
-    //Methods:
-    List<Province> findByName(String name);
-}
+public interface ProvinceDao extends JpaRepository<Province,Integer> { }

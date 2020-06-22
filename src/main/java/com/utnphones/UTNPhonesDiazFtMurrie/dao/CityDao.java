@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CityDao extends JpaRepository<City,Integer> {
-    //Methods:
-    List<City> findByName(String name);
-}
+public interface CityDao extends JpaRepository<City,Integer> { }

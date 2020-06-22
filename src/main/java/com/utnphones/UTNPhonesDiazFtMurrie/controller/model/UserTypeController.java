@@ -1,38 +1,36 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 
 @Controller
 public class UserTypeController {
-    //Properties:
+    //region Properties:
     private final UserTypeService service;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserTypeController(UserTypeService service) {
+
         this.service = service;
     }
+    //endregion
 
-    //Methods:
-    public ResponseEntity<UserType> addUserType(@RequestBody @Valid UserType userType) {
-        return ResponseEntity.ok(service.add(userType));
-    }
-
-    List<UserType> getAllUserTypes() {
+    //region Methods:
+    public List<UserType> getAllUserTypes()
+    {
         return service.getAll();
     }
 
-
-    public UserType getUserTypeById(Integer idUserType) { return service.getById(idUserType); }
-
+    public Optional<UserType> getUserTypeById(Integer idUserType)
+    {
+        return service.getById(idUserType);
+    }
+    //endregion
 }

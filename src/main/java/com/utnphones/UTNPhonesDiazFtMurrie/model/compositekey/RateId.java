@@ -15,10 +15,11 @@ import java.io.Serializable;
 @Builder
 public class RateId implements Serializable
 {
-    //Properties:
+    //region Properties:
     @NotNull
     private Integer idOriginCity;
 
     @NotNull
     private Integer idDestinyCity;
+    //endregion
 }

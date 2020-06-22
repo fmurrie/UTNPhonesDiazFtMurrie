@@ -5,12 +5,15 @@ import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import java.util.Date;
 
 
-public class Session {
-
+public class Session
+{
+    //region Properties:
     private String token;
     private User loggedUser;
     private Date lastAction;
+    //endregion
 
+    //region Constructors:
     public Session() {
 
     }
@@ -20,7 +23,9 @@ public class Session {
         this.loggedUser = loggedUser;
         this.lastAction = lastAction;
     }
+    //endregion
 
+    //region Methods:
     public String getToken() {
         return token;
     }
@@ -44,4 +49,5 @@ public class Session {
     public void setLastAction(Date lastAction) {
         this.lastAction = lastAction;
     }
+    //endregion
 }

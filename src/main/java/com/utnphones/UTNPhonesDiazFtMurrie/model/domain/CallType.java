@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Table(name="callTypes")
 public class CallType {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idCallType")
@@ -32,4 +32,5 @@ public class CallType {
 
     @Column(name="valueAdded",nullable = false,insertable = false,updatable = false)
     private Float valueAdded;
+    //endregion
 }

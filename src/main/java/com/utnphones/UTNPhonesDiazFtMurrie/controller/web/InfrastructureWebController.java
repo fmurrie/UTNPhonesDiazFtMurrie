@@ -18,28 +18,37 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/infrastructure")
-public class InfrastructureWebController {
-
+public class InfrastructureWebController
+{
+    //region Properties:
     CallController callController;
     AdviceController adviceController;
+    //endregion
 
+    //region Constructors:
     @Autowired
     public InfrastructureWebController(CallController callController, AdviceController adviceController){
         this.callController = callController;
         this.adviceController = adviceController;
     }
+    //endregion
 
+    //region Methods:
     @PostMapping("/call")
     public ResponseEntity addCall (@RequestBody @Valid CallAddRequestDto callDto) throws PhoneLineException {
         try{
-            Call call = callController.addCall(callDto);
+            Call call = new Call();
+            call.setPhoneLineOrigin(callDto.getPhoneLineOrigin());
+            call.setPhoneLineDestiny(callDto.getPhoneLineDestiny());
+            call.setInitTime(callDto.getInitTime());
+            call.setEndTime(callDto.getEndTime());
+
+            callController.addCall(call);
             return ResponseEntity.created(callController.getLocation(call)).build();
         }
         catch(PhoneLineException exc){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
     }
-
-
-
+    //endregion
 }
