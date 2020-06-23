@@ -102,6 +102,5 @@ public class LoginControllerTest {
 
         assertNotNull(result);
         assertEquals(expected,result);
-
         }
 }
