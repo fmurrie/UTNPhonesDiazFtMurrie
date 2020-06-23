@@ -1,10 +1,11 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Country;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.junit.After;
 import org.junit.Before;
@@ -55,32 +56,57 @@ public class PhoneLineControllerTest
     }
 
     @Test
-    public void getPhoneLine()
+    public void getPhoneLine() throws ValidationException, PhoneLineException
     {
+        Integer id=1;
+        Optional<PhoneLine> expected=Optional.of(new PhoneLine(id,mock(LineType.class),"1234",mock(User.class),false,false,null));
+        Mockito.when(service.getPhoneLine(id)).thenReturn(expected);
+        PhoneLine result=controller.getPhoneLine(id);
+        assertNotNull(result);
+        assertEquals(expected.get(),result);
     }
 
     @Test
-    public void top10Destinataries()
+    public void top10Destinataries() throws UserNotExistException, ValidationException
     {
+        Integer id=1;
+        List<LineAndCallsQuantityDto> expected=new ArrayList<LineAndCallsQuantityDto>();
+        Mockito.when(service.top10Destinataries(id)).thenReturn(expected);
+        List<LineAndCallsQuantityDto> result=controller.top10Destinataries(id);
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void getLocation()
+    public void suspendPhoneLine() throws ValidationException, PhoneLineException
     {
+        Integer id=10;
+        PhoneLine expected=new PhoneLine(id,mock(LineType.class),"1234",mock(User.class),false,false,null);
+        Mockito.when(service.suspendPhoneLine(id)).thenReturn(expected);
+        PhoneLine result=controller.suspendPhoneLine(id);
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void suspendPhoneLine()
+    public void enablePhoneLine() throws ValidationException, PhoneLineException
     {
+        Integer id=10;
+        PhoneLine expected=new PhoneLine(id,mock(LineType.class),"1234",mock(User.class),false,false,null);
+        Mockito.when(service.enablePhoneLine(id)).thenReturn(expected);
+        PhoneLine result=controller.enablePhoneLine(id);
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void enablePhoneLine()
+    public void deletePhoneLine() throws ValidationException, PhoneLineException
     {
-    }
-
-    @Test
-    public void deletePhoneLine()
-    {
+        Integer id=10;
+        PhoneLine expected=new PhoneLine(id,mock(LineType.class),"1234",mock(User.class),false,false,null);
+        Mockito.when(service.deletePhoneLine(id)).thenReturn(expected);
+        PhoneLine result=controller.deletePhoneLine(id);
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 }

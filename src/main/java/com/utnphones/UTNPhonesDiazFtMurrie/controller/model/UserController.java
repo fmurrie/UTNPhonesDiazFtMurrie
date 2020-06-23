@@ -19,15 +19,13 @@ import java.util.List;
 public class UserController implements LocationInterface<User> {
 
     //region Properties:
-    private SessionManager sessionManager;
     private final UserService service;
     //endregion
 
     //region Constructors:
     @Autowired
-    public UserController(UserService service, SessionManager sessionManager) {
+    public UserController(UserService service) {
         this.service = service;
-        this.sessionManager=sessionManager;
     }
     //endregion
 
