@@ -65,12 +65,12 @@ public class PhoneLineService {
 
     public Optional<PhoneLine> getPhoneLine(Integer id) throws PhoneLineException, ValidationException {
         if(phoneLineDao.existsById(id)) {
-            PhoneLine phoneLine = phoneLineDao.findById(id).get();
-            Integer idUser = phoneLine.getUser().getIdUser();
+            Optional<PhoneLine> phoneLine = phoneLineDao.findById(id);
+            Integer idUser = phoneLine.get().getUser().getIdUser();
             User user = userDao.findById(idUser).get();
             if (user.getUserType().getDescription().equals("Employee"))
                 throw new ValidationException("Sorry! You are not allowed to see this Line!");
-            return phoneLineDao.findById(id);
+            return phoneLine;
 
         }
         else
