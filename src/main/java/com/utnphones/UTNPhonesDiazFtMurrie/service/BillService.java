@@ -32,8 +32,8 @@ public class BillService
     public Optional<Bill> getById(Integer  idBill) { return billDao.findById(idBill); }
 
     public List<Bill> getBillsByUser(Integer userId) throws UserNotExistException, ValidationException {
-        User user = new User();
-        if(billDao.existsById(userId))
+        User user;
+        if(userDao.existsById(userId))
         {
             user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
