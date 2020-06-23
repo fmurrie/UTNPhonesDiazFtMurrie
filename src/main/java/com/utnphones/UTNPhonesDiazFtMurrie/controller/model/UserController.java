@@ -30,7 +30,7 @@ public class UserController implements LocationInterface<User> {
     //endregion
 
     //region Methods:
-    public User addUser(User user) throws ValidationException {
+    public User addUser(User user) throws ValidationException, NoSuchAlgorithmException {
         return service.addUser(user);
     }
 
@@ -46,7 +46,7 @@ public class UserController implements LocationInterface<User> {
 
     public User getClientById(Integer idClient) throws UserNotExistException, ValidationException { return service.getClientById(idClient).get(); }
     
-    public User login(String username, String password) throws UserNotExistException, ValidationException {
+    public User login(String username, String password) throws UserNotExistException, ValidationException, NoSuchAlgorithmException {
         if ((username != null) && (password != null)) {
             return service.login(username, password);
         } else {

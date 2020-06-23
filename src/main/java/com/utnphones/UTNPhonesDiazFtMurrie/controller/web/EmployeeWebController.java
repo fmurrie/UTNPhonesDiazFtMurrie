@@ -68,8 +68,11 @@ public class EmployeeWebController
                else
                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserTypeNotExists());
            }
-           catch(ValidationException exc){
+           catch(ValidationException  exc){
                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
+           }
+           catch(NoSuchAlgorithmException exc){
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("Error! the password has failed!")));
            }
     }
 

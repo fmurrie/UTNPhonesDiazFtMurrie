@@ -34,19 +34,33 @@ public class UserService
     //endregion
 
     //region Methods:
-    public User addUser(User user) throws ValidationException  {
+    public User addUser(User user) throws ValidationException, NoSuchAlgorithmException {
         if(dao.existsByDni(user.getDni()))
             throw new ValidationException("ERROR! The DNI already Exists");
         if(dao.existsByUsername(user.getUsername()))
             throw new ValidationException("Sorry! The username already Exists");
-        if(cityDao.existsById(user.getCity().getIdCity()))
+        if(!cityDao.existsById(user.getCity().getIdCity()))
             throw new ValidationException("ERROR! the city does not exists!");
+
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(user.getUserpassword().getBytes(StandardCharsets.UTF_8));
+
+        String hex = DatatypeConverter.printHexBinary(hash);
+        user.setUserpassword(hex);
         return dao.save(user);
     }
 
+    public User login(String username, String password) throws UserNotExistException, NoSuchAlgorithmException {
+        if(null != dao.findByUsernameAndUserpassword(username, password) )
+           if(dao.findByUsernameAndUserpassword(username, password).getUserType().getDescription().equals("Employee"))
+                return Optional.ofNullable(dao.findByUsernameAndUserpassword(username, password)).orElseThrow(() -> new UserNotExistException());
+        //Hashing the password
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 
-
-    public User login(String username, String password) throws UserNotExistException {
+        String hex = DatatypeConverter.printHexBinary(hash);
+        // the hashed password is assigned to the param password
+        password =hex;
         User user = dao.findByUsernameAndUserpassword(username, password);
         return Optional.ofNullable(user).orElseThrow(() -> new UserNotExistException());
     }
