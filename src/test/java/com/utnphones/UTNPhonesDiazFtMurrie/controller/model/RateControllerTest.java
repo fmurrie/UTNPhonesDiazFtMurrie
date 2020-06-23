@@ -1,8 +1,10 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
+import com.utnphones.UTNPhonesDiazFtMurrie.service.CityService;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.RateService;
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +21,7 @@ public class RateControllerTest
 {
     private RateController controller;
     private RateService service;
+
 
     @Before
     public void setUp() throws Exception
@@ -41,8 +44,7 @@ public class RateControllerTest
     }
 
     @Test
-    public void getRateById()
-    {
+    public void getRateById() {
         City originCity=mock(City.class);
         City destinyCity=mock(City.class);
         RateId rateId=new RateId(originCity.getIdCity(),destinyCity.getIdCity());
