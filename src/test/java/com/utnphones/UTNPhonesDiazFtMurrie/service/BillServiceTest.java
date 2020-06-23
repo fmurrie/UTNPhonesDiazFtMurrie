@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +72,63 @@ public class BillServiceTest
         }
     }
 
-    @Test
-    public void getBillsBetweenDates()
+    @Test(expected = UserNotExistException.class)
+    public void getBillsByUserUserNotExistException() throws UserNotExistException, ValidationException
     {
+        Integer id=1;
+        Mockito.when(userDao.existsById(id)).thenReturn(false);
+        service.getBillsByUser(id);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void getBillsByUserValidationException() throws UserNotExistException, ValidationException
+    {
+        Integer id=1;
+        Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Employee",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
+        List<Bill> expectedListBill=new ArrayList<Bill>();
+        Mockito.when(userDao.existsById(id)).thenReturn(true);
+        Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
+        if(expectedUser.get().getUserType().getDescription().equals("Employee"))
+        {
+            List<Bill> result=service.getBillsByUser(id);
+        }
+    }
+
+    @Test
+    public void getBillsBetweenDatesOK() throws UserNotExistException, ValidationException
+    {
+        Integer id=1;
+        Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Client",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
+        List<Bill> expectedListBill=new ArrayList<Bill>();
+        Mockito.when(userDao.existsById(id)).thenReturn(true);
+        Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
+        if(!expectedUser.get().getUserType().getDescription().equals("Employee"))
+        {
+            Mockito.when(billDao.getBillsBetweenDates(id,mock(Date.class),mock(Date.class))).thenReturn(expectedListBill);
+            List<Bill> result=service.getBillsBetweenDates(id,mock(Date.class),mock(Date.class));
+            assertNotNull(result);
+            assertEquals(expectedListBill,result);
+        }
+    }
+
+    @Test(expected = UserNotExistException.class)
+    public void getBillsBetweenDatesUserNotExistException() throws UserNotExistException, ValidationException
+    {
+        Integer id=1;
+        Mockito.when(userDao.existsById(id)).thenReturn(false);
+        service.getBillsBetweenDates(id,mock(Date.class),mock(Date.class));
+    }
+
+    @Test(expected = ValidationException.class)
+    public void getBillsBetweenDatesValidationException() throws UserNotExistException, ValidationException
+    {
+        Integer id=1;
+        Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Employee",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
+        Mockito.when(userDao.existsById(id)).thenReturn(true);
+        Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
+        if(expectedUser.get().getUserType().getDescription().equals("Employee"))
+        {
+            service.getBillsBetweenDates(id,mock(Date.class),mock(Date.class));
+        }
     }
 }
