@@ -164,21 +164,25 @@ public class UserServiceTest
         assertNotNull(result);
     }
 
-    @Test(expected = UserNotExistException.class)
-    public void suspendUserUserNotExistException() throws UserNotExistException
+    @Test
+    public void enableUserOK() throws UserNotExistException
     {
         Integer id=1;
-        Mockito.when(dao.findById(id)).thenReturn(null);
-        User result=service.suspendUser(id);
+        Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
+        Mockito.when(dao.findById(id)).thenReturn(expected);
+        Mockito.when(dao.save(expected.get())).thenReturn(expected.get());
+        User result=service.enableUser(id);
+        assertNotNull(result);
     }
 
     @Test
-    public void enableUser()
+    public void deleteUserOK() throws UserNotExistException
     {
-    }
-
-    @Test
-    public void deleteUser()
-    {
+        Integer id=1;
+        Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
+        Mockito.when(dao.findById(id)).thenReturn(expected);
+        Mockito.when(dao.save(expected.get())).thenReturn(expected.get());
+        User result=service.deleteUser(id);
+        assertNotNull(result);
     }
 }

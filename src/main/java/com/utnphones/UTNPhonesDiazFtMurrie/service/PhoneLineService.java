@@ -82,7 +82,7 @@ public class PhoneLineService {
         User user = phoneLine.getUser();
         if(phoneLine != null){
             if(user.getUserType().getDescription().equals("Employee"))
-                throw new ValidationException("Sorry! You are not allowed to enable this user!");
+                throw new ValidationException("Sorry! You are not allowed to suspend this phoneline!");
             phoneLine.setSuspended(true);
             return phoneLineDao.save(phoneLine);
         }
@@ -95,7 +95,7 @@ public class PhoneLineService {
         User user = phoneLine.getUser();
         if(phoneLine != null){
             if(user.getUserType().getDescription().equals("Employee"))
-                throw new ValidationException("Sorry! You are not allowed to enable this user!");
+                throw new ValidationException("Sorry! You are not allowed to enable this phoneline!");
             phoneLine.setSuspended(false);
             return phoneLineDao.save(phoneLine);
         }
@@ -108,7 +108,7 @@ public class PhoneLineService {
         User user = phoneLine.getUser();
         if(phoneLine != null){
             if(user.getUserType().getDescription().equals("Employee"))
-                throw new ValidationException("Sorry! You are not allowed to delete this user!");
+                throw new ValidationException("Sorry! You are not allowed to delete this phoneline!");
             phoneLine.setDeleted(true);
             return phoneLineDao.save(phoneLine);
         }
@@ -121,7 +121,7 @@ public class PhoneLineService {
         if (userDao.existsById(userId)){
             User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
-                throw new ValidationException("Sorry! you are not allowed to see the favorite destinataries of this user");
+                throw new ValidationException("Sorry! you are not allowed to see the favorite destinataries of this phoneline");
             for (PhoneLine phoneLine : phoneLineDao.top10Destinataries(userId)){
                 LineAndCallsQuantityDto dto = new LineAndCallsQuantityDto();
                 dto.setFavoritePhoneLine(phoneLine);

@@ -4,16 +4,19 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.LineTypeDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.LineType;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -77,8 +80,11 @@ public class PhoneLineServiceTest
     }
 
     @Test
-    public void getAll()
+    public void getAll() throws PhoneLineException
     {
+        Mockito.when(phoneLineDao.findAll()).thenReturn(new ArrayList<PhoneLine>());
+        List<PhoneLine> result= service.getAll();
+        assertNotNull(result);
     }
 
     @Test
@@ -87,17 +93,24 @@ public class PhoneLineServiceTest
     }
 
     @Test
-    public void suspendPhoneLine()
+    public void suspendPhoneLineOK() throws ValidationException, PhoneLineException
+    {
+        Integer id=1;
+        Optional<PhoneLine> expected=Optional.of(new PhoneLine(id,mock(LineType.class),"1234",mock(User.class),false,false,null));
+        Mockito.when(phoneLineDao.findById(id)).thenReturn(expected);
+        Mockito.when(expected.get().getUser().getUserType().getDescription().equals("Employee")).thenReturn(true);
+        Mockito.when(phoneLineDao.save(expected.get())).thenReturn(expected.get());
+        PhoneLine result=service.suspendPhoneLine(id);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void enablePhoneLineOK()
     {
     }
 
     @Test
-    public void enablePhoneLine()
-    {
-    }
-
-    @Test
-    public void deletePhoneLine()
+    public void deletePhoneLineOK()
     {
     }
 
