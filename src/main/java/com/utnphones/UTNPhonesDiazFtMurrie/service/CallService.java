@@ -58,7 +58,7 @@ public class CallService {
 
 
     public List<Call> getCallsByUser(Integer userId) throws UserNotExistException, ValidationException {
-        if(callDao.existsById(userId)){
+        if(userDao.existsById(userId)){
             User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
                 throw new ValidationException("Sorry! you are not allowed to see the calls of this user!");

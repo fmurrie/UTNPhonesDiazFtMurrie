@@ -32,10 +32,9 @@ public class BillService
     public Optional<Bill> getById(Integer  idBill) { return billDao.findById(idBill); }
 
     public List<Bill> getBillsByUser(Integer userId) throws UserNotExistException, ValidationException {
-        User user;
         if(userDao.existsById(userId))
         {
-            user = userDao.findById(userId).get();
+            User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
                 throw new ValidationException("Sorry! you are not allowed to see the bills of this user!");
 
@@ -46,7 +45,7 @@ public class BillService
     }
 
     public List<Bill> getBillsBetweenDates(Integer userId, Date fromDate, Date toDate) throws UserNotExistException, ValidationException {
-        if(billDao.existsById(userId)) {
+        if(userDao.existsById(userId)) {
             User user = userDao.findById(userId).get();
             if (user.getUserType().getDescription().equals("Employee"))
                 throw new ValidationException("Sorry! you are not allowed to see the calls of this user!");
