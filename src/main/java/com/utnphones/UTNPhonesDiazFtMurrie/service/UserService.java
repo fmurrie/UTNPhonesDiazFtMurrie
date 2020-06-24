@@ -2,6 +2,8 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.DniNotExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class UserService
@@ -62,13 +66,18 @@ public class UserService
     /////////////////////////////////////////////////PARCIAL/////////////////////////////////////////////////
     /////////////////////////////////////////////////PARCIAL/////////////////////////////////////////////////
 
-    public List<User> getUsersByDni(String dni){
+    public List<User> getUsersByDni(String dni) throws DniNotExistsException, NoContentException {
         List<User> list = new ArrayList<>();
-        if(dni == "par")
-            list =dao.getUsersByDniPar();
-        else if (dni == "impar")
-            list= dao.getUsersByDniImpar();
-
+        if(null != dao.findByDni(dni) ){
+            if(dni.equals("par"))
+                list =dao.getUsersByDniPar();
+            else if (dni.equals("impar"))
+                list= dao.getUsersByDniImpar();
+        }
+        else
+            throw new DniNotExistsException();
+        if(isNull(list))
+            throw new NoContentException("Sorry no users has been found with this type of DNI");
         return list;
     }
 

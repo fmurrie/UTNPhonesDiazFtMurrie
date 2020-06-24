@@ -1,12 +1,11 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserAlreadyExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/user")
 public class UserController {
 
     //Properties:
@@ -82,17 +81,17 @@ public class UserController {
 
     //endpoint que liste las personas con DNI impar/par pasado por parametro
     @GetMapping("/dni/{dni}")
-    public ResponseEntity<List<User>> getUsersByDni(@PathVariable String dni) {
-        return ResponseEntity.ok(service.getUsersByDni(dni));
+    public ResponseEntity getUsersByDni(@PathVariable String dni) {
+        try {
+            return ResponseEntity.ok(service.getUsersByDni(dni));
+        }
+        catch(DniNotExistsException exc){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
+        }
+        catch(NoContentException exc){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(exc.getMessage());
+        }
     }
-
-
-
-
-
-
-
-
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////

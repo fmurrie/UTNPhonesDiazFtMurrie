@@ -1,5 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.DniNotExistsException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.CountryService;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.UserService;
@@ -38,19 +40,42 @@ class UserControllerTest {
     }
 
     @Test
-    public void getUsersByDni() {
+    public void getUsersByDniOk() throws DniNotExistsException, NoContentException {
         String dni = "par";
 
-        User user = new User(1,new UserType(1,"Cliente",null),"42139828","Sergio","Diaz",
-                new City(1,"Mardel","0223",
-                        new Province(1,"Buenos Aires",new Country(1,"00","Argentina","+54",null),null)),
-                "SergioDiaz","12345",null);
+        List<User> userlist = mock(List.class);
+        Mockito.when(service.getUsersByDni(dni)).thenReturn(userlist);
 
-        List<User> expected = List.of(user);
-        Mockito.when(service.getUsersByDni(dni)).thenReturn(List.of(user));
-        ResponseEntity<List<User>> result = controller.getUsersByDni(dni);
+        ResponseEntity expected = ResponseEntity.ok(service.getUsersByDni(dni));
+        ResponseEntity result = controller.getUsersByDni(dni);
         assertNotNull(result);
-        assertEquals(expected,result.getBody());
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void getUsersByDniDniNotExistsException() throws DniNotExistsException, NoContentException {
+        String dni = "par";
+
+        List<User> userlist = mock(List.class);
+        Mockito.when(service.getUsersByDni(dni)).thenThrow(new DniNotExistsException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new DniNotExistsException());
+        ResponseEntity result = controller.getUsersByDni(dni);
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void getUsersByDniNoContentException() throws DniNotExistsException, NoContentException {
+        String dni = "par";
+
+        List<User> userlist = mock(List.class);
+        Mockito.when(service.getUsersByDni(dni)).thenThrow(new NoContentException("hola"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.NO_CONTENT).body(new NoContentException("hola"));
+        ResponseEntity result = controller.getUsersByDni(dni);
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
 }
