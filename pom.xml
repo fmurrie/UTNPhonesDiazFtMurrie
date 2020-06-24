@@ -118,6 +118,9 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
+							<excludes>
+
+							</excludes>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>
@@ -135,7 +138,7 @@
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.7</minimum>
+											<minimum>0.00</minimum>
 										</limit>
 									</limits>
 								</rule>
