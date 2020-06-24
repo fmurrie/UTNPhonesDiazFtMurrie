@@ -91,7 +91,7 @@ public class EmployeeWebController
     }
 
     @GetMapping("/clients")
-    public ResponseEntity getClients(@RequestHeader("Authorization") String token, @RequestParam(required = false) Integer idClient) {
+    public ResponseEntity getClients(@RequestHeader("Authorization") String token) {
             ResponseEntity response = ResponseEntity.ok(userController.getClients());
             if (null != response)
                 return response;
