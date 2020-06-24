@@ -5,6 +5,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +14,15 @@ public class RateController
 {
     //region Properties:
     private final RateService service;
+
     //endregion
 
     //region Constructors:
     @Autowired
     public RateController(RateService service) {
+
         this.service = service;
+
     }
     //endregion
 
@@ -28,6 +32,8 @@ public class RateController
         return service.getAll();
     }
 
-    public Optional<Rate> getRateById(Integer idOriginCity,Integer idDestinyCity) { return service.getById(new RateId(idOriginCity,idDestinyCity)); }
+    public Optional<Rate> getRateById(Integer idOriginCity,Integer idDestinyCity) {
+        return service.getById(new RateId(idOriginCity,idDestinyCity));
+    }
     //endregion
 }

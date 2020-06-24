@@ -35,7 +35,7 @@ public class InfrastructureWebController
 
     //region Methods:
     @PostMapping("/call")
-    public ResponseEntity addCall (@RequestBody @Valid CallAddRequestDto callDto) throws PhoneLineException {
+    public ResponseEntity addCall (@RequestBody @Valid CallAddRequestDto callDto)  {
         try{
             Call call = new Call();
             call.setPhoneLineOrigin(callDto.getPhoneLineOrigin());

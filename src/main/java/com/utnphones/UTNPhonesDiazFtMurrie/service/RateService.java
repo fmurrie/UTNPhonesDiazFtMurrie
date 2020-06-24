@@ -1,8 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
-
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.RateDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Province;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +23,7 @@ public class RateService
     //region Methods:
     public List<Rate> getAll() { return dao.findAll(); }
 
-    public Optional<Rate> getById(RateId id)
-    {
+    public Optional<Rate> getById(RateId id) {
         return dao.findById(id);
     }
     //endregion
