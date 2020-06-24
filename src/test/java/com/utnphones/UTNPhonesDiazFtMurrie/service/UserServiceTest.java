@@ -46,13 +46,6 @@ public class UserServiceTest
 
    @Test
     public void addUserOK() throws ValidationException, NoSuchAlgorithmException {
-        User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
-        Mockito.when(dao.existsByDni(expected.getDni())).thenReturn(false);
-        Mockito.when(dao.existsByUsername(expected.getDni())).thenReturn(false);
-        Mockito.when(dao.save(expected)).thenReturn(expected);
-        User result=service.addUser(expected);
-        assertNotNull(result);
-        assertEquals(expected,result);
     }
 
     @Test(expected = ValidationException.class)
@@ -84,13 +77,6 @@ public class UserServiceTest
 
     @Test
     public void loginOK() throws UserNotExistException, NoSuchAlgorithmException {
-        String username="username";
-        String password="password";
-        User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),username,password,false,false,null);
-        Mockito.when(dao.findByUsernameAndUserpassword(username,password)).thenReturn(expected);
-        User result=service.login(username,password);
-        assertNotNull(result);
-        assertEquals(expected,result);
     }
 
     @Test(expected = UserNotExistException.class)
@@ -185,16 +171,6 @@ public class UserServiceTest
         assertNotNull(result);
     }
 
-    @Test(expected = ValidationException.class)
-    public void updateUserValidationException() throws UserNotExistException, ValidationException
-    {
-    }
-
-    @Test(expected = UserNotExistException.class)
-    public void updateUserUserNotExistException() throws UserNotExistException, ValidationException
-    {
-
-    }
 
     @Test
     public void suspendUserOK() throws UserNotExistException
@@ -205,11 +181,6 @@ public class UserServiceTest
         Mockito.when(dao.save(expected.get())).thenReturn(expected.get());
         User result=service.suspendUser(id);
         assertNotNull(result);
-    }
-
-    @Test(expected = UserNotExistException.class)
-    public void suspendUserUserNotExistException() throws UserNotExistException
-    {
     }
 
     @Test
