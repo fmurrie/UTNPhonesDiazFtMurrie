@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +44,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void addUser() throws ValidationException
-    {
+    public void addUser() throws ValidationException, NoSuchAlgorithmException {
         User expected=mock(User.class);
         Mockito.when(service.addUser(expected)).thenReturn(expected);
         User result= controller.addUser(expected);
@@ -89,8 +89,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void loginOK() throws UserNotExistException, ValidationException
-    {
+    public void loginOK() throws UserNotExistException, ValidationException, NoSuchAlgorithmException {
         String username="username";
         String password="password";
         User expected=new User(10,mock(UserType.class),"dni","nombre","apellido",mock(City.class),username,password,false,false,null);
@@ -102,8 +101,7 @@ public class UserControllerTest
         }
     }
     @Test(expected = ValidationException.class)
-    public void loginValidationException() throws UserNotExistException, ValidationException
-    {
+    public void loginValidationException() throws UserNotExistException, ValidationException, NoSuchAlgorithmException {
         String username=null;
         String password=null;
         if ((username == null) && (password == null))

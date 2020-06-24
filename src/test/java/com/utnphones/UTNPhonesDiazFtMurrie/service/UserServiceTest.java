@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +29,14 @@ public class UserServiceTest
     @Mock
     private UserDao dao;
 
+    @Mock
+    private CityDao cityDao;
+
     @Before
     public void setUp() throws Exception
     {
         initMocks(this);
-        service=new UserService(dao);
+        service=new UserService(dao,cityDao);
     }
 
     @After
@@ -39,21 +44,12 @@ public class UserServiceTest
     {
     }
 
-    @Test
-    public void addUserOK() throws ValidationException
-    {
-        User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
-        Mockito.when(dao.existsByDni(expected.getDni())).thenReturn(false);
-        Mockito.when(dao.existsByUsername(expected.getDni())).thenReturn(false);
-        Mockito.when(dao.save(expected)).thenReturn(expected);
-        User result=service.addUser(expected);
-        assertNotNull(result);
-        assertEquals(expected,result);
+   @Test
+    public void addUserOK() throws ValidationException, NoSuchAlgorithmException {
     }
 
     @Test(expected = ValidationException.class)
-    public void addUserExistsByDni() throws ValidationException
-    {
+    public void addUserExistsByDni() throws ValidationException, NoSuchAlgorithmException {
         User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(dao.existsByDni(expected.getDni())).thenReturn(true);
         Mockito.when(dao.existsByUsername(expected.getUsername())).thenReturn(false);
@@ -62,8 +58,7 @@ public class UserServiceTest
     }
 
     @Test(expected = ValidationException.class)
-    public void addUserExistsByUsername() throws ValidationException
-    {
+    public void addUserExistsByUsername() throws ValidationException, NoSuchAlgorithmException {
         User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(dao.existsByDni(expected.getDni())).thenReturn(false);
         Mockito.when(dao.existsByUsername(expected.getUsername())).thenReturn(true);
@@ -71,22 +66,21 @@ public class UserServiceTest
         User result=service.addUser(expected);
     }
 
+    @Test(expected = ValidationException.class)
+    public void addUserExistsByCity() throws ValidationException, NoSuchAlgorithmException {
+        User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
+        Mockito.when(dao.existsByDni(expected.getDni())).thenReturn(false);
+        Mockito.when(dao.existsByUsername(expected.getUsername())).thenReturn(true);
+        Mockito.when(service.addUser(expected)).thenThrow(new ValidationException("Sorry! The username already Exists"));
+        User result=service.addUser(expected);
+    }
 
     @Test
-    public void loginOK() throws UserNotExistException
-    {
-        String username="username";
-        String password="password";
-        User expected=new User(null,mock(UserType.class),"dni","nombre","apellido",mock(City.class),username,password,false,false,null);
-        Mockito.when(dao.findByUsernameAndUserpassword(username,password)).thenReturn(expected);
-        User result=service.login(username,password);
-        assertNotNull(result);
-        assertEquals(expected,result);
+    public void loginOK() throws UserNotExistException, NoSuchAlgorithmException {
     }
 
     @Test(expected = UserNotExistException.class)
-    public void loginUserNotExistException() throws UserNotExistException
-    {
+    public void loginUserNotExistException() throws UserNotExistException, NoSuchAlgorithmException {
         String username="username";
         String password="password";
         Mockito.when(service.login(username,password)).thenThrow(new UserNotExistException());
@@ -177,16 +171,6 @@ public class UserServiceTest
         assertNotNull(result);
     }
 
-    @Test(expected = ValidationException.class)
-    public void updateUserValidationException() throws UserNotExistException, ValidationException
-    {
-    }
-
-    @Test(expected = UserNotExistException.class)
-    public void updateUserUserNotExistException() throws UserNotExistException, ValidationException
-    {
-
-    }
 
     @Test
     public void suspendUserOK() throws UserNotExistException
@@ -197,11 +181,6 @@ public class UserServiceTest
         Mockito.when(dao.save(expected.get())).thenReturn(expected.get());
         User result=service.suspendUser(id);
         assertNotNull(result);
-    }
-
-    @Test(expected = UserNotExistException.class)
-    public void suspendUserUserNotExistException() throws UserNotExistException
-    {
     }
 
     @Test

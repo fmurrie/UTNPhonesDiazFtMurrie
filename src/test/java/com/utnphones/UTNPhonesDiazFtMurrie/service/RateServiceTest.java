@@ -2,6 +2,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.RateDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserTypeDao;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.compositekey.RateId;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Rate;
@@ -43,8 +44,7 @@ public class RateServiceTest
     }
 
     @Test
-    public void getById()
-    {
+    public void getById() throws ValidationException {
         RateId rateId=mock(RateId.class);
         Optional<Rate> expected=Optional.of(new Rate(rateId,null,null,null));
         Mockito.when(dao.findById(expected.get().getRateId())).thenReturn(expected);

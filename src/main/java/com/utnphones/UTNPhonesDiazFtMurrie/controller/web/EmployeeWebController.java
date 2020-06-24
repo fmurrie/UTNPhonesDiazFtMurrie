@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("api/backoffice")
@@ -67,8 +68,11 @@ public class EmployeeWebController
                else
                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserTypeNotExists());
            }
-           catch(ValidationException exc){
+           catch(ValidationException  exc){
                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
+           }
+           catch(NoSuchAlgorithmException exc){
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("Error! the password has failed!")));
            }
     }
 
@@ -87,7 +91,7 @@ public class EmployeeWebController
     }
 
     @GetMapping("/clients")
-    public ResponseEntity getClients(@RequestHeader("Authorization") String token, @RequestParam(required = false) Integer idClient) {
+    public ResponseEntity getClients(@RequestHeader("Authorization") String token) {
             ResponseEntity response = ResponseEntity.ok(userController.getClients());
             if (null != response)
                 return response;
