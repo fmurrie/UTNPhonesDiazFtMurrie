@@ -89,6 +89,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/configuration/**</exclude>
+						<exclude>**/session/**</exclude>
 						<exclude>**/dao/**</exclude>
 						<exclude>**/dto/**</exclude>
 						<exclude>**/exception/**</exclude>
@@ -96,6 +97,7 @@
 						<exclude>**/model/domain/**</exclude>
 						<exclude>**/model/compositekey/**</exclude>
 						<exclude>**/UtnPhonesDiazFtMurrieApplication.class</exclude>
+						<exclude>**/controller/web/AdviceController.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
