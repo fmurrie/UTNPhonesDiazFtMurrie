@@ -29,7 +29,7 @@ public class CallController implements LocationInterface<Call> {
     //endregion
 
     //region Methods:
-    public Call addCall(Call call) throws PhoneLineException {
+    public Call addCall(Call call) throws PhoneLineException, Exception {
         return callService.addCall(call);
     }
 

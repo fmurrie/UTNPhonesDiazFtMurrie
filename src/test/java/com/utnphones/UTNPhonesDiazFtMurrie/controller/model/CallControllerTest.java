@@ -42,8 +42,7 @@ public class CallControllerTest {
     }
 
     @Test
-    public void addCall() throws PhoneLineException
-    {
+    public void addCall() throws PhoneLineException, Exception {
         Call expected = mock(Call.class);
         Mockito.when(callService.addCall(expected)).thenReturn(expected);
         Call result = callController.addCall(expected);

@@ -36,7 +36,7 @@ public class CallService {
     }
 
     //Methods:
-    public Call addCall(Call call) throws PhoneLineException{
+    public Call addCall(Call call) throws PhoneLineException, Exception{
         Integer idOrigin = call.getPhoneLineOrigin().getIdPhoneLine();
         Integer idDestiny = call.getPhoneLineDestiny().getIdPhoneLine();
         PhoneLine origin = phoneLineDao.findById(idOrigin).get();
@@ -45,9 +45,10 @@ public class CallService {
             if(phoneLineDao.existsById(idDestiny)){
                 if(origin.isDeleted() || origin.isSuspended())
                     throw new PhoneLineException("ERROR! The origin line is suspend or deleted!");
-                else if(destiny.isDeleted() || destiny.isSuspended())
+                if(destiny.isDeleted() || destiny.isSuspended())
                     throw new PhoneLineException("ERROR! The destiny line is suspend or deleted!");
-                else
+                //if(call.getInitTime().compareTo(call.getEndTime()) )
+
                      return callDao.save(call);
             }
             else

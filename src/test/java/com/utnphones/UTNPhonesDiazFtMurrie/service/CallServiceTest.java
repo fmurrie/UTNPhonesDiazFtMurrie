@@ -48,8 +48,7 @@ public class CallServiceTest
     }
 
     @Test
-    public void addCallOK() throws PhoneLineException
-    {
+    public void addCallOK() throws PhoneLineException, Exception {
         Integer idOrigin = 1;
         Integer idDestiny =2;
         Optional<PhoneLine> origin =Optional.of(new PhoneLine(idOrigin,mock(LineType.class),"1234",mock(User.class),false,false,null));
@@ -72,8 +71,7 @@ public class CallServiceTest
     }
 
     @Test(expected = PhoneLineException.class)
-    public void addCallOriginNotExists() throws PhoneLineException
-    {
+    public void addCallOriginNotExists() throws PhoneLineException, Exception {
         Integer idOrigin = 1;
         Integer idDestiny =2;
         Optional<PhoneLine> origin =Optional.of(new PhoneLine(idOrigin,mock(LineType.class),"1234",mock(User.class),false,false,null));
@@ -88,8 +86,7 @@ public class CallServiceTest
     }
 
     @Test(expected = PhoneLineException.class)
-    public void addCallDestinyNotExists() throws PhoneLineException
-    {
+    public void addCallDestinyNotExists() throws PhoneLineException, Exception {
         Integer idOrigin = 1;
         Integer idDestiny =2;
         Optional<PhoneLine> origin =Optional.of(new PhoneLine(idOrigin,mock(LineType.class),"1234",mock(User.class),false,false,null));
@@ -105,8 +102,7 @@ public class CallServiceTest
     }
 
     @Test(expected = PhoneLineException.class)
-    public void addCallOriginDeletedOrSuspended() throws PhoneLineException
-    {
+    public void addCallOriginDeletedOrSuspended() throws PhoneLineException, Exception {
         Integer idOrigin = 1;
         Integer idDestiny =2;
         Optional<PhoneLine> origin =Optional.of(new PhoneLine(idOrigin,mock(LineType.class),"1234",mock(User.class),true,true,null));
@@ -126,8 +122,7 @@ public class CallServiceTest
     }
 
     @Test(expected = PhoneLineException.class)
-    public void addCallDestinyDeletedOrSuspended() throws PhoneLineException
-    {
+    public void addCallDestinyDeletedOrSuspended() throws PhoneLineException, Exception {
         Integer idOrigin = 1;
         Integer idDestiny =2;
         Optional<PhoneLine> origin =Optional.of(new PhoneLine(idOrigin,mock(LineType.class),"1234",mock(User.class),false,false,null));

@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.CallController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Call;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import net.bytebuddy.asm.Advice;
@@ -48,6 +49,9 @@ public class InfrastructureWebController
         }
         catch(PhoneLineException exc){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
+        }
+        catch(Exception exc){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("ERROR! invalid dates")));
         }
     }
     //endregion
