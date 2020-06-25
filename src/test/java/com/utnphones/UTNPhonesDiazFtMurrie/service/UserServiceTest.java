@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
@@ -161,8 +162,7 @@ public class UserServiceTest
     }
 
     @Test
-    public void updateUserOK() throws UserNotExistException, ValidationException
-    {
+    public void updateUserOK() throws UserNotExistException, ValidationException, UpdateException {
         Integer id=1;
         Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Mockito.when(dao.findById(id)).thenReturn(expected);
@@ -173,8 +173,7 @@ public class UserServiceTest
 
 
     @Test
-    public void suspendUserOK() throws UserNotExistException
-    {
+    public void suspendUserOK() throws UserNotExistException, UpdateException {
         Integer id=1;
         Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Mockito.when(dao.findById(id)).thenReturn(expected);
@@ -184,8 +183,7 @@ public class UserServiceTest
     }
 
     @Test
-    public void enableUserOK() throws UserNotExistException
-    {
+    public void enableUserOK() throws UserNotExistException, UpdateException {
         Integer id=1;
         Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Mockito.when(dao.findById(id)).thenReturn(expected);
@@ -195,8 +193,7 @@ public class UserServiceTest
     }
 
     @Test
-    public void deleteUserOK() throws UserNotExistException
-    {
+    public void deleteUserOK() throws UserNotExistException, UpdateException {
         Integer id=1;
         Optional<User> expected=Optional.of(new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Mockito.when(dao.findById(id)).thenReturn(expected);

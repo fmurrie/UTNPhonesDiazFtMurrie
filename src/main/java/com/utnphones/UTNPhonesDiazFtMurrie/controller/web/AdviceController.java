@@ -64,6 +64,12 @@ public class AdviceController extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(400, exc.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UpdateException.class)
+    public ErrorResponseDto handleUpdateException(UpdateException exc) {
+        return new ErrorResponseDto(401, exc.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ErrorResponseDto handlePhoneNumberExists() {

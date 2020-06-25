@@ -7,6 +7,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -71,6 +72,9 @@ public class ClientWebController
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
         } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
         }
     }
 

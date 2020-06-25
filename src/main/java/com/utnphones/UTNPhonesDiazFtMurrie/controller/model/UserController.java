@@ -1,6 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.interfaces.LocationInterface;
@@ -54,19 +55,19 @@ public class UserController implements LocationInterface<User> {
         }
     }
 
-    public User updateUser (Integer userId,UserUpdateRequestDto updatedUser) throws ValidationException, UserNotExistException {
+    public User updateUser (Integer userId,UserUpdateRequestDto updatedUser) throws ValidationException, UserNotExistException, UpdateException {
             return service.updateUser(userId,updatedUser);
     }
 
-    public User suspendUser(Integer idUser) throws UserNotExistException {
+    public User suspendUser(Integer idUser) throws UserNotExistException, UpdateException {
         return service.suspendUser(idUser);
     }
 
-    public User enableUser(Integer idUser) throws UserNotExistException {
+    public User enableUser(Integer idUser) throws UserNotExistException, UpdateException {
         return service.enableUser(idUser);
     }
 
-    public User deleteUser(Integer idUser) throws UserNotExistException {
+    public User deleteUser(Integer idUser) throws UserNotExistException, UpdateException {
         return service.deleteUser(idUser);
     }
 

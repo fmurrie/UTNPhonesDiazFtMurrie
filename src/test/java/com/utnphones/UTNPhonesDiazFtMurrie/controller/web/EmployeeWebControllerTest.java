@@ -1,6 +1,8 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.*;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
@@ -12,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class EmployeeWebControllerTest
@@ -119,8 +124,64 @@ public class EmployeeWebControllerTest
     }
 
     @Test
-    public void updateClient()
-    {
+    public void updateUserOk() throws ValidationException, UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
+        when(userController.updateUser(id,userUpdateRequestDto)).thenReturn(user);
+
+        ResponseEntity expected = ResponseEntity.ok(userController.updateUser(id, userUpdateRequestDto));
+        ResponseEntity result = controller.updateClient(token,id,userUpdateRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+
+    }
+
+    @Test
+    public void updateUserValidationException() throws ValidationException, UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
+        when(userController.updateUser(id,userUpdateRequestDto)).thenThrow(new ValidationException("aloja"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("aloja")));
+        ResponseEntity result = controller.updateClient(token,id,userUpdateRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void updateUserUserNotExistsException() throws ValidationException, UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
+        when(userController.updateUser(id,userUpdateRequestDto)).thenThrow(new UserNotExistException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists( new UserNotExistException()));
+        ResponseEntity result = controller.updateClient(token,id,userUpdateRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void updateUserUpdateException() throws ValidationException, UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
+        when(userController.updateUser(id,userUpdateRequestDto)).thenThrow(new UpdateException("aloja"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(new UpdateException("aloja")));
+        ResponseEntity result = controller.updateClient(token,id,userUpdateRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
