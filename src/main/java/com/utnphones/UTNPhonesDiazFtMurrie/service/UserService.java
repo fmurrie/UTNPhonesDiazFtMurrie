@@ -103,10 +103,14 @@ public class UserService
                 if (dao.existsByDni(updatedUser.getDni()))
                     throw new ValidationException("ERROR! The DNI already exists!");
             }
+            if(!cityDao.existsById(updatedUser.getCity().getIdCity()))
+                throw new ValidationException("SORRY! The city do not exists!");
+
             if(!updatedUser.getUsername().equals(user.getUsername())) {
                 if (dao.existsByUsername(updatedUser.getUsername()))
                     throw new ValidationException("SORRY! The username already exists!");
             }
+
             user.setDni(updatedUser.getDni());
             user.setFirstName(updatedUser.getFirstName());
             user.setLastName(updatedUser.getLastName());
