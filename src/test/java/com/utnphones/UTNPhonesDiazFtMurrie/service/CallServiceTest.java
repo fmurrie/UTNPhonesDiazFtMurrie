@@ -248,10 +248,13 @@ public class CallServiceTest
         Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
         if(!expectedUser.get().getUserType().getDescription().equals("Employee"))
         {
-            Mockito.when(callDao.getCallsBetweenDates(id,mock(Date.class),mock(Date.class))).thenReturn(expectedListCall);
-            List<Call> result=service.getCallsBetweenDates(id,mock(Date.class),mock(Date.class));
-            assertNotNull(result);
-            assertEquals(expectedListCall,result);
+            if(expectedListCall.size() != 0)
+            {
+                Mockito.when(callDao.getCallsBetweenDates(id, mock(Date.class), mock(Date.class))).thenReturn(expectedListCall);
+                List<Call> result = service.getCallsBetweenDates(id, mock(Date.class), mock(Date.class));
+                assertNotNull(result);
+                assertEquals(expectedListCall, result);
+            }
         }
     }
 

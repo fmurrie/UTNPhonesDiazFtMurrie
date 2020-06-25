@@ -64,13 +64,27 @@ public class PhoneLineControllerTest
     }
 
     @Test
-    public void top10Destinies() throws UserNotExistException, ValidationException, NoContentException {
+    public void top10DestiniesOK() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         List<LineAndCallsQuantityDto> expected=new ArrayList<LineAndCallsQuantityDto>();
         Mockito.when(service.top10Destinies(id)).thenReturn(expected);
-        List<LineAndCallsQuantityDto> result=controller.top10Destinies(id);
-        assertNotNull(result);
-        assertEquals(expected,result);
+        if(expected.size()!=0)
+        {
+            List<LineAndCallsQuantityDto> result=controller.top10Destinies(id);
+            assertNotNull(result);
+            assertEquals(expected,result);
+        }
+    }
+
+    @Test(expected = NoContentException.class)
+    public void top10DestiniesNoContentException() throws UserNotExistException, ValidationException, NoContentException {
+        Integer id=1;
+        List<LineAndCallsQuantityDto> expected=new ArrayList<LineAndCallsQuantityDto>();
+        Mockito.when(service.top10Destinies(id)).thenReturn(expected);
+        if(expected.size()==0)
+        {
+            List<LineAndCallsQuantityDto> result=controller.top10Destinies(id);
+        }
     }
 
     @Test
