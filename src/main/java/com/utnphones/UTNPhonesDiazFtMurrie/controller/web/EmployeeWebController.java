@@ -126,6 +126,9 @@ public class EmployeeWebController
         } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
+        }
     }
 
     @PutMapping("/client/{idUser}/suspension")
@@ -134,6 +137,9 @@ public class EmployeeWebController
             return ResponseEntity.ok(userController.suspendUser(idUser));
         } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
         }
     }
 
@@ -144,6 +150,9 @@ public class EmployeeWebController
         } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
+        }
     }
 
     @DeleteMapping("/client/{idUser}/elimination")
@@ -152,6 +161,9 @@ public class EmployeeWebController
             return ResponseEntity.ok(userController.deleteUser(idUser));
         } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
         }
     }
 

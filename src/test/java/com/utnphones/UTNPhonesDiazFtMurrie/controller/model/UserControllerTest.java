@@ -1,6 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
@@ -112,8 +113,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void updateUser() throws UserNotExistException, ValidationException
-    {
+    public void updateUser() throws UserNotExistException, ValidationException, UpdateException {
         Integer id=10;
         UserUpdateRequestDto updatedUser=mock(UserUpdateRequestDto.class);
         User expected=new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
@@ -124,8 +124,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void suspendUser() throws UserNotExistException
-    {
+    public void suspendUser() throws UserNotExistException, UpdateException {
         Integer id=10;
         User expected=new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(service.suspendUser(id)).thenReturn(expected);
@@ -135,8 +134,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void enableUser() throws UserNotExistException
-    {
+    public void enableUser() throws UserNotExistException, UpdateException {
         Integer id=10;
         User expected=new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(service.enableUser(id)).thenReturn(expected);
@@ -146,8 +144,7 @@ public class UserControllerTest
     }
 
     @Test
-    public void deleteUser() throws UserNotExistException
-    {
+    public void deleteUser() throws UserNotExistException, UpdateException {
         Integer id=10;
         User expected=new User(id,mock(UserType.class),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(service.deleteUser(id)).thenReturn(expected);
