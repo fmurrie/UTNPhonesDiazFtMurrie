@@ -52,6 +52,12 @@ public class AdviceController extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(400, exc.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(NoContentException.class)
+    public ErrorResponseDto handleNoContentException(NoContentException exc) {
+        return new ErrorResponseDto(204, exc.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LineTypeNotExistsException.class)
     public ErrorResponseDto handleLineTypeNotExists(LineTypeNotExistsException exc) {

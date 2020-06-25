@@ -4,10 +4,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.LineTypeDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import org.junit.After;
 import org.junit.Before;
@@ -193,8 +190,7 @@ public class PhoneLineServiceTest
     }
 
     @Test
-    public void top10Destinataries() throws UserNotExistException, ValidationException
-    {
+    public void top10Destinies() throws UserNotExistException, ValidationException {
         Integer id=1;
         Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Client",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Optional<PhoneLine> expectedPline=Optional.of(new PhoneLine(id,mock(LineType.class),"1234",expectedUser.get(),false,false,null));
@@ -205,8 +201,8 @@ public class PhoneLineServiceTest
         Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
         if(!expectedUser.get().getUserType().getDescription().equals("Employee"))
         {
-            Mockito.when(phoneLineDao.top10Destinataries(id)).thenReturn(listPlExpected);
-            List<LineAndCallsQuantityDto> result=service.top10Destinataries(id);
+            Mockito.when(phoneLineDao.top10Destinies(id)).thenReturn(listPlExpected);
+            List<LineAndCallsQuantityDto> result=service.top10Destinies(id);
             assertNotNull(result);
             assertEquals(expectedlist,result);
         }

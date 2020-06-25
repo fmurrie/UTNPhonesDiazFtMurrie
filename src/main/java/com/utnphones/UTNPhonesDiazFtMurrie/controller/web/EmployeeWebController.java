@@ -267,6 +267,7 @@ public class EmployeeWebController
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 
@@ -278,6 +279,8 @@ public class EmployeeWebController
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
     //endregion
