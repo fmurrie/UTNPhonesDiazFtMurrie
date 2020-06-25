@@ -50,24 +50,12 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
     }
 
     @Override
-    public URI getLocation(PhoneLine line) {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{lineId}")
-                .buildAndExpand(line.getIdPhoneLine())
-                .toUri();
-    }
+    public URI getLocation(PhoneLine line) { return ServletUriComponentsBuilder.fromCurrentRequest().path("/{lineId}").buildAndExpand(line.getIdPhoneLine()).toUri(); }
 
-    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
-        return phoneLineService.suspendPhoneLine(idPhoneLine);
-    }
+    public PhoneLine suspendPhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException { return phoneLineService.suspendPhoneLine(idPhoneLine); }
 
-    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
-        return phoneLineService.enablePhoneLine(idPhoneLine);
-    }
+    public PhoneLine enablePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException { return phoneLineService.enablePhoneLine(idPhoneLine); }
 
-    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException {
-        return phoneLineService.deletePhoneLine(idPhoneLine);
-    }
+    public PhoneLine deletePhoneLine(Integer idPhoneLine) throws PhoneLineException, ValidationException { return phoneLineService.deletePhoneLine(idPhoneLine); }
     //endregion
 }

@@ -46,12 +46,6 @@ public class CallController implements LocationInterface<Call> {
     }
 
     @Override
-    public URI getLocation(Call call) {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{callId}")
-                .buildAndExpand(call.getIdCall())
-                .toUri();
-    }
+    public URI getLocation(Call call) { return ServletUriComponentsBuilder.fromCurrentRequest().path("/{callId}").buildAndExpand(call.getIdCall()).toUri(); }
     //endregion
 }
