@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CityDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -93,9 +94,11 @@ public class UserService
             return dao.findClients();
     }
 
-    public User updateUser(Integer idUser, UserUpdateRequestDto updatedUser) throws UserNotExistException, ValidationException {
+    public User updateUser(Integer idUser, UserUpdateRequestDto updatedUser) throws UserNotExistException, ValidationException, UpdateException {
         User user = dao.findById(idUser).get();
         if(user != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new UpdateException("Sorry! You are not allowed to update this user");
             if(!(updatedUser.getDni().equals(user.getDni()))){
                 if (dao.existsByDni(updatedUser.getDni()))
                     throw new ValidationException("ERROR! The DNI already exists!");
@@ -117,9 +120,11 @@ public class UserService
             throw new UserNotExistException();
     }
 
-    public User suspendUser(Integer idUser) throws UserNotExistException {
+    public User suspendUser(Integer idUser) throws UserNotExistException, UpdateException {
         User user = dao.findById(idUser).get();
         if(user != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new UpdateException("Sorry! You are not allowed to suspend this user");
             user.setSuspended(true);
             return dao.save(user);
         }
@@ -127,9 +132,11 @@ public class UserService
             throw new UserNotExistException();
     }
 
-    public User enableUser(Integer idUser) throws UserNotExistException {
+    public User enableUser(Integer idUser) throws UserNotExistException, UpdateException {
         User user = dao.findById(idUser).get();
         if(user != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new UpdateException("Sorry! You are not allowed to enable this user");
             user.setSuspended(false);
             return dao.save(user);
         }
@@ -137,9 +144,11 @@ public class UserService
             throw new UserNotExistException();
     }
 
-    public User deleteUser(Integer idUser) throws UserNotExistException {
+    public User deleteUser(Integer idUser) throws UserNotExistException, UpdateException {
         User user = dao.findById(idUser).get();
         if(user != null){
+            if(user.getUserType().getDescription().equals("Employee"))
+                throw new UpdateException("Sorry! You are not allowed to delete this user");
             user.setDeleted(true);
             return dao.save(user);
         }

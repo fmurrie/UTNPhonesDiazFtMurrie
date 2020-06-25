@@ -54,7 +54,7 @@ public class PhoneLineService {
 
     public List<PhoneLine> getAll() throws PhoneLineException {
         List<PhoneLine> phoneLineList = phoneLineDao.findAll();
-        if(isNull(phoneLineList))
+        if(phoneLineList.size() == 0)
             throw new PhoneLineException("Sorry! no lines available yet");
 
         return phoneLineDao.findAll();

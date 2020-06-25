@@ -8,6 +8,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Bill;
@@ -92,7 +93,7 @@ public class ClientWebControllerTest {
     }
 
     @Test
-    public void updateUserOk() throws ValidationException, UserNotExistException {
+    public void updateUserOk() throws ValidationException, UserNotExistException, UpdateException {
         String token = "holaSoyElToken";
         UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
         User user = mock(User.class);
@@ -108,7 +109,7 @@ public class ClientWebControllerTest {
     }
 
     @Test
-    public void updateUserValidationException() throws ValidationException, UserNotExistException {
+    public void updateUserValidationException() throws ValidationException, UserNotExistException, UpdateException {
         String token = "holaSoyElToken";
         UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
         User user = mock(User.class);
@@ -124,7 +125,22 @@ public class ClientWebControllerTest {
     }
 
     @Test
-    public void updateUserUserNotExistException() throws ValidationException, UserNotExistException {
+    public void updateUserUpdateException() throws ValidationException, UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
+        when(sessionManager.getCurrentUser(token)).thenReturn(user);
+        when(userController.updateUser(sessionManager.getCurrentUser(token).getIdUser(),userUpdateRequestDto)).thenThrow(new UpdateException("hola"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(new UpdateException("hola")));
+        ResponseEntity result = clientWebController.updateUser(token,userUpdateRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void updateUserUserNotExistException() throws ValidationException, UserNotExistException, UpdateException {
         String token = "holaSoyElToken";
         UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
         User user = mock(User.class);
