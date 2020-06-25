@@ -190,7 +190,7 @@ public class EmployeeWebController
     }
 
     @GetMapping("/phoneLine/{idPhoneLine}")
-    ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable(required = false) Integer idPhoneLine) {
+    ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable Integer idPhoneLine) {
         try{
             return ResponseEntity.ok(phoneLineController.getPhoneLine(idPhoneLine));
         }

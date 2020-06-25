@@ -2,10 +2,12 @@ package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
@@ -185,18 +187,129 @@ public class EmployeeWebControllerTest
     }
 
     @Test
-    public void suspendUser()
-    {
+    public void suspendUserOk() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.suspendUser(id)).thenReturn(user);
+
+        ResponseEntity expected = ResponseEntity.ok(userController.suspendUser(id));
+        ResponseEntity result = controller.suspendUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void enableUser()
-    {
+    public void suspendUserUserNotExistsException() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.suspendUser(id)).thenThrow(new UserNotExistException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(new UserNotExistException()));
+        ResponseEntity result = controller.suspendUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void deleteUser()
-    {
+    public void suspendUserUpdateException() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.suspendUser(id)).thenThrow(new UpdateException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(new UpdateException("alo")));
+        ResponseEntity result = controller.suspendUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void enableUser() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.enableUser(id)).thenReturn(user);
+
+        ResponseEntity expected = ResponseEntity.ok(userController.enableUser(id));
+        ResponseEntity result = controller.enableUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void enableUserUserNotExists() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.enableUser(id)).thenThrow(new UserNotExistException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(new UserNotExistException()));
+        ResponseEntity result = controller.enableUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void enableUserUpdateException() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.enableUser(id)).thenThrow(new UpdateException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(new UpdateException("alo")));
+        ResponseEntity result = controller.enableUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void deleteUserOk() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.deleteUser(id)).thenReturn(user);
+
+        ResponseEntity expected = ResponseEntity.ok(userController.deleteUser(id));
+        ResponseEntity result = controller.deleteUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void deleteUserUserNotExistsException() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.deleteUser(id)).thenThrow(new UserNotExistException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(new UserNotExistException()));
+        ResponseEntity result = controller.deleteUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void deleteUserUpdateException() throws UserNotExistException, UpdateException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        User user = mock(User.class);
+        when(userController.deleteUser(id)).thenThrow(new UpdateException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(new UpdateException("alo")));
+        ResponseEntity result = controller.deleteUser(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
@@ -205,30 +318,200 @@ public class EmployeeWebControllerTest
     }
 
     @Test
-    public void getPhoneLine()
-    {
+    public void getPhoneLineOk() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.getPhoneLine(id)).thenReturn(phoneLine);
+
+        ResponseEntity expected = ResponseEntity.ok(phoneLineController.getPhoneLine(id));
+        ResponseEntity result = controller.getPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void getPhoneLines()
-    {
+    public void getPhoneLinePhoneLineException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.getPhoneLine(id)).thenThrow(new PhoneLineException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(new PhoneLineException("alo")));
+        ResponseEntity result = controller.getPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void suspendPhoneLine()
-    {
+    public void getPhoneLineValidationException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.getPhoneLine(id)).thenThrow(new ValidationException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(new ValidationException("alo")));
+        ResponseEntity result = controller.getPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void enablePhoneLine()
-    {
+    public void getPhoneLines() throws PhoneLineException {
+        String token = "holaSoyElToken";
+        List<PhoneLine> phoneLines = mock(List.class);
+        when(phoneLineController.getAllPhoneLines()).thenReturn(phoneLines);
+
+        ResponseEntity expected = ResponseEntity.ok(phoneLineController.getAllPhoneLines());
+        ResponseEntity result = controller.getPhoneLines(token);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void deletePhoneLine()
-    {
+    public void getPhoneLinesPhoneLineException() throws PhoneLineException {
+        String token = "holaSoyElToken";
+        List<PhoneLine> phoneLines = mock(List.class);
+        when(phoneLineController.getAllPhoneLines()).thenThrow(new PhoneLineException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handlePhoneLineException(new PhoneLineException("alo")));
+        ResponseEntity result = controller.getPhoneLines(token);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
+    @Test
+    public void suspendPhoneLineOk() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.suspendPhoneLine(id)).thenReturn(phoneLine);
+
+        ResponseEntity expected = ResponseEntity.ok(phoneLineController.suspendPhoneLine(id));
+        ResponseEntity result = controller.suspendPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void suspendPhoneLinePhoneLineException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.suspendPhoneLine(id)).thenThrow(new PhoneLineException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(new PhoneLineException("alo")));
+        ResponseEntity result = controller.suspendPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void suspendPhoneLineValidationException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.suspendPhoneLine(id)).thenThrow(new ValidationException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(new ValidationException("alo")));
+        ResponseEntity result = controller.suspendPhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void enablePhoneLineOk() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.enablePhoneLine(id)).thenReturn(phoneLine);
+
+        ResponseEntity expected = ResponseEntity.ok(phoneLineController.enablePhoneLine(id));
+        ResponseEntity result = controller.enablePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void enablePhoneLinePhoneLineException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.enablePhoneLine(id)).thenThrow(new PhoneLineException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(new PhoneLineException("alo")));
+        ResponseEntity result = controller.enablePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+
+    @Test
+    public void enablePhoneLineValidationException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.enablePhoneLine(id)).thenThrow(new ValidationException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(new ValidationException("alo")));
+        ResponseEntity result = controller.enablePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void deletePhoneLine() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.deletePhoneLine(id)).thenReturn(phoneLine);
+
+        ResponseEntity expected = ResponseEntity.ok(phoneLineController.deletePhoneLine(id));
+        ResponseEntity result = controller.deletePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void deletePhoneLinePhoneLineException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.deletePhoneLine(id)).thenThrow(new PhoneLineException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(new PhoneLineException("alo")));
+        ResponseEntity result = controller.deletePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+
+    @Test
+    public void deletePhoneLineValidationException() throws ValidationException, PhoneLineException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        PhoneLine phoneLine = mock(PhoneLine.class);
+        when(phoneLineController.deletePhoneLine(id)).thenThrow(new ValidationException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(new ValidationException("alo")));
+        ResponseEntity result = controller.deletePhoneLine(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
     @Test
     public void getAllRates()
     {
