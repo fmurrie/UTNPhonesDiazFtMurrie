@@ -20,11 +20,11 @@ FLUSH privileges;
 ########################################BACKOFFICE_USER############################################
 CREATE USER 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
 
-grant insert, select, update, delete on utnphones.users to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficeUser';
-grant insert, select, update, delete on utnphones.phonelines to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficeUser';
-grant select on utnphones.rates to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficeUser';
-grant select on utnphones.calls to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficeUser';
-grant select on utnphones.bills to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficeUser';
+grant insert, select, update, delete on utnphones.users to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
+grant insert, select, update, delete on utnphones.phonelines to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
+grant select on utnphones.rates to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
+grant select on utnphones.calls to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
+grant select on utnphones.bills to 'backofficeUser'@'localhost' IDENTIFIED BY 'backofficePass';
 
 FLUSH privileges;
 
