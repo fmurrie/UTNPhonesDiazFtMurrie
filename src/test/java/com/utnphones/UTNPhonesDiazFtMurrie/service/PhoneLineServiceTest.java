@@ -97,19 +97,24 @@ public class PhoneLineServiceTest
     @Test
     public void getAllOK() throws PhoneLineException
     {
-        Mockito.when(phoneLineDao.findAll()).thenReturn(new ArrayList<PhoneLine>());
-        List<PhoneLine> result= service.getAll();
-        assertNotNull(result);
+        List<PhoneLine> expected= new ArrayList<PhoneLine>();
+        Mockito.when(phoneLineDao.findAll()).thenReturn(expected);
+        if(expected.size() != 0)
+        {
+            List<PhoneLine> result= service.getAll();
+            assertNotNull(result);
+            assertEquals(expected,result);
+        }
     }
 
     @Test(expected = PhoneLineException.class)
     public void getAllPhoneLineException() throws PhoneLineException
     {
-        List<PhoneLine> expected=null;
+        List<PhoneLine> expected= new ArrayList<PhoneLine>();
         Mockito.when(phoneLineDao.findAll()).thenReturn(expected);
-        if(isNull(expected))
+        if(expected.size() == 0)
         {
-            service.getAll();
+            List<PhoneLine> result= service.getAll();
         }
     }
 
