@@ -32,6 +32,10 @@ then
 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid data of the call';
 end if;
 
+if(new.initTime>now() or new.endTime>now())
+then
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid data of the call';
+end if;
 
 set vIdOriginCity=getIdCityForIdPhoneLine(new.idPhoneLineOrigin);
 set vIdDestinyCity=getIdCityForIdPhoneLine(new.idPhoneLineDestiny);
