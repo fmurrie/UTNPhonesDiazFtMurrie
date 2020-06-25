@@ -1,6 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.CallAddRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
@@ -62,8 +63,7 @@ public class CallControllerTest {
     }
 
     @Test
-    public void getCallsBetweenDates() throws UserNotExistException, ValidationException
-    {
+    public void getCallsBetweenDates() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=10;
         List<Call> expected=new ArrayList<Call>();
         Mockito.when(callService.getCallsBetweenDates(id,mock(Date.class),mock(Date.class))).thenReturn(expected);

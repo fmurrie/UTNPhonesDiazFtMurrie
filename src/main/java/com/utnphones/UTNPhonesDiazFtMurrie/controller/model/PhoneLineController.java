@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,8 +42,11 @@ public class PhoneLineController implements LocationInterface<PhoneLine> {
 
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries (Integer idUser) throws UserNotExistException, ValidationException {
-        return phoneLineService.top10Destinataries(idUser);
+    public List<LineAndCallsQuantityDto> top10Destinies (Integer idUser) throws UserNotExistException, ValidationException, NoContentException {
+        List<LineAndCallsQuantityDto> list = phoneLineService.top10Destinies(idUser);
+        if(list.size() == 0)
+            throw new NoContentException("Ops! You do not have calls yet");
+        return list;
     }
 
     @Override

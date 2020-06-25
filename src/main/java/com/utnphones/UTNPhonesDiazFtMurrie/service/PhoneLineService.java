@@ -4,10 +4,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.dao.LineTypeDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,13 +113,13 @@ public class PhoneLineService {
             throw new PhoneLineException("Sorry! The phone line does not exist!");
     }
 
-    public List<LineAndCallsQuantityDto> top10Destinataries(Integer userId) throws UserNotExistException, ValidationException {
+    public List<LineAndCallsQuantityDto> top10Destinies(Integer userId) throws UserNotExistException, ValidationException {
         List<LineAndCallsQuantityDto> list = new ArrayList<>();
         if (userDao.existsById(userId)){
             User user = userDao.findById(userId).get();
             if(user.getUserType().getDescription().equals("Employee"))
                 throw new ValidationException("Sorry! you are not allowed to see the favorite destinataries of this phoneline");
-            for (PhoneLine phoneLine : phoneLineDao.top10Destinataries(userId)){
+            for (PhoneLine phoneLine : phoneLineDao.top10Destinies(userId)){
                 LineAndCallsQuantityDto dto = new LineAndCallsQuantityDto();
                 dto.setFavoritePhoneLine(phoneLine);
                 dto.setCallsQuantity(phoneLineDao.callsQuantity(userId,phoneLine.getIdPhoneLine()));

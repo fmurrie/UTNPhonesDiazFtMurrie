@@ -1,10 +1,7 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.LineAndCallsQuantityDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.LineTypeNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.PhoneLineService;
 import org.junit.After;
@@ -67,12 +64,11 @@ public class PhoneLineControllerTest
     }
 
     @Test
-    public void top10Destinataries() throws UserNotExistException, ValidationException
-    {
+    public void top10Destinies() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         List<LineAndCallsQuantityDto> expected=new ArrayList<LineAndCallsQuantityDto>();
-        Mockito.when(service.top10Destinataries(id)).thenReturn(expected);
-        List<LineAndCallsQuantityDto> result=controller.top10Destinataries(id);
+        Mockito.when(service.top10Destinies(id)).thenReturn(expected);
+        List<LineAndCallsQuantityDto> result=controller.top10Destinies(id);
         assertNotNull(result);
         assertEquals(expected,result);
     }
