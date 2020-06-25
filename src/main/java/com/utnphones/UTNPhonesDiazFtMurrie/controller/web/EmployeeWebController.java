@@ -169,7 +169,7 @@ public class EmployeeWebController
 
     //////////////////////////////////PHONE LINES///////////////////////////////////////////
 
-    @PostMapping("/phoneLine")
+    @PostMapping("/client/phoneLine")
     public ResponseEntity AddPhoneLine(@RequestHeader("Authorization") String token, @RequestBody PhoneLine phoneLine) {
         try{
             phoneLineController.addPhoneLine(phoneLine);
@@ -189,7 +189,7 @@ public class EmployeeWebController
         }
     }
 
-    @GetMapping("/phoneLine/{idPhoneLine}")
+    @GetMapping("/client/phoneLine/{idPhoneLine}")
     ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable Integer idPhoneLine) {
         try{
             return ResponseEntity.ok(phoneLineController.getPhoneLine(idPhoneLine));
@@ -201,7 +201,7 @@ public class EmployeeWebController
         }
     }
 
-    @GetMapping("/phoneLines")
+    @GetMapping("client/phoneLines")
     public ResponseEntity getPhoneLines(@RequestHeader("Authorization") String token ) {
         try{
             return ResponseEntity.ok(phoneLineController.getAllPhoneLines());
@@ -212,7 +212,7 @@ public class EmployeeWebController
 
     }
 
-    @PutMapping("/phoneLine/{idPhoneLine}/suspension")
+    @PutMapping("client/phoneLine/{idPhoneLine}/suspension")
     public ResponseEntity suspendPhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine)   {
         try {
             return ResponseEntity.ok(phoneLineController.suspendPhoneLine(idPhoneLine));
@@ -223,7 +223,7 @@ public class EmployeeWebController
         }
     }
 
-    @PutMapping("/phoneLine/{idPhoneLine}/enable")
+    @PutMapping("client/phoneLine/{idPhoneLine}/enable")
     public ResponseEntity enablePhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine) {
         try {
             return ResponseEntity.ok(phoneLineController.enablePhoneLine(idPhoneLine));
@@ -234,7 +234,7 @@ public class EmployeeWebController
         }
     }
 
-    @DeleteMapping("/phoneLine/{idPhoneLine}/elimination")
+    @DeleteMapping("client/phoneLine/{idPhoneLine}/elimination")
     public ResponseEntity deletePhoneLine (@RequestHeader("Authorization") String token, @PathVariable Integer idPhoneLine)  {
         try {
             return ResponseEntity.ok(phoneLineController.deletePhoneLine(idPhoneLine));
@@ -258,7 +258,7 @@ public class EmployeeWebController
 
     //////////////////////////////////CALLS///////////////////////////////////////////
 
-    @GetMapping("phoneLine/calls/{idClient}")
+    @GetMapping("/client/{idClient}/phoneLine/calls")
     public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token, @PathVariable Integer idClient){
         try{
             return ResponseEntity.ok(callController.getCallsByUser(idClient));
@@ -271,7 +271,7 @@ public class EmployeeWebController
 
     //////////////////////////////////BILLS///////////////////////////////////////////
 
-    @GetMapping("/bills/{idClient}")
+    @GetMapping("client/{idClient}/bills")
     public ResponseEntity getBills(@RequestHeader("Authorization") String token,@PathVariable Integer idClient){
         try{
             return ResponseEntity.ok(billController.getBillsByUser(idClient));
@@ -283,10 +283,10 @@ public class EmployeeWebController
         }
     }
 
-    @GetMapping("bills/between")
-    public ResponseEntity getBillsBetweenDates(@RequestHeader("Authorization") String token,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
+    @GetMapping("client/{idClient/bills/between")
+    public ResponseEntity getBillsBetweenDates(@RequestHeader("Authorization") String token, @PathVariable Integer idClient,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
         try{
-            return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
+            return ResponseEntity.ok(billController.getBillsBetweenDates(idClient,getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
