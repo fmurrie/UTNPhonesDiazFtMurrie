@@ -13,9 +13,12 @@ import java.io.IOException;
 
 @Service
 public class SessionFilter extends OncePerRequestFilter {
+    //region Properties:
     @Autowired
     private SessionManager sessionManager;
+    //endregion
 
+    //region Methods:
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
@@ -24,9 +27,17 @@ public class SessionFilter extends OncePerRequestFilter {
         String sessionToken = request.getHeader("Authorization");
         Session session = sessionManager.getSession(sessionToken);
         if (null != session) {
-            filterChain.doFilter(request, response);
+            if(sessionManager.getCurrentUser(sessionToken) == null)
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+            else if (sessionManager.getCurrentUser(sessionToken).getUserType().getDescription().equals("Client")) {
+                filterChain.doFilter(request, response);
+            }
+            else {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            }
         } else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
         }
     }
+    //endregion
 }

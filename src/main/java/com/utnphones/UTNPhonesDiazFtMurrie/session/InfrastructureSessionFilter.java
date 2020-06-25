@@ -13,9 +13,12 @@ import java.io.IOException;
 
 @Service
 public class InfrastructureSessionFilter extends OncePerRequestFilter {
+    //region Properties:
     @Autowired
     private SessionManager sessionManager;
+    //endregion
 
+    //region Properties:
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
@@ -32,5 +35,5 @@ public class InfrastructureSessionFilter extends OncePerRequestFilter {
         else
             response.setStatus(HttpStatus.FORBIDDEN.value());
     }
-
+    //endregion
 }

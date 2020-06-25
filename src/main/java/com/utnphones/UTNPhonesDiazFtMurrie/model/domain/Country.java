@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "countries")
 public class Country
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idCountry")
@@ -34,4 +34,5 @@ public class Country
 
     @Transient
     private List<Province> provinceList;
+    //endregion
 }

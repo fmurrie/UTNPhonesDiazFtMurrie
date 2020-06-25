@@ -13,7 +13,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestControllerAdvice
 public class AdviceController extends ResponseEntityExceptionHandler {
-
+    //region Methods:
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(InvalidLoginException.class)
     public ErrorResponseDto handleLoginException(InvalidLoginException exc) {
@@ -27,16 +27,11 @@ public class AdviceController extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserNotexistException.class)
-    public ErrorResponseDto handleUserNotExists(UserNotexistException exc) {
+    @ExceptionHandler(UserNotExistException.class)
+    public ErrorResponseDto handleUserNotExists(UserNotExistException exc) {
         return new ErrorResponseDto(400, exc.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(SessionNotExistsException.class)
-    public ErrorResponseDto handleSessionNotExists(SessionNotExistsException sessionNotExistsException) {
-        return new ErrorResponseDto(400, sessionNotExistsException.getMessage());
-    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AddUserException.class)
@@ -57,10 +52,22 @@ public class AdviceController extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(400, exc.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(NoContentException.class)
+    public ErrorResponseDto handleNoContentException(NoContentException exc) {
+        return new ErrorResponseDto(204, exc.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LineTypeNotExistsException.class)
     public ErrorResponseDto handleLineTypeNotExists(LineTypeNotExistsException exc) {
         return new ErrorResponseDto(400, exc.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UpdateException.class)
+    public ErrorResponseDto handleUpdateException(UpdateException exc) {
+        return new ErrorResponseDto(401, exc.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -68,4 +75,5 @@ public class AdviceController extends ResponseEntityExceptionHandler {
     public ErrorResponseDto handlePhoneNumberExists() {
         return new ErrorResponseDto(400, "Sorry! then number already exists!");
     }
+    //endregion
 }

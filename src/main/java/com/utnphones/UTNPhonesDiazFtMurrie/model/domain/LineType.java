@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="lineTypes")
 public class LineType
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLineType")
@@ -30,4 +30,5 @@ public class LineType
 
     @Transient
     private List<PhoneLine> phoneLineList;
+    //endregion
 }

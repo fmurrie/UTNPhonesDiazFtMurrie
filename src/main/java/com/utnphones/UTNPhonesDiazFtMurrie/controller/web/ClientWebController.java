@@ -1,17 +1,17 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.web;
 
-import com.sun.istack.Nullable;
+import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.BillController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.CallController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
-import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetCallRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.SessionNotExistsException;
-import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotexistException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,76 +21,127 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/client")
-public class ClientWebController {
-
-    //Properties:
+public class ClientWebController
+{
+    //region Properties:
     private final SessionManager sessionManager;
     private final UserController userController;
     private final PhoneLineController phoneLineController;
     private final CallController callController;
+    private final BillController billController;
     private final AdviceController adviceController;
 
+    //endregion
+
+    //region Constructors:
     @Autowired
-    public ClientWebController(SessionManager sessionManager, UserController userController, PhoneLineController phoneLineController ,CallController callController, AdviceController adviceController){
+    public ClientWebController(SessionManager sessionManager, UserController userController, PhoneLineController phoneLineController,
+                               CallController callController, BillController billController, AdviceController adviceController)
+    {
         this.sessionManager = sessionManager;
         this.userController = userController;
         this.phoneLineController = phoneLineController;
         this.callController = callController;
+        this.billController = billController;
         this.adviceController = adviceController;
     }
+    //endregion
 
+    //region Methods:
     @GetMapping("/")
-    ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token) throws UserNotexistException {
-        try{
+    ResponseEntity getCurrentUser(@RequestHeader("Authorization") String token)
+    {
+        try
+        {
             User currentUser = sessionManager.getCurrentUser(token);
-            if (currentUser != null){
-                Integer id = currentUser.getIdUser();
-                User user = userController.getUserById(id);
-                return ResponseEntity.ok(user);
-            } else
-                return ResponseEntity.ok(adviceController.handleSessionNotExists(new SessionNotExistsException())) ;
-
-        }catch (UserNotexistException exc){
+            Integer id = currentUser.getIdUser();
+            User user = userController.getUserById(id);
+            return ResponseEntity.ok(user);
+        }
+        catch (UserNotExistException exc)
+        {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(adviceController.handleUserNotExists(exc));
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity updateUser (@RequestHeader("Authorization") String token, @RequestBody @Valid UserUpdateRequestDto updatedUser) throws ValidationException, UserNotexistException {
+    public ResponseEntity updateUser (@RequestHeader("Authorization") String token, @RequestBody @Valid UserUpdateRequestDto updatedUser){
         try {
             return ResponseEntity.ok(userController.updateUser(sessionManager.getCurrentUser(token).getIdUser(), updatedUser));
         } catch (ValidationException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(exc));
-        } catch (UserNotexistException exc) {
+        } catch (UserNotExistException exc) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
+        catch (UpdateException exc) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleUpdateException(exc));
+        }
     }
 
-    @GetMapping("/phoneLine/favoriteDestinataries")
-    public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token, @PathVariable Integer idUser) throws UserNotexistException {
+    //////////////////////////////////PHONE LINES///////////////////////////////////////////
+    @GetMapping("/phoneLine/favoriteDestinies")
+    public ResponseEntity top10UserDestinies (@RequestHeader("Authorization") String token){
         try{
-            return ResponseEntity.ok(phoneLineController.top10Destinataries(idUser));
+            return ResponseEntity.ok(phoneLineController.top10Destinies(sessionManager.getCurrentUser(token).getIdUser()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 
-    @GetMapping("/calls")
-    public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token)  throws UserNotexistException{
+    @GetMapping("phoneLine/calls/between")
+    public ResponseEntity getCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
+        try{
+            return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(), getBetweenDatesRequestDto.getInitDate(), getBetweenDatesRequestDto.getEndDate()));
+        }
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
+        }
+    }
+
+
+    /*@GetMapping("phoneLine/calls")
+    public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token){
         try{
             return ResponseEntity.ok(callController.getCallsByUser(sessionManager.getCurrentUser(token).getIdUser()));
         }
         catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
-    }
+    }*/
 
-    @GetMapping("/calls/dates")
-    public ResponseEntity getUserCalls(@RequestHeader("Authorization") String token,@RequestBody @Valid GetCallRequestDto getCallRequestDto)  throws UserNotexistException{
+    ///////////////////////////////////// BILLS ///////////////////////////////////////////
+
+    @GetMapping("/bills")
+    public ResponseEntity getBills(@RequestHeader("Authorization") String token){
         try{
-            return ResponseEntity.ok(callController.getCallsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getCallRequestDto));
+            return ResponseEntity.ok(billController.getBillsByUser(sessionManager.getCurrentUser(token).getIdUser()));
         }
-        catch(UserNotexistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 
+    @GetMapping("bills/between")
+    public ResponseEntity getBillsBetweenDates(@RequestHeader("Authorization") String token,@RequestBody @Valid GetBetweenDatesRequestDto getBetweenDatesRequestDto){
+        try{
+            return ResponseEntity.ok(billController.getBillsBetweenDates(sessionManager.getCurrentUser(token).getIdUser(),getBetweenDatesRequestDto.getInitDate(),getBetweenDatesRequestDto.getEndDate()));
+        }
+        catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
+        }
+        catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
+        }
+    }
+
+    //endregion
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="billStates")
 public class BillState
 {
-    //Properties:
+    //region Properties:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idBillState")
@@ -26,4 +26,5 @@ public class BillState
 
     @Transient
     private List<Bill> billList;
+    //endregion
 }

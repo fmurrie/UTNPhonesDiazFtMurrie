@@ -91,6 +91,7 @@ xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202005171041_event_facturati
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\events\202006161855_event_verifyPays.sql
 
 @REM End-status of the implementation of the database utnphones:
+xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\general\202006231625_databaseUsers.sql
 xampp\mysql\bin\mysql -u root<%PROJECT_PATH%\general\999999999999_endstatus.sql
 
 PAUSE

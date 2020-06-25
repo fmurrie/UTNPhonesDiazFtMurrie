@@ -12,13 +12,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCallRequestDto {
-
-    @JsonProperty
+public class GetBetweenDatesRequestDto
+{
+    //region Properties:
+    //@JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date inidDate;
+    private Date initDate;
 
-    @JsonProperty
+    //@JsonProperty
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date endDate;
+    //endregion
 }

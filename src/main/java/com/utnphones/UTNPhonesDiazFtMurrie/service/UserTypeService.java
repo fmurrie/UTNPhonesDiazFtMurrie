@@ -8,29 +8,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserTypeService {
-    //Properties:
+public class UserTypeService
+{
+    //region Properties:
     private final UserTypeDao dao;
+    //endregion
 
-    //Constructors:
+    //region Constructors:
     @Autowired
     public UserTypeService(UserTypeDao dao){this.dao = dao;}
+    //endregion
 
-    //Methods:
-    public UserType add(final UserType userType) {
-        return dao.save(userType);
-    }
-
+    //region Methods:
     public List<UserType> getAll()
     {
         return dao.findAll();
     }
 
-    public UserType getById(Integer id)
-    {
-        return dao.getById(id);
-    }
-
+    public Optional<UserType> getById(Integer id) { return dao.findById(id); }
+    //endregion
 }
 
 
