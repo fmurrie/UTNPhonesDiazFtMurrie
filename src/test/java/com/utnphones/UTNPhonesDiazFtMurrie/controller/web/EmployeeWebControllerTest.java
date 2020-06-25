@@ -6,10 +6,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UpdateException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.PhoneLine;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
+import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.*;
 import com.utnphones.UTNPhonesDiazFtMurrie.session.SessionManager;
 import org.junit.After;
 import org.junit.Before;
@@ -106,6 +103,18 @@ public class EmployeeWebControllerTest
     }
 
     @Test
+    public void getCurrentUserUserNotExistsException() throws UserNotExistException
+    {
+        Integer id=10;
+        String token="token";
+        UserType expectedUserType=new UserType(null,"Employee",null);
+        User expectedUser=new User(id,expectedUserType,"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
+        Mockito.when(sessionManager.getCurrentUser(token)).thenReturn(expectedUser);
+        Mockito.when(userController.getUserById(id)).thenThrow(new UserNotExistException());
+        controller.getCurrentUser(token);
+    }
+
+    @Test
     public void getClients()
     {
         String token="token";
@@ -122,6 +131,28 @@ public class EmployeeWebControllerTest
         UserType expectedUserType=new UserType(null,"Employee",null);
         User expectedUser=new User(id,expectedUserType,"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
         Mockito.when(userController.getClientById(id)).thenReturn(expectedUser);
+        controller.getClient(token,id);
+    }
+
+    @Test
+    public void getClientUserNotExistsException() throws UserNotExistException, ValidationException
+    {
+        Integer id=10;
+        String token="token";
+        UserType expectedUserType=new UserType(null,"Employee",null);
+        User expectedUser=new User(id,expectedUserType,"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
+        Mockito.when(userController.getClientById(id)).thenThrow(new UserNotExistException());
+        controller.getClient(token,id);
+    }
+
+    @Test
+    public void getClientUserValidationException() throws UserNotExistException, ValidationException
+    {
+        Integer id=10;
+        String token="token";
+        UserType expectedUserType=new UserType(null,"Employee",null);
+        User expectedUser=new User(id,expectedUserType,"dni","nombre","apellido",mock(City.class),"username","password",false,false,null);
+        Mockito.when(userController.getClientById(id)).thenThrow(new ValidationException("alo"));
         controller.getClient(token,id);
     }
 
@@ -471,7 +502,7 @@ public class EmployeeWebControllerTest
     }
 
     @Test
-    public void deletePhoneLine() throws ValidationException, PhoneLineException {
+    public void deletePhoneLineOk() throws ValidationException, PhoneLineException {
         String token = "holaSoyElToken";
         Integer id = 1;
         PhoneLine phoneLine = mock(PhoneLine.class);
@@ -515,25 +546,31 @@ public class EmployeeWebControllerTest
     @Test
     public void getAllRates()
     {
+        String token = "holaSoyElToken";
+        List<Rate> rates = mock(List.class);
+        when(rateController.getAllRates()).thenReturn(rates);
+
+        ResponseEntity expected = ResponseEntity.ok(rateController.getAllRates());
+        ResponseEntity result = controller.getAllRates(token);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
     @Test
-    public void testGetPhoneLine()
+    public void testGetRateById()
     {
+        String token = "holaSoyElToken";
+        Integer id1 = 1;
+        Integer id2 = 2;
+        Rate rate = mock(Rate.class);
+        when(rateController.getRateById(1,2)).thenReturn(Optional.ofNullable(rate));
+
+        ResponseEntity expected = ResponseEntity.ok(rateController.getRateById(1,2));
+        ResponseEntity result = controller.getRateById(token,id1,id2);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
     }
 
-    @Test
-    public void getUserCalls()
-    {
-    }
-
-    @Test
-    public void getBills()
-    {
-    }
-
-    @Test
-    public void getBillsBetweenDates()
-    {
-    }
 }

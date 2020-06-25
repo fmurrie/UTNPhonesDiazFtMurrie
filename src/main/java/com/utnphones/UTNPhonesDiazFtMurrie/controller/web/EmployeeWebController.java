@@ -252,7 +252,7 @@ public class EmployeeWebController
     }
 
     @GetMapping("/rate/{idOriginCity}-{idDestinyCity}")
-    ResponseEntity getPhoneLine(@RequestHeader("Authorization") String token,@PathVariable Integer idOriginCity, @PathVariable Integer idDestinyCity) {
+    ResponseEntity getRateById(@RequestHeader("Authorization") String token,@PathVariable Integer idOriginCity, @PathVariable Integer idDestinyCity) {
             return ResponseEntity.ok(rateController.getRateById(idOriginCity,idDestinyCity));
     }
 

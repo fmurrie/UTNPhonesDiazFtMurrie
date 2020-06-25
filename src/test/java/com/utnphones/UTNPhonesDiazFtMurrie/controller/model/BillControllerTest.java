@@ -4,9 +4,6 @@ import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Bill;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.City;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
-import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.UserType;
 import com.utnphones.UTNPhonesDiazFtMurrie.service.BillService;
 import org.junit.After;
 import org.junit.Before;
@@ -17,9 +14,9 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.MockitoAnnotations.initMocks;
 
