@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CallDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
@@ -82,7 +83,7 @@ public class CallService {
 
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotExistException, ValidationException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initTime, Date endDate) throws UserNotExistException, ValidationException, NoContentException {
         List<Call> callList;
         if(userDao.existsById(userId)) {
             User user = userDao.findById(userId).get();
@@ -92,7 +93,8 @@ public class CallService {
         }
         else
             throw new UserNotExistException();
-
+        if(callList.size() == 0)
+            throw new NoContentException("Ops! You do not have calls yet");
         return callList;
     }
 }

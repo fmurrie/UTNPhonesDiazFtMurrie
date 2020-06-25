@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Bill;
@@ -26,11 +27,11 @@ public class BillController
     //endregion
 
     //region Methods:
-    public List<Bill> getBillsByUser(Integer idUser) throws UserNotExistException, ValidationException {
+    public List<Bill> getBillsByUser(Integer idUser) throws UserNotExistException, ValidationException, NoContentException {
         return billService.getBillsByUser(idUser);
     }
 
-    public List<Bill> getBillsBetweenDates(Integer idUser, Date initDate, Date endDate) throws UserNotExistException, ValidationException {
+    public List<Bill> getBillsBetweenDates(Integer idUser, Date initDate, Date endDate) throws UserNotExistException, ValidationException, NoContentException {
         return billService.getBillsBetweenDates(idUser,initDate,endDate);
     }
     //endregion

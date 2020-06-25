@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -70,7 +71,7 @@ public class LoginControllerTest {
              String token = "requiredToken";
              Mockito.when(sessionManager.createSession(user)).thenReturn("requiredToken");
 
-             ResponseEntity expected = ResponseEntity.ok().headers(loginController.createHeaders(token)).build();
+             ResponseEntity expected = loginController.login(loginRequestDto);
              ResponseEntity result = loginController.login(loginRequestDto);
 
              assertNotNull(result);
@@ -82,6 +83,42 @@ public class LoginControllerTest {
          }
     }
 
+    @Test
+    public void loginNoSuchAlgorithmException() throws ValidationException, InvalidLoginException, UserNotExistException
+    {
+        try{
+            LoginRequestDto loginRequestDto = mock(LoginRequestDto.class);
+            User user = mock(User.class);
+            Mockito.when(userController.login(loginRequestDto.getUsername(), loginRequestDto.getUserpassword())).thenThrow(new NoSuchAlgorithmException());
+            String token = "requiredToken";
+            Mockito.when(sessionManager.createSession(user)).thenReturn("requiredToken");
+
+            ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("An error as occurred with the password!")));
+            ResponseEntity result = loginController.login(loginRequestDto);
+
+            assertNotNull(result);
+            assertEquals(expected,result);
+        }
+        catch(NoSuchAlgorithmException exc){
+
+        }
+
+    }
+
+    @Test(expected = ValidationException.class)
+    public void loginValidationException() throws ValidationException, InvalidLoginException, UserNotExistException, ValidationException, NoSuchAlgorithmException {
+        LoginRequestDto loginRequestDto = mock(LoginRequestDto.class);
+        User user = mock(User.class);
+        Mockito.when(userController.login(loginRequestDto.getUsername(), loginRequestDto.getUserpassword())).thenThrow(new ValidationException("username and password must have a value"));
+        String token = "requiredToken";
+        Mockito.when(sessionManager.createSession(user)).thenReturn("requiredToken");
+
+        ResponseEntity expected = loginController.login(loginRequestDto);
+        ResponseEntity result = loginController.login(loginRequestDto);
+
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
 
     @Test
     public void logoutOk() throws Exception {

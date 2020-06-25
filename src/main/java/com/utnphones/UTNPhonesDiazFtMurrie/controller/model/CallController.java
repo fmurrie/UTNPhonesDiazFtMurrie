@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
@@ -36,7 +37,7 @@ public class CallController implements LocationInterface<Call> {
         return callService.getCallsByUser(userId);
     }
 
-    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotExistException, ValidationException {
+    public List<Call> getCallsBetweenDates(Integer userId, Date initDate, Date endTime) throws UserNotExistException, ValidationException, NoContentException {
         return callService.getCallsBetweenDates(userId,initDate,endTime);
     }
 
@@ -45,12 +46,6 @@ public class CallController implements LocationInterface<Call> {
     }
 
     @Override
-    public URI getLocation(Call call) {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{callId}")
-                .buildAndExpand(call.getIdCall())
-                .toUri();
-    }
+    public URI getLocation(Call call) { return ServletUriComponentsBuilder.fromCurrentRequest().path("/{callId}").buildAndExpand(call.getIdCall()).toUri(); }
     //endregion
 }

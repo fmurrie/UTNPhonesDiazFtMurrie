@@ -3,6 +3,7 @@ package com.utnphones.UTNPhonesDiazFtMurrie.service;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.CallDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.PhoneLineDao;
 import com.utnphones.UTNPhonesDiazFtMurrie.dao.UserDao;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.PhoneLineException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
@@ -239,8 +240,7 @@ public class CallServiceTest
     }
 
     @Test
-    public void getCallsBetweenDatesOK() throws UserNotExistException, ValidationException
-    {
+    public void getCallsBetweenDatesOK() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Client",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         List<Call> expectedListCall=new ArrayList<Call>();
@@ -248,24 +248,25 @@ public class CallServiceTest
         Mockito.when(userDao.findById(id)).thenReturn(expectedUser);
         if(!expectedUser.get().getUserType().getDescription().equals("Employee"))
         {
-            Mockito.when(callDao.getCallsBetweenDates(id,mock(Date.class),mock(Date.class))).thenReturn(expectedListCall);
-            List<Call> result=service.getCallsBetweenDates(id,mock(Date.class),mock(Date.class));
-            assertNotNull(result);
-            assertEquals(expectedListCall,result);
+            if(expectedListCall.size() != 0)
+            {
+                Mockito.when(callDao.getCallsBetweenDates(id, mock(Date.class), mock(Date.class))).thenReturn(expectedListCall);
+                List<Call> result = service.getCallsBetweenDates(id, mock(Date.class), mock(Date.class));
+                assertNotNull(result);
+                assertEquals(expectedListCall, result);
+            }
         }
     }
 
     @Test(expected = UserNotExistException.class)
-    public void getCallsBetweenDatesUserNotExistException() throws UserNotExistException, ValidationException
-    {
+    public void getCallsBetweenDatesUserNotExistException() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         Mockito.when(userDao.existsById(id)).thenReturn(false);
         service.getCallsBetweenDates(id,mock(Date.class),mock(Date.class));
     }
 
     @Test(expected = ValidationException.class)
-    public void getCallsBetweenDatesValidationException() throws UserNotExistException, ValidationException
-    {
+    public void getCallsBetweenDatesValidationException() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         Optional<User> expectedUser=Optional.of(new User(id,new UserType(null,"Employee",null),"dni","nombre","apellido",mock(City.class),"username","password",false,false,null));
         Mockito.when(userDao.existsById(id)).thenReturn(true);

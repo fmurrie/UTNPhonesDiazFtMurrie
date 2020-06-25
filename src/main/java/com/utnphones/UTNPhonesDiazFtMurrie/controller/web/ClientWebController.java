@@ -6,6 +6,7 @@ import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.PhoneLineController;
 import com.utnphones.UTNPhonesDiazFtMurrie.controller.model.UserController;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.GetBetweenDatesRequestDto;
 import com.utnphones.UTNPhonesDiazFtMurrie.dto.UserUpdateRequestDto;
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.User;
@@ -74,14 +75,16 @@ public class ClientWebController
     }
 
     //////////////////////////////////PHONE LINES///////////////////////////////////////////
-    @GetMapping("/phoneLine/favoriteDestinataries")
-    public ResponseEntity top10UserDestinataries (@RequestHeader("Authorization") String token){
+    @GetMapping("/phoneLine/favoriteDestinies")
+    public ResponseEntity top10UserDestinies (@RequestHeader("Authorization") String token){
         try{
-            return ResponseEntity.ok(phoneLineController.top10Destinataries(sessionManager.getCurrentUser(token).getIdUser()));
+            return ResponseEntity.ok(phoneLineController.top10Destinies(sessionManager.getCurrentUser(token).getIdUser()));
         }
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 
@@ -93,6 +96,8 @@ public class ClientWebController
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 
@@ -117,6 +122,8 @@ public class ClientWebController
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
         }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
+        }
     }
 
     @GetMapping("bills/between")
@@ -127,6 +134,8 @@ public class ClientWebController
         catch(UserNotExistException exc){return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(exc));
         }
         catch(ValidationException exc){return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(exc));
+        }
+        catch(NoContentException exc){return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adviceController.handleNoContentException(exc));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.utnphones.UTNPhonesDiazFtMurrie.controller.model;
 
+import com.utnphones.UTNPhonesDiazFtMurrie.exception.NoContentException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.UserNotExistException;
 import com.utnphones.UTNPhonesDiazFtMurrie.exception.ValidationException;
 import com.utnphones.UTNPhonesDiazFtMurrie.model.domain.Bill;
@@ -41,8 +42,7 @@ public class BillControllerTest
     }
 
     @Test
-    public void getBillsByUser() throws UserNotExistException, ValidationException
-    {
+    public void getBillsByUser() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         List<Bill> expected=new ArrayList<Bill>();
         Mockito.when(service.getBillsByUser(id)).thenReturn(expected);
@@ -52,8 +52,7 @@ public class BillControllerTest
     }
 
     @Test
-    public void getBillsBetweenDates() throws UserNotExistException, ValidationException
-    {
+    public void getBillsBetweenDates() throws UserNotExistException, ValidationException, NoContentException {
         Integer id=1;
         List<Bill> expected=new ArrayList<Bill>();
         Mockito.when(service.getBillsBetweenDates(id,mock(Date.class),mock(Date.class))).thenReturn(expected);
