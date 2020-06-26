@@ -51,7 +51,7 @@ public class InfrastructureWebController
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handlePhoneLineException(exc));
         }
         catch(Exception exc){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("ERROR! invalid dates")));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleValidationException(new ValidationException("ERROR! invalid call")));
         }
     }
     //endregion

@@ -47,7 +47,6 @@ public class CallService {
                     throw new PhoneLineException("ERROR! The origin line is suspend or deleted!");
                 if(destiny.isDeleted() || destiny.isSuspended())
                     throw new PhoneLineException("ERROR! The destiny line is suspend or deleted!");
-                //if(call.getInitTime().compareTo(call.getEndTime()) )
 
                      return callDao.save(call);
             }

@@ -17,7 +17,7 @@ public class SessionScheduler
 
     //region Methods:
     @Async
-    @Scheduled(fixedRate = 1000000)
+    @Scheduled(fixedRate = 10000000)
     public void expiresSessions() {
         sessionManager.expireSessions();
     }

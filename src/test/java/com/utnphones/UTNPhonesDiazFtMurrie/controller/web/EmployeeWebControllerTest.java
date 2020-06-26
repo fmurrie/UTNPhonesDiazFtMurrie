@@ -573,4 +573,46 @@ public class EmployeeWebControllerTest
         assertEquals(expected,result);
     }
 
+    @Test
+    public void getUserCalls() throws UserNotExistException, ValidationException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        List<Call> callList = mock(List.class);
+        when(callController.getCallsByUser(id)).thenReturn(callList);
+
+        ResponseEntity expected = ResponseEntity.ok(callController.getCallsByUser(id));
+        ResponseEntity result = controller.getUserCalls(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void getUserCallsUserNotExistsException() throws UserNotExistException, ValidationException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        List<Call> callList = mock(List.class);
+        when(callController.getCallsByUser(id)).thenThrow(new UserNotExistException());
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(adviceController.handleUserNotExists(new UserNotExistException()));
+        ResponseEntity result = controller.getUserCalls(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void getUserCallsValidationException() throws UserNotExistException, ValidationException {
+        String token = "holaSoyElToken";
+        Integer id = 1;
+        List<Call> callList = mock(List.class);
+        when(callController.getCallsByUser(id)).thenThrow(new ValidationException("alo"));
+
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(adviceController.handleValidationException(new ValidationException("alo")));
+        ResponseEntity result = controller.getUserCalls(token,id);
+
+        assertNotNull(result);
+        assertEquals(expected,result);
+    }
+
 }
